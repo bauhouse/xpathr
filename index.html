@@ -3,7 +3,11 @@
 <head>
 <meta charset=utf-8 />
 <title>XPathr - Collaborative XSLT Development</title>
-<link rel="stylesheet" href="css/style.css?2.7.4" type="text/css" />
+<link rel="stylesheet" href="./codemirror/lib/codemirror.css" />
+<script src="./codemirror/lib/codemirror.js"></script>
+<script src="./codemirror/mode/xml/xml.js"></script>
+<link rel="stylesheet" href="./codemirror/theme/default.css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <!--[if lt IE 7 ]><body class="source ie6"><![endif]--> 
 <!--[if !IE]><!--><body class="source"><!--<![endif]-->  
@@ -33,22 +37,33 @@
   <div id="source" class="binview stretch">
     <div class="code stretch xml">
       <div class="label"><p><strong id="jslabel">XML</strong><span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span></p></div>
-      <textarea id="javascript"></textarea>
+      <textarea id="xml"><data>
+  <hello>paste your xml here</hello>
+</data></textarea>
     </div>
     <div class="code stretch xslt">
       <div class="label">
         <p>XSLT<span>  (<span class="hide">hide</span><span class="show">show</span> XML)</span></p>
       </div>
-      <textarea id="html"></textarea>
+      <textarea id="xslt"><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:output method="xml" indent="yes" />
+
+<xsl:template match="/">
+  <hi>
+    <xsl:value-of select="data/hello" />
+  </hi>
+</xsl:template>
+
+</xsl:stylesheet></textarea>
     </div>
   </div>
-  <div id="live" class="stretch livepreview"><span class="close"></span></div>
-  <div id="preview" class="binview stretch"></div>
-  <form method="post" action="save">
-    <input type="hidden" name="method" />
-  </form>
 </div>
 <div id="help"><p><a href="help/index.html">Help Menu</a></p><div id="content"></div></div>
+<script>
+  var xml_editor = CodeMirror.fromTextArea(document.getElementById("xml"));
+  var xslt_editor = CodeMirror.fromTextArea(document.getElementById("xslt"));
+</script>
 <script src="js/jquery.min.js"></script>
 <script src="js/ninja.js"></script>
 </body>
