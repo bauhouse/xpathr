@@ -1,0 +1,415 @@
+/*
+==================================================
+XPathr
+==================================================
+Base Styles
+--------------------------------------------------
+file:     xpathr.css
+version:  1.0
+date:     26 November 2011
+author:   Stephen Bau
+url:      http://xpathr.com
+--------------------------------------------------
+
+
+--------------------------------------------------
+Table of Contents
+--------------------------------------------------
+
+
+      BASE STYLES
+      --------------------------------------------
+
+         1  ELEMENTS
+             1.1  Root Element
+         2  TYPOGRAPHY
+             2.1  Fonts
+         3  LAYOUT
+             3.1  Default Page Structure
+         4  CONTENT
+             4.1  Images
+         5  COLORS
+             5.1  Anchors
+         6  BRANDING
+             6.1  Logo
+             6.2  Site Branding
+         7  MEDIA QUERIES
+
+
+--------------------------------------------------
+*/
+
+
+
+
+
+/*
+==================================================
+
+1	 ELEMENTS
+
+==================================================
+*/
+
+/*
+--------------------------------------------------
+1.1	 Root Element
+-------------------------------------------------- */
+
+
+/*
+==================================================
+
+2	 TYPOGRAPHY
+
+==================================================
+*/
+
+
+/*
+--------------------------------------------------
+2.1	 Fonts
+-------------------------------------------------- */
+body {
+	font: normal 75%/1.5em helvetica, arial, sans-serif;
+}
+
+
+/*
+--------------------------------------------------
+2.2	 Headings
+-------------------------------------------------- */
+h1 {font-size: 2.6em;}
+h2 {font-size: 2.2em;}
+h3 {font-size: 1.8em;}
+h4 {font-size: 1.6em;}
+h5 {font-size: 1.4em;}
+h6 {font-size: 1.2em;}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	margin-bottom: .5em;
+	line-height: 1.2em;
+	color: #000;
+}
+
+
+
+
+/*
+==================================================
+
+3	 LAYOUT
+
+==================================================
+*/
+
+
+/*
+--------------------------------------------------
+3.1	 Default Page Structure
+-------------------------------------------------- */
+body { 
+	margin: 0; 
+	padding: 0;
+}
+
+
+/*
+--------------------------------------------------
+3.2	 Page Header
+-------------------------------------------------- */
+.header h1 {
+	font-size: 1.5em;
+	margin: 0;
+	padding: .4em 1em;
+	float: left;
+}
+
+.header h1 a {
+	color: #fff;
+}
+
+.help {
+	float: right;
+}
+
+.help ul {
+	margin: 0;
+	padding: 0;
+}
+
+.help ul li {
+	list-style: none;
+}
+.help ul li a {
+	padding: .7em 1em .5em;
+	float: left;
+}
+
+
+/*
+--------------------------------------------------
+3.3	 Controls
+-------------------------------------------------- */
+#control {
+	height: 61px;
+	box-shadow: 0 2px 6px #999;
+}
+
+.control {
+	padding: 15px;
+	white-space: nowrap;
+}
+
+
+/*
+--------------------------------------------------
+3.4	 Code
+-------------------------------------------------- */
+#bin {
+	padding: 12px;
+}
+
+textarea {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+
+/*
+--------------------------------------------------
+3.5	 Clearing
+-------------------------------------------------- */
+
+/*
+http://www.positioniseverything.net/easyclearing.html
+*/
+
+.header:after,
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.header,
+.clearfix {
+	zoom: 1;
+	display: block;
+}
+
+
+
+
+/*
+==================================================
+
+4	 CONTENT
+
+==================================================
+*/
+
+
+/*
+--------------------------------------------------
+4.1	 Buttons
+-------------------------------------------------- */
+.buttons {
+	float: left;
+	display: block;
+	margin-right: 10px;
+}
+
+
+
+
+/*
+==================================================
+
+5	 COLORS
+
+==================================================
+*/
+
+
+/*
+--------------------------------------------------
+5.1	 Anchors
+-------------------------------------------------- */
+a {
+	text-decoration: none;
+}
+
+
+/*
+--------------------------------------------------
+5.2	 Header
+-------------------------------------------------- */
+.header {
+	background: #333; /* Old browsers */
+	background: -moz-linear-gradient(top,  #333 0%, #000000 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #333 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #333 0%,#000000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #333 0%,#000000 100%); /* IE10+ */
+	background: linear-gradient(top,  #333 0%,#000000 100%); /* W3C */
+	color: #fff;
+	font-weight: normal;
+}
+
+.header h1 a {
+	color: #fff;
+}
+.help a {
+	color: #fff;
+}
+
+
+/*
+--------------------------------------------------
+5.3	 Controls
+-------------------------------------------------- */
+#control {
+	background: #eee; /* Old browsers */
+	background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+	background: linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* W3C */
+}
+
+.control a {
+	color: #232323;
+	font-weight: bold;
+	text-shadow: #fff 1px 1px 1px;
+}
+
+.control a:hover {
+	text-shadow: #fff -1px -1px 3px;
+}
+
+
+/*
+--------------------------------------------------
+5.4	 Buttons
+-------------------------------------------------- */
+a.button {
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	height: 12px;
+	line-height: 12px;
+	padding: 10px;
+	display: block;
+	float: left;
+	text-decoration: none;
+	margin: 0px 0px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.3);
+}
+
+a.gap {
+	margin-right: 10px;
+}
+
+.button:hover {
+	-moz-box-shadow: #fff 0px 0px 5px;
+	-webkit-box-shadow: #fff 0px 0px 5px;
+	background: rgba(0, 0, 0, 0.05);
+}
+
+.button:active, .button:focus {
+	-moz-box-shadow: #C8C8C8 0px 0px 3px;
+	-webkit-box-shadow: #C8C8C8 0px 0px 3px;
+	border-color: #fff;
+	outline: 0;
+	text-shadow: none;
+}
+
+body.source a.source,
+body.result a.result {
+	background: #aaa;
+	background: rgba(0, 0, 0, 0.25);
+	text-shadow: none;
+	border: 1px solid #ccc;
+	-moz-box-shadow: #fff 0px 0px 5px;
+	-webkit-box-shadow: #fff 0px 0px 5px;
+	
+	background-image: 
+		-webkit-gradient(
+			radial,
+			center center,
+			0,
+			center center,
+			50,
+			color-stop(0, #BFBFBF),
+			color-stop(1, #949494)
+		);
+	
+}
+
+body.result a.result {
+	border-left: 0;
+}
+
+a.group {
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border-left: 0;
+}
+
+a.left {
+	border-left: 1px solid #ccc;
+	-moz-border-radius-topleft: 3px;
+	-webkit-border-top-left-radius: 3px;
+	border-top-left-radius: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+a.right {
+	border-right: 1px solid #ccc;
+	-moz-border-radius-topright: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+
+
+
+/*
+==================================================
+
+6	 BRANDING
+
+==================================================
+*/
+
+
+/*
+--------------------------------------------------
+6.1	 Logo
+-------------------------------------------------- */
+.logo a {
+	display: block;
+	width: 102px;
+	height: 24px;
+	text-indent: -9999em;
+	background-image: url("../img/logo.gif");
+	margin-bottom: 6px;
+}
