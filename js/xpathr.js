@@ -6,8 +6,8 @@ appendToggleLinks();
 
 // Append toggle links for XML and XSLT code panels on large screens
 function appendToggleLinks() {
-  $('.large-screen .xml div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
-  $('.large-screen .xslt div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
+  $('.large-screen .xml div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
+  $('.large-screen .xslt div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
   $('.large-screen div.label p').click(togglePanels);
 }
 
