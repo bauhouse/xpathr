@@ -32,7 +32,6 @@ Table of Contents
              5.1  Anchors
          6  BRANDING
              6.1  Logo
-             6.2  Site Branding
          7  MEDIA QUERIES
 
 
@@ -158,7 +157,6 @@ body {
 3.3	 Controls
 -------------------------------------------------- */
 #control {
-	height: 61px;
 	box-shadow: 0 2px 6px #999;
 }
 
@@ -173,12 +171,18 @@ body {
 3.4	 Code
 -------------------------------------------------- */
 #bin {
-	padding: 12px;
+	padding: 1px 15px 15px 15px;
 }
 
 textarea {
 	width: 100%;
 	box-sizing: border-box;
+}
+
+.CodeMirror {
+	font-size: 1.3em;
+	line-height: 1.3em;
+	border: 1px solid #ccc;
 }
 
 
@@ -192,6 +196,7 @@ http://www.positioniseverything.net/easyclearing.html
 */
 
 .header:after,
+.control:after,
 .clearfix:after {
 	content: ".";
 	display: block;
@@ -201,6 +206,7 @@ http://www.positioniseverything.net/easyclearing.html
 }
 
 .header,
+.control,
 .clearfix {
 	zoom: 1;
 	display: block;
@@ -390,6 +396,77 @@ a.right {
 }
 
 
+/*
+--------------------------------------------------
+5.5	 Editors
+-------------------------------------------------- */
+.xml-only div.xml {
+  width: 100%;
+  left: 0%;
+}
+
+.xml-only div.xslt {
+  display: none;
+  left: 100%;
+  width: 100%;
+}
+
+.label .show {
+  display: none;
+}
+
+.xml-only .label .hide,
+.xslt-only .label .hide {
+  display: none;
+}
+
+.xml-only .label .show,
+.xslt-only .label .show {
+  display: inline;
+}
+
+.xslt-only div.xml {
+  left: -50%;
+  display: none;
+}
+
+.xslt-only div.xslt {
+  left: 0%;
+  width: 100%;
+}
+
+
+/*
+--------------------------------------------------
+5.6	 Toggle Links
+-------------------------------------------------- */
+.code .label {
+	padding: 15px 0;
+	margin: 0 10px;
+	padding-right: 0;
+	margin-left: 1px;
+}
+.code .label p {
+	font-weight: bold;
+	cursor: pointer;
+	margin: 0;
+}
+.code .label label {
+	margin-top: 10px;
+}
+.code .label p > span {
+	opacity: 0;
+	filter:alpha(opacity=0);
+	-webkit-transition: opacity 250ms linear;
+	-moz-transition: opacity 250ms linear;
+}
+.code .label p:hover span {
+	opacity: 1;
+	filter:alpha(opacity=1);
+}
+
+
+
 
 
 /*
@@ -412,4 +489,89 @@ a.right {
 	text-indent: -9999em;
 	background-image: url("../img/logo.gif");
 	margin-bottom: 6px;
+}
+
+
+
+
+/*
+==================================================
+
+7	 MEDIA QUERIES
+
+==================================================
+*/
+
+
+/*
+--------------------------------------------------
+7.1	 Large Screens
+-------------------------------------------------- */
+@media screen and (min-width: 768px) {
+
+	.stretch {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	#bin {
+		top: 100px;
+		width: 100%;
+		padding: 0;
+	}
+	div.xslt {
+		left: 50%;
+	}
+	div.code {
+		width: 50%;
+	}
+	div.result {
+		display: none;
+		width: 100%;
+	}
+	textarea {
+		margin: 0;
+		padding: 15px;
+		font-family: Menlo, Monaco, consolas, monospace;
+		color: black;
+		margin-top: 40px;
+		font-size: 12px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: transparent;
+		border: 0;
+		resize: none;
+		outline: none;
+		-webkit-appearance: none;
+	}
+	div.xml {
+		border-right: 1px solid #ccc;
+	}
+	.code .label {
+		padding: 15px;
+	}
+	.CodeMirror {
+		margin-top: 40px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		border: 0;
+	}
+	.CodeMirror-scroll {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		height: auto;
+		padding: 15px;
+	}
+
 }
