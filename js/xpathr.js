@@ -1,25 +1,60 @@
 var debug = false,
     $bin = $('#bin');
 
-// Append Toggle Links
-$('.xml .label p').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
-$('.xslt .label p').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
+setScreenClass();
+appendToggleLinks();
+
+// Append toggle links for XML and XSLT code panels on large screens
+function appendToggleLinks() {
+  $('.large-screen .xml div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
+  $('.large-screen .xslt div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
+  $('.large-screen div.label p').click(togglePanels);
+}
+
+// Remove toggle links for XML and XSLT code panels on small screens
+function removeToggleLinks() {
+  $('.small-screen div.label p span').remove();
+  $('.small-screen div.label p').unbind('click');
+}
 
 // Fix width of code editors when resizing smaller than 768px
+var TO = false;
 $(window).resize(function() {
+  setScreenClass();
+  $('.small-screen .code').css('width', '100%');
+  $('.large-screen .code').css('width', '50%');
+  $('.xml-only .code').css('width', '100%');
+  $('.xslt-only .code').css('width', '100%');
+
+  // Run resizeComlete() function only when the window resize is complete
+  // http://stackoverflow.com/questions/667426/javascript-resize-event-firing-multiple-times-while-dragging-the-resize-handle/668185#668185
+  if(TO !== false)
+    clearTimeout(TO);
+  TO = setTimeout(resizeComplete, 200); //200 is time in miliseconds
+});
+
+// Add or remove toggle links for code panels
+function resizeComplete() {
+  if($(window).width() < 768) {
+    removeToggleLinks();
+  } else {
+    appendToggleLinks();
+  }
+}
+
+// Set screen size class on body element
+function setScreenClass() {
   if($(window).width() < 768) {
     $('body').addClass('small-screen').removeClass('large-screen');
   } else {
     $('body').addClass('large-screen').removeClass('small-screen');
   }
-  $('.small-screen .code').css('width', '100%');
-  $('.large-screen .code').css('width', '50%');
-  $('.xml-only .code').css('width', '100%');
-  $('.xslt-only .code').css('width', '100%');
-});
+}
 
 // Toggle Panels
-$('div.label p').click(function () {
+$('.large-screen div.label p').click(togglePanels);
+
+function togglePanels() {
   // determine which side was clicked
   var panel = $(this).closest('.code').is('.xml') ? 'xml' : 'xslt',
       otherpanel = panel == 'xml' ? 'xslt' : 'xml',
@@ -45,7 +80,7 @@ $('div.label p').click(function () {
       $bin.addClass(panel + '-only');
     });
   }
-});
+}
 
 
 // Toggle Help

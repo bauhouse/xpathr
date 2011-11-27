@@ -448,7 +448,6 @@ a.right {
 }
 .code .label p {
 	font-weight: bold;
-	cursor: pointer;
 	margin: 0;
 }
 .code .label label {
@@ -463,6 +462,9 @@ a.right {
 .code .label p:hover span {
 	opacity: 1;
 	filter:alpha(opacity=1);
+}
+.large-screen .code .label p {
+	cursor: pointer;
 }
 
 
