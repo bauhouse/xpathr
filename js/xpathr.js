@@ -12,13 +12,6 @@ function appendToggleLinks() {
   $('.small-screen div.label p').unbind('click').click(togglePanelsSmallScreens);
 }
 
-// Remove toggle links for XML and XSLT code panels on small screens
-function removeToggleLinks() {
-  $('.small-screen div.label p span').remove();
-  $('.small-screen div.label p').click(togglePanelsSmallScreens);
-  $('.small-screen div.label p').click(togglePanelsSmallScreens);
-}
-
 // Fix width of code editors when resizing smaller than 768px
 var TO = false;
 $(window).resize(function() {
@@ -99,15 +92,6 @@ function togglePanelsSmallScreens() {
     $bin.find('div.' + otherpanel).hide();
     $bin.addClass(panel + '-only');
   }
-}
-
-// Reset Panels
-function resetPanels() {
-  $('.small-screen .xml').show();
-  $('.small-screen .xslt').show();
-  $('.large-screen .xml').show();
-  $('.large-screen .xslt').show();
-  $bin.removeClass('xml-only').removeClass('xslt-only');
 }
 
 // Toggle Help
