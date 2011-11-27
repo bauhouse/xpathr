@@ -52,8 +52,10 @@ function resetPanelWidths() {
   $('.small-screen .code').css({ left: '0', width: '100%' });
   $('.large-screen .xml').css({ left: '0', width: '50%' });
   $('.large-screen .xslt').css({ left: '50%', width: '50%' });
-  $('.xml-only .code').css({ left: '0', width: '100%' });
-  $('.xslt-only .code').css({ left: '0', width: '100%' });
+  $('.xml-only .xslt').css({ left: '100%', width: '50%' });
+  $('.xml-only .xml').css({ left: '0', width: '100%' });
+  $('.xslt-only .xslt').css({ left: '0', width: '100%' });
+  $('.xslt-only .xml').css({ left: '-50%', width: '50%' });
 }
 
 // Toggle Panels
