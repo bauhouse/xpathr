@@ -123,6 +123,10 @@ body {
 --------------------------------------------------
 3.2	 Page Header
 -------------------------------------------------- */
+.header {
+	height: 36px;
+}
+
 .header h1 {
 	font-size: 1.5em;
 	margin: 0;
@@ -147,7 +151,9 @@ body {
 	list-style: none;
 }
 .help ul li a {
-	padding: .7em 1em .5em;
+	padding: 0 1em;
+	height: 36px;
+	line-height: 36px;
 	float: left;
 }
 
@@ -158,6 +164,7 @@ body {
 -------------------------------------------------- */
 #control {
 	box-shadow: 0 2px 6px #999;
+	height: 56px;
 }
 
 .control {
@@ -315,7 +322,7 @@ a.button {
 	border-radius: 3px;
 	height: 12px;
 	line-height: 12px;
-	padding: 10px;
+	padding: 6px 10px;
 	display: block;
 	float: left;
 	text-decoration: none;
@@ -519,7 +526,7 @@ a.right {
 		bottom: 0;
 	}
 	#bin {
-		top: 100px;
+		top: 92px;
 		width: 100%;
 		padding: 0;
 	}
