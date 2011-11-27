@@ -190,7 +190,6 @@ textarea {
 	font-size: 1.3em;
 	line-height: 1.3em;
 	border: 1px solid #ccc;
-	overflow: scroll;
 }
 
 .small-screen .xml-only .CodeMirror,
