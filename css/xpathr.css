@@ -190,6 +190,17 @@ textarea {
 	font-size: 1.3em;
 	line-height: 1.3em;
 	border: 1px solid #ccc;
+	overflow: scroll;
+}
+
+.small-screen .xml-only .CodeMirror,
+.small-screen .xslt-only .CodeMirror {
+	margin-top: 132px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	right: 15px;
+	bottom: 15px;
 }
 
 
@@ -456,6 +467,7 @@ a.right {
 .code .label p {
 	font-weight: bold;
 	margin: 0;
+	cursor: pointer;
 }
 .code .label label {
 	margin-top: 10px;
@@ -470,9 +482,11 @@ a.right {
 	opacity: 1;
 	filter:alpha(opacity=1);
 }
+/*
 .large-screen .code .label p {
 	cursor: pointer;
 }
+*/
 
 
 

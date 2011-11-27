@@ -6,22 +6,24 @@ appendToggleLinks();
 
 // Append toggle links for XML and XSLT code panels on large screens
 function appendToggleLinks() {
-  $('.large-screen .xml div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
-  $('.large-screen .xslt div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
-  $('.large-screen div.label p').click(togglePanels);
+  $('.xml div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
+  $('.xslt div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
+  $('.large-screen div.label p').unbind('click').click(togglePanels);
+  $('.small-screen div.label p').unbind('click').click(togglePanelsSmallScreens);
 }
 
 // Remove toggle links for XML and XSLT code panels on small screens
 function removeToggleLinks() {
   $('.small-screen div.label p span').remove();
-  $('.small-screen div.label p').unbind('click');
+  $('.small-screen div.label p').click(togglePanelsSmallScreens);
+  $('.small-screen div.label p').click(togglePanelsSmallScreens);
 }
 
 // Fix width of code editors when resizing smaller than 768px
 var TO = false;
 $(window).resize(function() {
   setScreenClass();
-  resetPanelWidths();
+  resetPanelMetrics();
 
   // Run resizeComlete() function only when the window resize is complete
   // http://stackoverflow.com/questions/667426/javascript-resize-event-firing-multiple-times-while-dragging-the-resize-handle/668185#668185
@@ -32,11 +34,7 @@ $(window).resize(function() {
 
 // Add or remove toggle links for code panels
 function resizeComplete() {
-  if($(window).width() < 768) {
-    removeToggleLinks();
-  } else {
-    appendToggleLinks();
-  }
+  appendToggleLinks();
 }
 
 // Set screen size class on body element
@@ -48,7 +46,7 @@ function setScreenClass() {
   }
 }
 
-function resetPanelWidths() {
+function resetPanelMetrics() {
   $('.small-screen .code').css({ left: '0', width: '100%' });
   $('.large-screen .xml').css({ left: '0', width: '50%' });
   $('.large-screen .xslt').css({ left: '50%', width: '50%' });
@@ -65,7 +63,6 @@ function togglePanels() {
   // determine which side was clicked
   var panel = $(this).closest('.code').is('.xml') ? 'xml' : 'xslt',
       otherpanel = panel == 'xml' ? 'xslt' : 'xml',
-      mustshow = $bin.is('.' + panel + '-only'),
       speed = 150,
       animatePanel = animateOtherPanel = {};
   
@@ -86,6 +83,21 @@ function togglePanels() {
       $(this).hide();
       $bin.addClass(panel + '-only');
     });
+  }
+}
+
+function togglePanelsSmallScreens() {
+  var panel = $(this).closest('.code').is('.xml') ? 'xml' : 'xslt',
+      otherpanel = panel == 'xml' ? 'xslt' : 'xml';
+  
+  if ($bin.is('.' + panel + '-only')) { // showing the panel
+    // alert('One panel is closed');
+    $bin.find('div.' + otherpanel).show();
+    $bin.removeClass(panel + '-only');
+  } else { // hiding other panel
+    // alert('Both panels are open');
+    $bin.find('div.' + otherpanel).hide();
+    $bin.addClass(panel + '-only');
   }
 }
 
