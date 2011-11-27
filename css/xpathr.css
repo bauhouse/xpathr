@@ -460,9 +460,6 @@ a.right {
 -------------------------------------------------- */
 .code .label {
 	padding: 15px 0;
-	margin: 0 10px;
-	padding-right: 0;
-	margin-left: 1px;
 }
 .code .label p {
 	font-weight: bold;
@@ -473,21 +470,9 @@ a.right {
 	margin-top: 10px;
 }
 .code .label p > span {
-	opacity: 0;
-	filter:alpha(opacity=0);
-	-webkit-transition: opacity 250ms linear;
-	-moz-transition: opacity 250ms linear;
+	float: right;
+	font-weight: normal;
 }
-.code .label p:hover span {
-	opacity: 1;
-	filter:alpha(opacity=1);
-}
-/*
-.large-screen .code .label p {
-	cursor: pointer;
-}
-*/
-
 
 
 
@@ -578,6 +563,16 @@ a.right {
 	.code .label {
 		padding: 15px;
 	}
+  .code .label p > span {
+  	opacity: 0;
+  	filter:alpha(opacity=0);
+  	-webkit-transition: opacity 250ms linear;
+  	-moz-transition: opacity 250ms linear;
+  }
+  .code .label p:hover span {
+  	opacity: 1;
+  	filter:alpha(opacity=1);
+  }
 	.CodeMirror {
 		margin-top: 40px;
 		position: absolute;
