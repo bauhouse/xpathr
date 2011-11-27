@@ -21,10 +21,7 @@ function removeToggleLinks() {
 var TO = false;
 $(window).resize(function() {
   setScreenClass();
-  $('.small-screen .code').css('width', '100%');
-  $('.large-screen .code').css('width', '50%');
-  $('.xml-only .code').css('width', '100%');
-  $('.xslt-only .code').css('width', '100%');
+  resetPanelWidths();
 
   // Run resizeComlete() function only when the window resize is complete
   // http://stackoverflow.com/questions/667426/javascript-resize-event-firing-multiple-times-while-dragging-the-resize-handle/668185#668185
@@ -49,6 +46,14 @@ function setScreenClass() {
   } else {
     $('body').addClass('large-screen').removeClass('small-screen');
   }
+}
+
+function resetPanelWidths() {
+  $('.small-screen .code').css({ left: '0', width: '100%' });
+  $('.large-screen .xml').css({ left: '0', width: '50%' });
+  $('.large-screen .xslt').css({ left: '50%', width: '50%' });
+  $('.xml-only .code').css({ left: '0', width: '100%' });
+  $('.xslt-only .code').css({ left: '0', width: '100%' });
 }
 
 // Toggle Panels
@@ -82,6 +87,14 @@ function togglePanels() {
   }
 }
 
+// Reset Panels
+function resetPanels() {
+  $('.small-screen .xml').show();
+  $('.small-screen .xslt').show();
+  $('.large-screen .xml').show();
+  $('.large-screen .xslt').show();
+  $bin.removeClass('xml-only').removeClass('xslt-only');
+}
 
 // Toggle Help
 $('#control div.help a:last').click(function () {
