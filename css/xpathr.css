@@ -195,7 +195,7 @@ textarea {
 
 .small-screen .xml-only .CodeMirror,
 .small-screen .xslt-only .CodeMirror {
-	margin-top: 132px;
+	margin-top: 126px;
 	position: absolute;
 	top: 15px;
 	left: 15px;
