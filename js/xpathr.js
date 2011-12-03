@@ -1,3 +1,5 @@
+$('form').after('<div id="help"><div id="content"></div></div>');
+
 var debug = false,
     $bin = $('#bin');
 
@@ -95,7 +97,8 @@ function togglePanelsSmallScreens() {
 }
 
 // Toggle Help
-$('#control div.help a:last').click(function () {
+$helpBtn = $('#header div.help a:last');
+$helpBtn.click(function () {
   $(window).trigger('togglehelp');
   return false;
 });
@@ -105,10 +108,12 @@ $(window).bind('togglehelp', function () {
   var s = 100, right = helpOpen ? 0 : 300;
 
   if (helpOpen == false) {
-    $('#help #content').load('help/index.html?' + Math.random());    
+    helpURL = $helpBtn.attr('href');
+    $('#help #content').load(helpURL + '?' + Math.random());    
   }
-  $bin.find('> div').animate({ right: right }, { duration: s });
+  $('#header').animate({ marginRight: right }, { duration: s });
   $('#control').animate({ right: right }, { duration: s });
+  $bin.find('> div').animate({ right: right }, { duration: s });
   
   $('#help').animate({ right: helpOpen ? -300 : 0 }, { duration: s});
   

@@ -11,11 +11,12 @@
 </head>
 <!--[if lt IE 7 ]><body class="source ie6"><![endif]--> 
 <!--[if !IE]><!--><body class="source"><!--<![endif]-->  
-<div class="header">
+<div id="header">
   <h1><a href=".">XPathr</a></h1>
   <div class="help">
     <ul class="flat">
       <li><a href="#logout">Logout</a></li>
+      <li><a href="help">Help</a></li>
     </ul>
   </div>
 </div>
@@ -54,7 +55,6 @@
     </div>
   </div>
 </form>
-<div id="help"><div id="content"></div></div>
 <script>
   var xml_editor = CodeMirror.fromTextArea(document.getElementById("xml"));
   var xslt_editor = CodeMirror.fromTextArea(document.getElementById("xslt"));

@@ -71,6 +71,7 @@ Table of Contents
 -------------------------------------------------- */
 body {
 	font: normal 75%/1.5em helvetica, arial, sans-serif;
+	overflow: hidden;
 }
 
 
@@ -123,18 +124,18 @@ body {
 --------------------------------------------------
 3.2	 Page Header
 -------------------------------------------------- */
-.header {
+#header {
 	height: 36px;
 }
 
-.header h1 {
+#header h1 {
 	font-size: 1.5em;
 	margin: 0;
 	padding: .4em 1em;
 	float: left;
 }
 
-.header h1 a {
+#header h1 a {
 	color: #fff;
 }
 
@@ -145,16 +146,17 @@ body {
 .help ul {
 	margin: 0;
 	padding: 0;
+	float: right;
 }
 
 .help ul li {
 	list-style: none;
+	float: left;
 }
 .help ul li a {
 	padding: 0 1em;
 	height: 36px;
 	line-height: 36px;
-	float: left;
 }
 
 
@@ -205,14 +207,88 @@ textarea {
 
 /*
 --------------------------------------------------
-3.5	 Clearing
+3.5	 Help Panel
+-------------------------------------------------- */
+#help pre {
+  padding: 10px;
+  background: #eee;
+  overflow-x: auto;
+}
+
+#help {
+  position: absolute;
+  right: -300px;
+  width: 279px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #ccc;
+  background: #F7F4EB;
+  padding: 10px;
+  overflow: auto;
+}
+
+#help p {
+  margin: 14px 0;
+}
+
+#help ol, #help ul {
+  padding-left: 20px;
+}
+
+#help li {
+  margin: 10px 0;  
+}
+
+
+#help dl.shortcuts {
+	margin-bottom: 1em;
+	margin-left: 26px;
+}
+#help dl.shortcuts * {
+	margin: 0;
+	line-height: 2.25;
+	font-weight: normal;
+}
+#help .shortcuts dt {
+	float: left;
+	display: block;
+	width: 7em;
+	clear: both;
+}
+#help kbd {
+	/* not sure if this should be more specific ie. ".shortcuts kbd" */
+	background: -webkit-gradient(linear, left top, center bottom, from(#000), to(#222));
+	background-color: #000;
+	color: #fff;
+	font-family: "VAG Rounded", sans-serif;
+	font-size: 90%;
+	padding: 1ex;
+	letter-spacing: 0.2ex;
+	text-shadow: rgba(0,255,255,0.5) 0 0 4px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 1px 1px 0px #000;
+}
+#help .shortcuts.a dt {
+	width: 7em;
+}
+#help .shortcuts.b dt {
+	width: 10em;
+}
+
+
+
+/*
+--------------------------------------------------
+3.6	 Clearing
 -------------------------------------------------- */
 
 /*
 http://www.positioniseverything.net/easyclearing.html
 */
 
-.header:after,
+#header:after,
 .control:after,
 .clearfix:after {
 	content: ".";
@@ -222,7 +298,7 @@ http://www.positioniseverything.net/easyclearing.html
 	visibility: hidden;
 }
 
-.header,
+#header,
 .control,
 .clearfix {
 	zoom: 1;
@@ -276,7 +352,7 @@ a {
 --------------------------------------------------
 5.2	 Header
 -------------------------------------------------- */
-.header {
+#header {
 	background: #333; /* Old browsers */
 	background: -moz-linear-gradient(top,  #333 0%, #000000 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333), color-stop(100%,#000000)); /* Chrome,Safari4+ */
@@ -288,7 +364,7 @@ a {
 	font-weight: normal;
 }
 
-.header h1 a {
+#header h1 a {
 	color: #fff;
 }
 .help a {
