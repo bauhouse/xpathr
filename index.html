@@ -19,39 +19,41 @@
     </ul>
   </div>
 </div>
-<div id="control">
-  <div class="control">
-    <div class="buttons">
-      <a class="tab button source group left" accesskey="1" href="#source">Code</a>
-      <a class="tab button result group right gap" accesskey="2" href="#result">Result</a>
-      <a id="save" class="button save group left right" href="#save">Save</a>
+<form id="main" method="post" action="">
+  <div id="control">
+    <div class="control">
+      <div class="buttons">
+        <a class="tab button source group left" accesskey="1" href="#source">Code</a>
+        <a class="tab button result group right gap" accesskey="2" href="#result">Result</a>
+        <a id="save" class="button save group left right" href="#save">Save</a>
+      </div>
     </div>
   </div>
-</div>
-<div id="bin" class="stretch">
-  <div id="source" class="binview stretch">
-    <div class="code stretch xml">
-      <div class="label"><p><strong>XML</strong></p></div>
-      <textarea id="xml" cols="50" rows="20"><data>
-  <hello>paste your xml here</hello>
-</data></textarea>
-    </div>
-    <div class="code stretch xslt">
-      <div class="label"><p><strong>XSLT</strong></p></div>
-      <textarea id="xslt" cols="50" rows="20"><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-
-<xsl:output method="xml" indent="yes" />
-
-<xsl:template match="/">
-  <hi>
-    <xsl:value-of select="data/hello" />
-  </hi>
-</xsl:template>
-
-</xsl:stylesheet></textarea>
+  <div id="bin" class="stretch">
+    <div id="source" class="binview stretch">
+      <div class="code stretch xml">
+        <div class="label"><p><strong>XML</strong></p></div>
+        <textarea id="xml" cols="50" rows="20"><data>
+    <hello>paste your xml here</hello>
+  </data></textarea>
+      </div>
+      <div class="code stretch xslt">
+        <div class="label"><p><strong>XSLT</strong></p></div>
+        <textarea id="xslt" cols="50" rows="20"><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+  
+  <xsl:output method="xml" indent="yes" />
+  
+  <xsl:template match="/">
+    <hi>
+      <xsl:value-of select="data/hello" />
+    </hi>
+  </xsl:template>
+  
+  </xsl:stylesheet></textarea>
+      </div>
     </div>
   </div>
-</div>
+</form>
 <div id="help"><div id="content"></div></div>
 <script>
   var xml_editor = CodeMirror.fromTextArea(document.getElementById("xml"));
