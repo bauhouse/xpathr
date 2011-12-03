@@ -71,7 +71,7 @@ Table of Contents
 -------------------------------------------------- */
 body {
 	font: normal 75%/1.5em helvetica, arial, sans-serif;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 
@@ -222,6 +222,7 @@ textarea {
   top: 36px;
   bottom: 0;
   border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   background: #eee;
   padding: 10px;
   overflow: auto;
@@ -593,6 +594,10 @@ a.right {
 7.1	 Large Screens
 -------------------------------------------------- */
 @media screen and (min-width: 768px) {
+
+	body {
+		overflow: hidden;
+	}
 
 	.stretch {
 		position: absolute;
