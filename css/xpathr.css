@@ -359,8 +359,9 @@ a.gap {
 	text-shadow: none;
 }
 
-body.source a.source,
-body.result a.result {
+body.show-xml a.btn-xml,
+body.show-xslt a.btn-xslt,
+body.show-result a.btn-result {
 	background: #aaa;
 	background: rgba(0, 0, 0, 0.25);
 	text-shadow: none;
@@ -381,7 +382,8 @@ body.result a.result {
 	
 }
 
-body.result a.result {
+body.show-xslt a.btn-xslt,
+body.show-result a.btn-result {
 	border-left: 0;
 }
 

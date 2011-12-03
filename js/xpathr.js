@@ -122,15 +122,22 @@ $(document).keyup(function (event) {
 });
 
 
+
+// Show XML
+$('#control .btn-xml').click(function() {
+  $('body').removeClass('show-xslt').removeClass('show-result').addClass('show-xml');
+  window.scrollTo(0, 0);
+})
+
+// Show XSLT
+$('#control .btn-xslt').click(function() {
+  $('body').removeClass('show-xml').removeClass('show-result').addClass('show-xslt');
+  window.scrollTo(0, 0);
+})
+
 // Show Result
-$('#control .result').click(function() {
-  $('body').removeClass('source').addClass('result');
+$('#control .btn-result').click(function() {
+  $('body').removeClass('show-xml').removeClass('show-xslt').addClass('show-result');
   window.scrollTo(0, 0);
 })
 
-
-// Show Source
-$('#control .source').click(function() {
-  $('body').removeClass('result').addClass('source');
-  window.scrollTo(0, 0);
-})
