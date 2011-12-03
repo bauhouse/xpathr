@@ -111,7 +111,6 @@ $(window).bind('togglehelp', function () {
     helpURL = $helpBtn.attr('href');
     $('#help #content').load(helpURL + '?' + Math.random());    
   }
-  $('#header').animate({ marginRight: right }, { duration: s });
   $('#control').animate({ right: right }, { duration: s });
   $bin.find('> div').animate({ right: right }, { duration: s });
   
