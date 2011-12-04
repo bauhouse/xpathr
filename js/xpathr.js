@@ -132,7 +132,7 @@ $(window).bind('togglehelp', function () {
     helpURL = $helpBtn.attr('href');
     $('#help #content').load(helpURL + '?' + Math.random());    
   }
-  $('#control').animate({ right: right }, { duration: s });
+  $('.large-screen #control').animate({ marginRight: right }, { duration: s });
   $bin.find('> div').animate({ right: right }, { duration: s });
   
   $('#help').animate({ right: helpOpen ? -300 : 0 }, { duration: s});
