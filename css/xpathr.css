@@ -322,10 +322,42 @@ textarea {
 }
 
 
+/*
+--------------------------------------------------
+3.6	 Meta Data
+-------------------------------------------------- */
+#meta {
+}
+#meta >div { margin-bottom: 1em; }
+#meta #user a {
+	display: block;
+	overflow: hidden;
+	padding: 6px;
+	background: #ddd;
+}
+#meta #user a:hover {
+	background: #ccc;
+}
+#meta #user img {
+	width: 30px;
+	float: left;
+	margin-right: 10px;
+	border: 2px solid #fff;
+}
+#meta #user span {
+	display: block;
+	height: 20px;
+	padding: 7px;
+	font-weight: bold;
+	color: #000;
+}
+#meta h4 { font-weight:bold; }
+#meta #revisions .current { font-weight:bold; }
+
 
 /*
 --------------------------------------------------
-3.6	 Clearing
+3.7	 Clearing
 -------------------------------------------------- */
 
 /*
