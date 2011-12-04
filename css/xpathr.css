@@ -188,6 +188,19 @@ body {
 	white-space: nowrap;
 }
 
+.actions {
+	float: right;
+}
+
+.actions input {
+	margin-top: 3px;
+}
+
+.actions span {
+	display: block;
+	padding: 3px 8px;
+}
+
 
 /*
 --------------------------------------------------
