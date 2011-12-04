@@ -196,6 +196,11 @@ textarea {
 	font-size: 1.3em;
 	line-height: 1.3em;
 	border: 1px solid #ccc;
+	overflow: scroll;
+}
+
+.CodeMirror-scroll {
+	height: auto;
 }
 
 .small-screen .xml-only .CodeMirror,
@@ -622,7 +627,6 @@ a.right {
 		width: 50%;
 	}
 	div.result {
-		display: none;
 		width: 100%;
 	}
 	textarea {
