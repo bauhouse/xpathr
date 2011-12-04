@@ -4,14 +4,14 @@ var debug = false,
     $bin = $('#bin');
 
 setScreenClass();
-appendToggleLinks();
+toggleLinks();
 
-// Append toggle links for XML and XSLT code panels on large screens
-function appendToggleLinks() {
-  $('.xml div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XSLT)</span>');
-  $('.xslt div.label p:not(:has(span))').append('<span> (<span class="hide">hide</span><span class="show">show</span> XML)</span>');
-  $('.large-screen div.label p').unbind('click').click(togglePanels);
-  $('.small-screen div.label p').unbind('click').click(togglePanelsSmallScreens);
+// Active toggle links for XML and XSLT code panels on large screens
+function toggleLinks() {
+  $('.large-screen #btn-xml').unbind('click').click(togglePanels);
+  $('.large-screen #btn-xslt').unbind('click').click(togglePanels);
+  $('.small-screen #btn-xml').unbind('click').click(togglePanelsSmallScreens);
+  $('.small-screen #btn-xslt').unbind('click').click(togglePanelsSmallScreens);
 }
 
 // Fix width of code editors when resizing smaller than 768px
@@ -29,7 +29,7 @@ $(window).resize(function() {
 
 // Add or remove toggle links for code panels
 function resizeComplete() {
-  appendToggleLinks();
+  toggleLinks();
 }
 
 // Set screen size class on body element
@@ -51,16 +51,13 @@ function resetPanelMetrics() {
   $('.small-screen .code').css({ left: '0', width: '100%' });
 }
 
-// Toggle Panels
-$('.large-screen div.label p').click(togglePanels);
-
 function togglePanels() {
   // determine which side was clicked
-  var panel = $(this).closest('.code').is('.xml') ? 'xml' : 'xslt',
+  var panel = $(this).is('#btn-xml') ? 'xml' : 'xslt',
       otherpanel = panel == 'xml' ? 'xslt' : 'xml',
       speed = 150,
       animatePanel = animateOtherPanel = {};
-  
+
   if ($bin.is('.' + panel + '-only')) { // showing the panel
     // only the xslt tab could have been clicked
     animatePanel = panel == 'xslt' ? { left: '50%', width: '50%' } : { left: '0%', width: '50%' };
@@ -69,31 +66,55 @@ function togglePanels() {
     $bin.find('div.' + otherpanel).show().animate(animateOtherPanel, speed, function () {
       $bin.removeClass(panel + '-only');
     });
+    $(this).toggleClass('current');
   } else { // hiding other panel
-    animatePanel = panel == 'xslt' ? { left: '0%', width: '100%' } : { width: '100%' };
-    animateOtherPanel = otherpanel == 'xml' ? { left: '-50%' } : { left: '100%' };
-    
-    $bin.find('div.' + panel).animate(animatePanel, speed);
-    $bin.find('div.' + otherpanel).animate(animateOtherPanel, speed, function () { 
-      $(this).hide();
-      $bin.addClass(panel + '-only');
-    });
+    if ($(this).not('.current') && $bin.is('.' + otherpanel + '-only')) {
+      animatePanel = panel == 'xslt' ? { left: '0', width: '100%' } : { left: '0', width: '100%' };
+      animateOtherPanel = otherpanel == 'xml' ? { left: '-50%', width: '50%' } : { left: '100%', width: '50%' };
+      $bin.find('div.' + panel).show().animate(animatePanel, speed);
+      $bin.find('div.' + otherpanel).animate(animateOtherPanel, speed, function () {
+        $bin.removeClass(otherpanel + '-only');
+        $bin.addClass(panel + '-only');
+        $('#btn-' + otherpanel).toggleClass('current');
+        $('#btn-' + panel).toggleClass('current');
+      }).hide();
+    } else {
+      animatePanel = panel == 'xslt' ? { left: '0%', width: '100%' } : { width: '100%' };
+      animateOtherPanel = otherpanel == 'xml' ? { left: '-50%' } : { left: '100%' };
+      $bin.find('div.' + panel).animate(animatePanel, speed);
+      $bin.find('div.' + otherpanel).animate(animateOtherPanel, speed, function () { 
+        $(this).hide();
+        $bin.addClass(panel + '-only');
+      });
+      $(this).toggleClass('current');
+    }
   }
+  return false;
 }
 
 function togglePanelsSmallScreens() {
-  var panel = $(this).closest('.code').is('.xml') ? 'xml' : 'xslt',
+  var panel = $(this).is('#btn-xml') ? 'xml' : 'xslt',
       otherpanel = panel == 'xml' ? 'xslt' : 'xml';
-  
+
   if ($bin.is('.' + panel + '-only')) { // showing the panel
-    // alert('One panel is closed');
     $bin.find('div.' + otherpanel).show();
     $bin.removeClass(panel + '-only');
+    $(this).toggleClass('current');
   } else { // hiding other panel
-    // alert('Both panels are open');
-    $bin.find('div.' + otherpanel).hide();
-    $bin.addClass(panel + '-only');
+    if ($(this).not('.current') && $bin.is('.' + otherpanel + '-only')) {
+      $bin.find('div.' + panel).show();
+      $bin.find('div.' + otherpanel).hide();
+      $bin.removeClass(otherpanel + '-only');
+      $bin.addClass(panel + '-only');
+      $('#btn-' + otherpanel).toggleClass('current');
+      $('#btn-' + panel).toggleClass('current');
+    } else {
+      $bin.find('div.' + otherpanel).hide();
+      $bin.addClass(panel + '-only');
+      $(this).toggleClass('current');
+    }
   }
+  return false;
 }
 
 // Toggle Help
@@ -124,24 +145,3 @@ $(document).keyup(function (event) {
     $(window).trigger('togglehelp');
   }
 });
-
-
-
-// Show XML
-$('#control .btn-xml').click(function() {
-  $('body').removeClass('show-xslt').removeClass('show-result').addClass('show-xml');
-  window.scrollTo(0, 0);
-})
-
-// Show XSLT
-$('#control .btn-xslt').click(function() {
-  $('body').removeClass('show-xml').removeClass('show-result').addClass('show-xslt');
-  window.scrollTo(0, 0);
-})
-
-// Show Result
-$('#control .btn-result').click(function() {
-  $('body').removeClass('show-xml').removeClass('show-xslt').addClass('show-result');
-  window.scrollTo(0, 0);
-})
-

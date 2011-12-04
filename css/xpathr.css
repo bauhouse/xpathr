@@ -466,9 +466,10 @@ a.gap {
 	text-shadow: none;
 }
 
-body.show-xml a.btn-xml,
-body.show-xslt a.btn-xslt,
-body.show-result a.btn-result {
+.buttons a.current,
+body.show-xml a#btn-xml,
+body.show-xslt a#btn-xslt,
+body.show-result a#btn-result {
 	background: #aaa;
 	background: rgba(0, 0, 0, 0.25);
 	text-shadow: none;
@@ -489,8 +490,9 @@ body.show-result a.btn-result {
 	
 }
 
-body.show-xslt a.btn-xslt,
-body.show-result a.btn-result {
+.buttons a#btn-xslt.current,
+body.show-xslt a#btn-xslt,
+body.show-result a#btn-result {
 	border-left: 0;
 }
 
