@@ -158,15 +158,19 @@ body {
 	height: 36px;
 	line-height: 36px;
 	display: block;
+	color: #bbb;
 }
 .help ul li a:hover {
 	background: #333;
+	color: #fff;
 }
 .help ul li a:active {
 	background: #000;
+	color: #fff;
 }
 .help ul li.current a {
 	background: #444;
+	color: #fff;
 }
 
 
