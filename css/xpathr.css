@@ -157,6 +157,10 @@ body {
 	padding: 0 1em;
 	height: 36px;
 	line-height: 36px;
+	display: block;
+}
+.help ul li.current a {
+	background: #000;
 }
 
 
