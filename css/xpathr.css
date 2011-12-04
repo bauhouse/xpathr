@@ -203,6 +203,7 @@ textarea {
 	height: auto;
 }
 
+.small-screen .result .CodeMirror,
 .small-screen .xml-only .CodeMirror,
 .small-screen .xslt-only .CodeMirror {
 	margin-top: 126px;
@@ -211,6 +212,16 @@ textarea {
 	left: 15px;
 	right: 15px;
 	bottom: 15px;
+}
+
+.small-screen .result .CodeMirror-scroll,
+.small-screen .xml-only .CodeMirror-scroll,
+.small-screen .xslt-only .CodeMirror-scroll {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 
