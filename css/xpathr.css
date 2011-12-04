@@ -574,7 +574,6 @@ a.right {
 .code .label p {
 	font-weight: bold;
 	margin: 0;
-	cursor: pointer;
 }
 .code .label label {
 	margin-top: 10px;
