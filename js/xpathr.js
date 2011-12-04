@@ -1,4 +1,4 @@
-$('form').after('<div id="help"><div id="content"></div></div>');
+// $('form').after('<div id="help"><div id="content"></div></div>');
 
 var debug = false,
     $bin = $('#bin');
@@ -128,10 +128,13 @@ var helpOpen = false;
 $(window).bind('togglehelp', function () {
   var s = 100, right = helpOpen ? 0 : 300;
 
+/*
   if (helpOpen == false) {
     helpURL = $helpBtn.attr('href');
     $('#help #content').load(helpURL + '?' + Math.random());    
   }
+*/
+
   $('.large-screen #control').animate({ marginRight: right }, { duration: s });
   $bin.find('> div').animate({ right: right }, { duration: s });
   
