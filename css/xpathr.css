@@ -350,18 +350,18 @@ textarea {
 	color: #000;
 }
 #meta h4 {
-	font-size: 1em;
+	font-size: 1.2em;
 	text-transform: uppercase;
 }
-#meta #revisions ul {
+#help ul.menu {
 	margin: 1em 0 0 0;
 	padding: 0;
 }
-#meta #revisions li {
+#help ul.menu li {
 	list-style: none;
 	margin: 0 0 2px 0;
 }
-#meta #revisions li a {
+.menu li a {
 	display: block;
 	background: #e9e9e9;
 	color: #666;
@@ -370,11 +370,11 @@ textarea {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
-#meta #revisions li a:hover {
+.menu li a:hover {
 	background: #ddd;
 	color: #000;
 }
-#meta #revisions li.current a {
+.menu li.current a {
 	background: #ccc;
 	color: #000;
 	font-weight: bold;
