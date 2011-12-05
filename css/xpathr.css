@@ -188,10 +188,6 @@ body {
 	white-space: nowrap;
 }
 
-.actions {
-	float: right;
-}
-
 .actions input {
 	margin-top: 3px;
 }
@@ -328,7 +324,9 @@ textarea {
 -------------------------------------------------- */
 #meta {
 }
-#meta >div { margin-bottom: 1em; }
+#meta > div {
+	margin-bottom: 1em;
+}
 #meta #user a {
 	display: block;
 	overflow: hidden;
@@ -351,8 +349,36 @@ textarea {
 	font-weight: bold;
 	color: #000;
 }
-#meta h4 { font-weight:bold; }
-#meta #revisions .current { font-weight:bold; }
+#meta h4 {
+	font-size: 1em;
+	text-transform: uppercase;
+}
+#meta #revisions ul {
+	margin: 1em 0 0 0;
+	padding: 0;
+}
+#meta #revisions li {
+	list-style: none;
+	margin: 0 0 2px 0;
+}
+#meta #revisions li a {
+	display: block;
+	background: #e9e9e9;
+	color: #666;
+	padding: .5em 1em;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+#meta #revisions li a:hover {
+	background: #ddd;
+	color: #000;
+}
+#meta #revisions li.current a {
+	background: #ccc;
+	color: #000;
+	font-weight: bold;
+}
 
 
 /*
@@ -681,6 +707,9 @@ a.right {
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
+	.actions {
+		float: right;
 	}
 	#bin {
 		top: 92px;
