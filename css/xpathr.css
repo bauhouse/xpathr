@@ -652,6 +652,13 @@ a.right {
 .code .label p > span {
 	float: right;
 	font-weight: normal;
+	color: #999;
+}
+.code .label p > span a {
+	color: #999;
+}
+.code .label p > span a:hover {
+	color: #000;
 }
 
 
@@ -748,16 +755,6 @@ a.right {
 	}
 	.code .label {
 		padding: 15px;
-	}
-	.code .label p > span {
-		opacity: 0;
-		filter:alpha(opacity=0);
-		-webkit-transition: opacity 250ms linear;
-		-moz-transition: opacity 250ms linear;
-	}
-	.code .label p:hover span {
-		opacity: 1;
-		filter:alpha(opacity=1);
 	}
 	.CodeMirror {
 		margin-top: 40px;
