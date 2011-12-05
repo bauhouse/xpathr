@@ -139,6 +139,8 @@ $(window).bind('togglehelp', function () {
   $bin.find('> div').animate({ right: right }, { duration: s });
   
   $('#help').animate({ right: helpOpen ? -300 : 0 }, { duration: s});
+
+  $('#btn-about').toggleClass('current');
   
   helpOpen = helpOpen ? false : true;
 });

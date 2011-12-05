@@ -172,6 +172,10 @@ body {
 	background: #444;
 	color: #fff;
 }
+.help ul li#btn-about.current a {
+	background: #eee;
+	color: #000;
+}
 
 
 /*
