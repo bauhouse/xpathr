@@ -135,7 +135,7 @@ $(window).bind('togglehelp', function () {
   }
 */
 
-  $('.large-screen #control').animate({ marginRight: right }, { duration: s });
+  $('#control').animate({ marginRight: right }, { duration: s });
   $bin.find('> div').animate({ right: right }, { duration: s });
   
   $('#help').animate({ right: helpOpen ? -300 : 0 }, { duration: s});
