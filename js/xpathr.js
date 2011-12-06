@@ -124,7 +124,23 @@ $helpBtn.click(function () {
   return false;
 });
 
-var helpOpen = false;
+
+// Find the state of the Help panel from local storage
+var helpOpen;
+if (localStorage['helpOpen'] == 'true') {
+  helpOpen = true;
+} else {
+  helpOpen = false;
+}
+
+// Open the Help Panel
+if (helpOpen == true) {
+  $('#help').css('right', '0');
+  $('#control').css('margin-right', '300px');
+  $bin.find('> div').css('right', '300px');
+  $('#btn-about').toggleClass('current');
+}
+
 $(window).bind('togglehelp', function () {
   var s = 100, right = helpOpen ? 0 : 300;
 
@@ -143,6 +159,12 @@ $(window).bind('togglehelp', function () {
   $('#btn-about').toggleClass('current');
   
   helpOpen = helpOpen ? false : true;
+  
+  if (helpOpen) {
+    localStorage['helpOpen'] = 'true';
+  } else {
+    localStorage['helpOpen'] = 'false';
+  }
 });
 
 $(document).keyup(function (event) {
