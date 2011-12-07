@@ -831,7 +831,6 @@ a.right {
 		bottom: 0;
 		right: 0;
 		border: 0;
-		overflow: scroll;
 	}
 	.CodeMirror-scroll {
 		position: absolute;
