@@ -183,7 +183,7 @@ body {
 3.3	 Controls
 -------------------------------------------------- */
 #control {
-	box-shadow: 0 2px 6px #999;
+	box-shadow: 0 1px 3px #999;
 	height: 56px;
 }
 
@@ -822,9 +822,11 @@ a.right {
 	}
 	.code .label {
 		padding: 15px;
+		background: rgba(200, 200, 200, 0.1);
+		border-bottom: 1px solid #eee;
 	}
 	.CodeMirror {
-		margin-top: 40px;
+		margin-top: 49px;
 		position: absolute;
 		top: 0;
 		left: 0;
