@@ -185,6 +185,7 @@ body {
 #control {
 	box-shadow: 0 1px 3px #999;
 	height: 56px;
+	min-width: 100%;
 }
 
 .control {
@@ -841,7 +842,9 @@ a.right {
 		bottom: 0;
 		right: 0;
 		height: auto;
-		padding: 15px;
+	}
+	.xslt .CodeMirror-scroll {
+		left: 1px;
 	}
 	.error,
 	.errors {
