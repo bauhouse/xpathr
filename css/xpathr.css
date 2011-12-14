@@ -185,7 +185,6 @@ body {
 #control {
 	box-shadow: 0 1px 3px #999;
 	height: 56px;
-	min-width: 100%;
 }
 
 .control {
