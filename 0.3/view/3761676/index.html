@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <meta charset="UTF-8" />
+    <title>xpathr - Collaborative XSLT Development</title>
+    <link rel="stylesheet" href="../../workspace/assets/ui/codemirror/lib/codemirror.css" />
+    <link rel="stylesheet" href="../../workspace/assets/ui/codemirror/theme/default.css" />
+    <link rel="stylesheet" href="../../workspace/assets/ui/css/xpathr.css" type="text/css" />
+    <script src="../../workspace/assets/ui/codemirror/lib/codemirror.js"></script>
+    <script src="../../workspace/assets/ui/codemirror/mode/xml/xml.js"></script>
+  </head>
+  <body class="source">
+    <div id="header">
+      <h1>
+        <a href="../../index.html">xpathr</a>
+      </h1>
+      <div class="help">
+        <ul class="nav">
+          <li>
+            <a href="../../authenticate/index.html">Login via GitHub</a>
+          </li>
+          <li id="btn-about">
+            <a href="#help">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <form id="main" method="post" action="">
+      <div id="control">
+        <div class="control">
+          <div class="buttons">
+            <a class="tab button group left" accesskey="1" href="#xml" id="btn-xml">XML</a>
+            <a class="tab button group gap right" accesskey="2" href="#xslt" id="btn-xslt">XSLT</a>
+            <a class="tab button btn-result left right" accesskey="3" href="../../process/3761676/3249f2d6a1ac70c315f6fea19f263bb9b9f63fa0/index.html" id="btn-result">Result</a>
+          </div>
+          <div class="actions">
+            <span class="authenticate"><a href="../../authenticate/index.html">Login</a> to fork</span>
+          </div>
+        </div>
+      </div>
+      <div id="bin" class="stretch">
+        <div id="source" class="binview stretch">
+          <div class="code stretch xml">
+            <div class="label">
+              <p>
+                <strong>XML</strong>
+                <span>
+                  <a href="https://gist.github.com/3761676">gist: 3761676</a>
+                  <a href="https://gist.github.com/3761676#file_master.xml">master.xml</a>
+                </span>
+              </p>
+            </div>
+            <textarea id="xml" name="files[master.xml]" cols="50" rows="20">&lt;data&gt;
+  &lt;hello&gt;paste your xml here&lt;/hello&gt;
+&lt;/data&gt;</textarea>
+          </div>
+          <div class="code stretch xslt">
+            <div class="label">
+              <p>
+                <strong>XSLT</strong>
+                <span>
+                  <a href="https://gist.github.com/3761676">gist: 3761676</a>
+                  <a href="https://gist.github.com/3761676#file_master.xsl">master.xsl</a>
+                </span>
+              </p>
+            </div>
+            <textarea id="xslt" name="files[master.xsl]" cols="50" rows="20">&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"&gt;
+
+  &lt;xsl:output method="xml" indent="yes" /&gt;
+
+  &lt;xsl:template match="/"&gt;
+    &lt;hi&gt;
+      &lt;xsl:value-of select="data/hello" /&gt;
+    &lt;/hi&gt;
+  &lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;</textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div id="help">
+      <div id="content">
+        <div id="meta">
+          <div id="user">
+            <a href="https://gist.github.com/">
+              <img src="https://a248.e.akamai.net/assets.github.com/images/gravatars/gravatar-140.png" />
+              <span class="username">Anonymous</span>
+            </a>
+          </div>
+          <div id="revisions">
+            <h4>Revisions</h4>
+            <ul class="menu">
+              <li class="current">
+                <a href="3249f2d6a1ac70c315f6fea19f263bb9b9f63fa0/index.html">3249f2</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <h1>xpathr</h1>
+        <p>xpathr is an open source collaborative XSLT debugging tool developed with <a href="http://getsymphony.com/">Symphony CMS</a> and the <a href="http://developer.github.com/v3/gists/">GitHub API</a> for sharing code snippets as <a href="https://gist.github.com/">gists</a>.</p>
+        <p>If you want to get involved to help make xpathr better (or perhaps fix a bug you've found), please <a href="http://github.com/alpacaaa/xpathr">fork xpathr on GitHub</a> and send a pull request.</p>
+        <h2>Created by</h2>
+        <ul>
+          <li>
+            <a href="http://getsymphony.com/get-involved/member/alpacaaa/">Marco Sampellegrini</a>
+          </li>
+          <li>
+            <a href="http://getsymphony.com/get-involved/member/bauhouse/">Stephen Bau</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+		var xml_editor = CodeMirror.fromTextArea(document.getElementById("xml"), {lineNumbers: true});
+		var xslt_editor = CodeMirror.fromTextArea(document.getElementById("xslt"), {lineNumbers: true});
+	</script>
+    <script src="../../workspace/assets/ui/js/jquery.min.js"></script>
+    <script src="../../workspace/assets/ui/js/xpathr.js"></script>
+  </body>
+</html>
+
+<!-- Localized -->
