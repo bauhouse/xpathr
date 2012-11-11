@@ -22,11 +22,11 @@
         <a href="./edit#actionmenu" target="_blank" class="button button-dropdown group">File</a>
         <div class="dropdown" id="actionmenu">
           <div class="dropdownmenu">
-            <a id="new" class="button group" title="Create a new set of templates" href=".">New</a>
-            <a id="process" class="button group" title="Process the templates" href=".">Process</a>
-            <a id="view" class="button group" title="Preview the rendered templates" href=".">View</a>
-            <a id="save" class="button group" title="Save the template changes" href=".">Save</a>
-            <a id="save-as" class="button group" title="Save as a new set of templates" href=".">Save As...</a>
+            <a id="new" title="Create a new set of templates" href="#new">New</a>
+            <a id="process" title="Process the templates" href="#process">Process</a>
+            <a id="view" title="Preview the rendered templates" href="#view">View</a>
+            <a id="save-files" title="Save the template changes" href="#save-files">Save</a>
+            <a id="save-as" title="Save as a new set of templates" href="#save-as">Save As...</a>
           </div>
         </div>
       </div>
@@ -44,22 +44,19 @@
             </form>
           </div>
         </div>
-      </div><!-- intentional space -->
-      <div id="start-saving" class="menu">
-        <a href="/save" class="save button group">Start saving your work</a>
       </div>
       <div id="panels"></div>
       <div class="help">
         <div class="menu">
-          <a href="#utilitiesmenu" class="button button-dropdown">Templates</a>
+          <a href="#utilitiesmenu" class="button button-dropdown group">Templates</a>
           <div class="dropdown dd-right" id="templatesmenu">
             <div class="dropdownmenu">
-              <a id="view-featured" class="button group" title="View featured templates" href="./save">Featured</a>
-              <a id="view-recent" class="button group"  title="View recently saved templates" href="./save">Recent</a>
-              <a id="view-popular" class="button group" title="View popular templates" href="/clone">Popular</a>
-              <a id="view-categories" class="button group" title="View templates by category" href="./download">Categories</a>
-              <a id="view-tags" class="button group" title="View templates by tags" href=".">Tags</a>
-              <a id="view-search" class="button group" title="Search for templates" href=".">Search</a>
+              <a id="view-featured" class="button" title="View featured templates" href="#featured">Featured</a>
+              <a id="view-recent" class="button"  title="View recently saved templates" href="#recent">Recent</a>
+              <a id="view-popular" class="button" title="View popular templates" href="#popular">Popular</a>
+              <a id="view-categories" class="button" title="View templates by category" href="#categories">Categories</a>
+              <a id="view-tags" class="button" title="View templates by tags" href="#tags">Tags</a>
+              <a id="view-search" class="button" title="Search for templates" href="#search">Search</a>
             </div>
           </div>
         </div>
