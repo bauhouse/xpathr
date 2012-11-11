@@ -3,13 +3,13 @@
 
 var keyboardHelpVisible = false;
 
-var customKeys = objectValue('jsbin.settings.keys') || {};
+var customKeys = objectValue('xpathr.settings.keys') || {};
 
 $('#disablekeys').attr('checked', customKeys.disabled ? true : false).change(function () {
-  if (!jsbin.settings.keys) {
-    jsbin.settings.keys = {};
+  if (!xpathr.settings.keys) {
+    xpathr.settings.keys = {};
   }
-  jsbin.settings.keys.disabled = this.checked;
+  xpathr.settings.keys.disabled = this.checked;
 });
 
 if (!customKeys.disabled) $body.keydown(keycontrol);
@@ -60,25 +60,25 @@ if (!customKeys.disabled) $document.keydown(function (event) {
       $('.clone').click();
       event.preventDefault();
     }
-  } else if (event.which === closekey && event.metaKey && includeAltKey && jsbin.panels.focused) {
-    if (jsbin.panels.focused.visible) jsbin.panels.focused.hide();
-    var visible = jsbin.panels.getVisible();
+  } else if (event.which === closekey && event.metaKey && includeAltKey && xpathr.panels.focused) {
+    if (xpathr.panels.focused.visible) xpathr.panels.focused.hide();
+    var visible = xpathr.panels.getVisible();
     if (visible.length) {
-      jsbin.panels.focused = visible[0];
-      if (jsbin.panels.focused.editor) {
-        jsbin.panels.focused.editor.focus();
+      xpathr.panels.focused = visible[0];
+      if (xpathr.panels.focused.editor) {
+        xpathr.panels.focused.editor.focus();
       } else {
-        jsbin.panels.focused.$el.focus();
+        xpathr.panels.focused.$el.focus();
       }
-      jsbin.panels.focused.focus();
+      xpathr.panels.focused.focus();
     } else if ($history.length && !$body.hasClass('panelsVisible')) {
       $body.toggleClass('dave', $history.is(':visible'));
       $history.toggle(100);
     }
   } else if (event.which === 220 && (event.metaKey || event.ctrlKey)) {
-    jsbin.settings.hideheader = !jsbin.settings.hideheader;
-    $body[jsbin.settings.hideheader ? 'addClass' : 'removeClass']('hideheader');
-  } else if (event.which === 76 && event.ctrlKey && jsbin.panels.panels.console.visible) {
+    xpathr.settings.hideheader = !xpathr.settings.hideheader;
+    $body[xpathr.settings.hideheader ? 'addClass' : 'removeClass']('hideheader');
+  } else if (event.which === 76 && event.ctrlKey && xpathr.panels.panels.console.visible) {
     if (event.shiftKey) {
       // reset
       jsconsole.reset();
@@ -94,16 +94,16 @@ function keycontrol(event) {
 
   var panel = {};
 
-  if (jsbin.panels.focused && jsbin.panels.focused.editor) {
-    panel = jsbin.panels.focused.editor;
-  } else if (jsbin.panels.focused) {
-    panel = jsbin.panels.focused;
+  if (xpathr.panels.focused && xpathr.panels.focused.editor) {
+    panel = xpathr.panels.focused.editor;
+  } else if (xpathr.panels.focused) {
+    panel = xpathr.panels.focused;
   }
 
   var codePanel = { css: 1, javascript: 1, html: 1}[panel.id],
       hasRun = false;
 
-  var includeAltKey = event.altKey; //objectValue('jsbin.settings.keys.usealt') ? event.altKey : true;
+  var includeAltKey = event.altKey; //objectValue('xpathr.settings.keys.usealt') ? event.altKey : true;
 
   // these should fire when the key goes down
   if (event.type == 'keydown') {
@@ -132,7 +132,7 @@ function keycontrol(event) {
 
     // shortcut for showing a panel
     if (panelShortcuts[event.which] !== undefined && event.metaKey && includeAltKey) {
-      jsbin.panels.show(panelShortcuts[event.which]);
+      xpathr.panels.show(panelShortcuts[event.which]);
       event.stop();
     }
 
@@ -148,9 +148,9 @@ function keycontrol(event) {
       $body.removeClass('keyboardHelp');
       keyboardHelpVisible = false;
       event.stop();
-    } else if (event.which == 27 && jsbin.panels.focused && codePanel) {
+    } else if (event.which == 27 && xpathr.panels.focused && codePanel) {
       // event.stop();
-      // return CodeMirror.commands.autocomplete(jsbin.panels.focused.editor);
+      // return CodeMirror.commands.autocomplete(xpathr.panels.focused.editor);
     } else if (event.which == 190 && includeAltKey && event.metaKey && panel.id == 'html') {
       // auto close the element
       if (panel.somethingSelected()) return;
