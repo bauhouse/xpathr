@@ -59,3 +59,15 @@ var $body = $('body'),
     };
 
 $(window).unload(unload);
+
+if (!xpathr.settings.editor) {
+  xpathr.settings.editor = {};
+}
+
+if (xpathr.settings.codemirror) {
+  $.extend(xpathr.settings.editor, xpathr.settings.codemirror);
+}
+
+if (xpathr.settings.editor.theme) {
+  $(document.documentElement).addClass('cm-s-' + xpathr.settings.editor.theme);
+}
