@@ -54,7 +54,7 @@ panels.restore = function () {
       hasContent = {
         javascript: editors.javascript.getCode().length,
         css: editors.css.getCode().length,
-        html: editors.html.getCode().length
+        xml: editors.xml.getCode().length
       },
       name = '',
       i = 0,
@@ -72,7 +72,7 @@ panels.restore = function () {
 
   if (toopen.length === 0 && state === null) {
     if (hasContent.javascript) toopen.push('javascript');
-    if (hasContent.html) toopen.push('html');
+    if (hasContent.xml) toopen.push('xml');
     if (hasContent.css) toopen.push('css');
     toopen.push('live');
   }
@@ -125,7 +125,7 @@ panels.restore = function () {
         init.push(panel);
       } else if (name && panelURLValue) { // TODO support any varible insertion
         (function (name, panelURLValue) {
-          var todo = ['html', 'javascript', 'css'];
+          var todo = ['xml', 'javascript', 'css'];
 
           var deferredInsert = function (event, data) {
             var code, parts, panel = panels.panels[data.panelId] || {};
@@ -291,8 +291,8 @@ var ignoreDuringLive = /^\s*(while|do|for)[\s*|$]/;
 
 
 var panelInit = {
-  html: function () {
-    return new Panel('html', { editor: true, label: 'XML' });
+  xml: function () {
+    return new Panel('xml', { editor: true, label: 'XML' });
   },
   css: function () {
     return new Panel('css', { editor: true, label: 'XSLT' });
@@ -327,7 +327,7 @@ var panelInit = {
 var editors = panels.panels = {};
 
 // show all panels (change the order to control the panel order)
-editors.html = panelInit.html();
+editors.xml = panelInit.xml();
 editors.css = panelInit.css();
 editors.javascript = panelInit.javascript();
 editors.console = panelInit.console();
