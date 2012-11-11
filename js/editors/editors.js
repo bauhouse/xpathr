@@ -292,17 +292,17 @@ var ignoreDuringLive = /^\s*(while|do|for)[\s*|$]/;
 
 var panelInit = {
   html: function () {
-    return new Panel('html', { editor: true, label: 'HTML' });
+    return new Panel('html', { editor: true, label: 'XML' });
   },
   css: function () {
-    return new Panel('css', { editor: true, label: 'CSS' });
+    return new Panel('css', { editor: true, label: 'XSLT' });
   },
   javascript: function () {
-    return new Panel('javascript', { editor: true, label: 'JavaScript' });
+    return new Panel('javascript', { editor: true, label: 'CSS' });
   },
   console: function () {
     // hide and show callbacks registered in console.js
-    return new Panel('console', { label: 'Console' });
+    return new Panel('console', { label: 'JavaScript' });
   },
   live: function () {
     function show() {
