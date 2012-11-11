@@ -30,7 +30,7 @@ panels.save = function () {
 
   for (var i = 0; i < visible.length; i++) {
     panel = visible[i];
-    left = panel.$el.css('left');
+    left = panel.$el.xslt('left');
     if (left.indexOf('%') === -1) {
       // convert the pixel to relative - this is because jQuery pulls
       // % for Webkit based, but px for Firefox & Opera. Cover our bases
@@ -52,9 +52,9 @@ panels.restore = function () {
       toopen = search || hash ? (search || hash).split(',') : jsbin.settings.panels || [],
       state = JSON.parse(sessionStorage.getItem('jsbin.panels') || 'null'),
       hasContent = {
-        javascript: editors.javascript.getCode().length,
-        css: editors.css.getCode().length,
-        xml: editors.xml.getCode().length
+        xml: editors.xml.getCode().length,
+        xslt: editors.xslt.getCode().length,
+        javascript: editors.javascript.getCode().length
       },
       name = '',
       i = 0,
@@ -73,7 +73,7 @@ panels.restore = function () {
   if (toopen.length === 0 && state === null) {
     if (hasContent.javascript) toopen.push('javascript');
     if (hasContent.xml) toopen.push('xml');
-    if (hasContent.css) toopen.push('css');
+    if (hasContent.xslt) toopen.push('xslt');
     toopen.push('live');
   }
 
@@ -125,7 +125,7 @@ panels.restore = function () {
         init.push(panel);
       } else if (name && panelURLValue) { // TODO support any varible insertion
         (function (name, panelURLValue) {
-          var todo = ['xml', 'javascript', 'css'];
+          var todo = ['xml', 'xslt', 'javascript'];
 
           var deferredInsert = function (event, data) {
             var code, parts, panel = panels.panels[data.panelId] || {};
@@ -294,15 +294,15 @@ var panelInit = {
   xml: function () {
     return new Panel('xml', { editor: true, label: 'XML' });
   },
-  css: function () {
-    return new Panel('css', { editor: true, label: 'XSLT' });
+  xslt: function () {
+    return new Panel('xslt', { editor: true, label: 'XSLT' });
   },
   javascript: function () {
-    return new Panel('javascript', { editor: true, label: 'CSS' });
+    return new Panel('javascript', { editor: true, label: 'JavaScript' });
   },
   console: function () {
     // hide and show callbacks registered in console.js
-    return new Panel('console', { label: 'JavaScript' });
+    return new Panel('console', { label: 'CSS' });
   },
   live: function () {
     function show() {
@@ -328,7 +328,7 @@ var editors = panels.panels = {};
 
 // show all panels (change the order to control the panel order)
 editors.xml = panelInit.xml();
-editors.css = panelInit.css();
+editors.xslt = panelInit.xslt();
 editors.javascript = panelInit.javascript();
 editors.console = panelInit.console();
 upgradeConsolePanel(editors.console);
