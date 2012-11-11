@@ -39,18 +39,18 @@ panels.save = function () {
     state[panel.name] = left;
   }
 
-  sessionStorage.setItem('jsbin.panels', JSON.stringify(state));
+  sessionStorage.setItem('xpathr.panels', JSON.stringify(state));
 }
 
 panels.restore = function () {
-  // if there are panel names on the hash (v2 of jsbin) or in the jquery (v3)
+  // if there are panel names on the hash (v2 of xpathr) or in the jquery (v3)
   // then restore those specific panels and evenly distribute them.
   var open = [],
       location = window.location,
       search = location.search.substring(1),
       hash = location.hash.substring(1),
-      toopen = search || hash ? (search || hash).split(',') : jsbin.settings.panels || [],
-      state = JSON.parse(sessionStorage.getItem('jsbin.panels') || 'null'),
+      toopen = search || hash ? (search || hash).split(',') : xpathr.settings.panels || [],
+      state = JSON.parse(sessionStorage.getItem('xpathr.panels') || 'null'),
       hasContent = {
         xml: editors.xml.getCode().length,
         xslt: editors.xslt.getCode().length,
@@ -66,8 +66,8 @@ panels.restore = function () {
       deferredCodeInsert = '',
       focused = !!sessionStorage.getItem('panel');
 
-  if (history.replaceState && (location.pathname.indexOf('/edit') !== -1) || ((location.origin + location.pathname) === jsbin.getURL() + '/')) {
-    history.replaceState(null, '', jsbin.getURL() + (jsbin.getURL() === jsbin.root ? '' : '/edit'));
+  if (history.replaceState && (location.pathname.indexOf('/edit') !== -1) || ((location.origin + location.pathname) === xpathr.getURL() + '/')) {
+    history.replaceState(null, '', xpathr.getURL() + (xpathr.getURL() === xpathr.root ? '' : '/edit'));
   }
 
   if (toopen.length === 0 && state === null) {
@@ -79,7 +79,7 @@ panels.restore = function () {
 
   // otherwise restore the user's regular settings
   // also set a flag indicating whether or not we should save the panel settings
-  // this is based on whether they're on jsbin.com or if they're on an existing
+  // this is based on whether they're on xpathr.com or if they're on an existing
   // bin. Also, if they hit save - *always* save their layout.
   if (location.pathname && location.pathname !== '/') {
     panels.saveOnExit = false;
@@ -156,7 +156,7 @@ panels.restore = function () {
       }
     }
 
-    // support the old jsbin v1 links directly to the preview
+    // support the old xpathr v1 links directly to the preview
     if (toopen.length === 1 && toopen[0] === 'preview') {
       panels.panels.live.show();
     }
@@ -174,7 +174,7 @@ panels.restore = function () {
   // for (name in this.panels) {
   //   panel = this.panels[name];
   //   if (panel.editor) {
-  //     // panel.setCode(sessionStorage.getItem('jsbin.content.' + name) || template[name]);
+  //     // panel.setCode(sessionStorage.getItem('xpathr.content.' + name) || template[name]);
   //   }
   // }
 
@@ -197,7 +197,7 @@ panels.savecontent = function () {
   var name, panel;
   for (name in this.panels) {
     panel = this.panels[name];
-    if (panel.editor) sessionStorage.setItem('jsbin.content.' + name, panel.getCode());
+    if (panel.editor) sessionStorage.setItem('xpathr.content.' + name, panel.getCode());
   }
 };
 
@@ -244,7 +244,7 @@ panels.distribute = function () {
         height = 100 / nestedPanels.length;
         nestedPanels.each(function (i) {
           bottom = 100 - (height * (i+1));
-          var panel = jsbin.panels.panels[$.data(this, 'name')];
+          var panel = xpathr.panels.panels[$.data(this, 'name')];
           // $(this).css({ top: top + '%', bottom: bottom + '%' });
           $(this).css('top', top + '%');
           $(this).css('bottom', bottom + '%' );
@@ -285,7 +285,7 @@ Panel.prototype.distribute = function () {
   panels.distribute();
 };
 
-jsbin.panels = panels;
+xpathr.panels = panels;
 
 var ignoreDuringLive = /^\s*(while|do|for)[\s*|$]/;
 
@@ -455,6 +455,6 @@ var editorsReady = setInterval(function () {
     });
 
     $document.trigger('sizeeditors');
-    $document.trigger('jsbinReady');
+    $document.trigger('xpathrReady');
   }
 }, 100);
