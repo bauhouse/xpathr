@@ -26,3 +26,36 @@ xpathr.getURL = function () {
   }
   return url;
 };
+
+var $body = $('body'),
+    $document = $(document),
+    debug = xpathr.settings.debug === undefined ? false : xpathr.settings.debug,
+    documentTitle = 'xpathr',
+    $bin = $('#bin'),
+    loadGist,
+    $document = $(document),
+    // splitterSettings = JSON.parse(localStorage.getItem('splitterSettings') || '[ { "x" : null }, { "x" : null } ]'),
+    unload = function () {
+      // sessionStorage.setItem('javascript', editors.javascript.getCode());
+      if (xpathr.panels.focused.editor) {
+        try { // this causes errors in IE9 - so we'll use a try/catch to get through it
+          sessionStorage.setItem('line', xpathr.panels.focused.editor.getCursor().line);
+          sessionStorage.setItem('character', xpathr.panels.focused.editor.getCursor().ch);
+        } catch (e) {
+          sessionStorage.setItem('line', 0);
+          sessionStorage.setItem('character', 0);
+        }
+      }
+      
+      sessionStorage.setItem('url', xpathr.getURL());
+      localStorage.setItem('settings', JSON.stringify(xpathr.settings));
+
+      // if (xpathr.panels.saveOnExit) ;
+      xpathr.panels.save();
+      xpathr.panels.savecontent();
+
+      var panel = xpathr.panels.focused;
+      if (panel) sessionStorage.setItem('panel', panel.id);
+    };
+
+$(window).unload(unload);
