@@ -13,9 +13,9 @@ var editorModes = {
 
 var badChars = new RegExp('\u200B', 'g');
 
-if (jsbin.settings.editor.tabMode === 'default') {
+if (xpathr.settings.editor.tabMode === 'default') {
   CodeMirror.keyMap.basic.Tab = undefined;
-} else if (jsbin.settings.editor.tabMode !== 'classic') {
+} else if (xpathr.settings.editor.tabMode !== 'classic') {
   CodeMirror.keyMap.basic.Tab = 'indentMore';
 }
 
@@ -71,12 +71,12 @@ var Panel = function (name, settings) {
     });    
   }
 
-  if (jsbin.state.processors && jsbin.state.processors[name]) {
-    panelLanguage = jsbin.state.processors[name];
-    jsbin.processors.set(panel, jsbin.state.processors[name]);
+  if (xpathr.state.processors && xpathr.state.processors[name]) {
+    panelLanguage = xpathr.state.processors[name];
+    xpathr.processors.set(panel, xpathr.state.processors[name]);
   } else if (settings.processor) { // FIXME is this even used?
     panelLanguage = settings.processors[settings.processor];
-    jsbin.processors.set(panel, settings.processor);
+    xpathr.processors.set(panel, settings.processor);
   } else {
     panel.processor = function (str) { return str; };
   }
@@ -84,7 +84,7 @@ var Panel = function (name, settings) {
   if (settings.editor) {
     cmSettings = {
       parserfile: [],
-      readOnly: jsbin.state.embed ? 'nocursor' : false,
+      readOnly: xpathr.state.embed ? 'nocursor' : false,
       dragDrop: false, // we handle it ourselves
       mode: editorModes[panelLanguage],
       onChange: function (event) { 
@@ -92,10 +92,10 @@ var Panel = function (name, settings) {
         return true; 
       },
       lineWrapping: true,
-      theme: jsbin.settings.theme || 'jsbin',
+      theme: xpathr.settings.theme || 'xpathr',
     };
 
-    $.extend(cmSettings, jsbin.settings.editor || {});
+    $.extend(cmSettings, xpathr.settings.editor || {});
 
     if (name === 'javascript' || name === 'html') {
       cmSettings.extraKeys = { 'Esc': 'autocomplete' };
@@ -122,7 +122,7 @@ var Panel = function (name, settings) {
   }
 
   // append panel to controls
-  if (jsbin.state.embed) {
+  if (xpathr.state.embed) {
     // showPanelButton = window.location.search.indexOf(panel.id) !== -1;
   }
 
@@ -196,7 +196,7 @@ Panel.prototype = {
 
           populateEditor(panel, panel.name);
         }
-        if (!panel.virgin || jsbin.panels.ready) {
+        if (!panel.virgin || xpathr.panels.ready) {
           panel.editor.focus();
           panel.focus();
         }
@@ -256,15 +256,15 @@ Panel.prototype = {
 
     // this.controlButton.show();
     // setTimeout(function () {
-    var visible = jsbin.panels.getVisible();
+    var visible = xpathr.panels.getVisible();
     if (visible.length) {
-      jsbin.panels.focused = visible[0];
-      if (jsbin.panels.focused.editor) {
-        jsbin.panels.focused.editor.focus();
+      xpathr.panels.focused = visible[0];
+      if (xpathr.panels.focused.editor) {
+        xpathr.panels.focused.editor.focus();
       } else {
-        jsbin.panels.focused.$el.focus();
+        xpathr.panels.focused.$el.focus();
       }
-      jsbin.panels.focused.focus();
+      xpathr.panels.focused.focus();
     }
 
     $document.trigger('sizeeditors');
@@ -294,7 +294,7 @@ Panel.prototype = {
   },
   focus: function () {
     this.$panel.removeClass('blur');
-    jsbin.panels.focus(this);
+    xpathr.panels.focus(this);
   },
   render: function () {
     var panel = this,
@@ -302,7 +302,7 @@ Panel.prototype = {
     if (panel.editor) {
       return panel.processor(panel.getCode());
     } else if (this.visible && this.settings.render) {
-      if (jsbin.panels.ready) {
+      if (xpathr.panels.ready) {
         this.settings.render.apply(this, arguments);
       }
     }
@@ -340,7 +340,7 @@ Panel.prototype = {
       // panel.$el.trigger('focus');
     // });
 
-    if (jsbin.mobile || jsbin.tablet) {
+    if (xpathr.mobile || xpathr.tablet) {
       editor._focus = editor.focus;
       editor.focus = function () {
         // console.log('ignoring manual call');
@@ -407,7 +407,7 @@ Panel.prototype = {
         // another fracking timeout to avoid conflict with other panels firing up
         setTimeout(function () {
           panel.focus();
-          if (panel.visible && !jsbin.mobile && !jsbin.tablet) {
+          if (panel.visible && !xpathr.mobile && !xpathr.tablet) {
             editor.focus();
 
             var code = editor.getCode().split('\n'),
@@ -450,14 +450,14 @@ Panel.prototype = {
 function populateEditor(editor, panel) {
   if (!editor.codeSet) {
     // populate - should eventually use: session, saved data, local storage
-    var cached = sessionStorage.getItem('jsbin.content.' + panel), // session code
+    var cached = sessionStorage.getItem('xpathr.content.' + panel), // session code
         saved = localStorage.getItem('saved-' + panel), // user template
         sessionURL = sessionStorage.getItem('url'),
         changed = false;
 
     // if we clone the bin, there will be a checksum on the state object
     // which means we happily have write access to the bin
-    if (sessionURL !== template.url && !jsbin.state.checksum) {
+    if (sessionURL !== template.url && !xpathr.state.checksum) {
       // nuke the live saving checksum
       sessionStorage.removeItem('checksum');
       saveChecksum = false;
