@@ -19,7 +19,7 @@
         <a href="./" class="brand button group"><h1>xpathr</h1></a>
       </div>
       <div id="actionsmenu" class="menu">
-        <a href="./edit#actionmenu" target="_blank" class="button button-dropdown group">File</a>
+        <a href="#actionmenu" target="_blank" class="button button-dropdown group">File</a>
         <div class="dropdown" id="actionmenu">
           <div class="dropdownmenu">
             <a id="new" title="Create a new set of templates" href="#new">New</a>
@@ -30,22 +30,51 @@
           </div>
         </div>
       </div>
-      <div id="sharemenu" class="menu hidden">
-        <a href="#share" class="button button-dropdown group">Share</a>
-        <div class="dropdown" id="share">
+      <div id="detailsmenu" class="menu">
+        <a href="#details" class="button button-dropdown group">Details</a>
+        <div class="dropdown" id="details">
+          <div class="dropdowncontent">
+            <form>
+              <div>
+                <strong>Name</strong><br />
+                <input class="link" readonly="readonly" value="Name these templates" type="text" />
+              </div>
+              <div>
+                <strong>Tagline</strong><br />
+                <input class="link" readonly="readonly" value="A short tagline" type="text" />
+              </div>
+              <div>
+                <strong>Description</strong><br />
+                <textarea class="link" readonly="readonly">A longer description field</textarea>
+              </div>
+              <div>
+                <input type="submit" value="Edit Details" />
+                <input type="submit" value="Save" />
+              </div>
+              <div>
+                <strong>Versions</strong><br />
+                <ul>
+                  <li><a href="#">12 November 2012, 8:10 am</a></li>
+                  <li><a href="#">7 September 2012, 1:23 am</a></li>
+                  <li><a href="#">31 July 2012, 7:08 pm</a></li>
+                  <li><a href="#">15 March 2012, 9:35 am</a></li>
+                  <li><a href="#">3 January 2012, 12:17 pm</a></li>
+                </ul>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div><!-- intentional space -->
+      <div id="sharemenu" class="menu">
+        <a href="#sharepanel" class="button button-dropdown group">Share</a>
+        <div class="dropdown" id="sharepanel">
           <div class="dropdowncontent">
             <form>
               <div data-path="/">
-                <strong><a target="_blank" href=".">Live &amp; Full Preview</a></strong><br><input class="link" readonly value="./" type="text">
-              </div>
-              <div class="disabled" data-path="/watch">
-                <strong><a target="_blank" href="./watch">Codecast</a></strong><br><input class="link" readonly value="./watch" type="text">
+                <strong><a target="_blank" href="#preview">Full Preview</a></strong><br><input class="link" readonly value="http://xpathr.com/view/#hashvalue" type="text">
               </div>
               <div data-path="/edit">
-                <strong><a target="_blank" href="./edit">Code View</a></strong><br><input class="link" readonly value="./edit" type="text">
-              </div>
-              <div data-path="/embed">
-                <strong>Embed</strong><br><textarea class="link" readonly>&lt;a class=&quot;jsbin-embed&quot; href=&quot;./embed?live&quot;&gt;JS Bin demo&lt;/a&gt;&lt;script src=&quot;./js/embed.js&quot;&gt;&lt;/script&gt;</textarea>
+                <strong><a target="_blank" href="#code">Code View</a></strong><br><input class="link" readonly value="http://xpathr.com/#hashvalue" type="text">
               </div>
             </form>
           </div>
@@ -137,7 +166,7 @@
     </div>
     <div class="stretch console panel">
       <div class="label menu">
-        <span class="name"><strong><a  class="fake-dropdown button-dropdown" href="#cssprocessors">CSS</a></strong></span>
+        <span class="name"><strong><a class="fake-dropdown button-dropdown" href="#cssprocessors">CSS</a></strong></span>
         <div class="dropdown" id="cssprocessors">
           <div class="dropdownmenu processorSelector" data-type="css">
             <a href="#reset">reset.css</a>
