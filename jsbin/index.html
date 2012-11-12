@@ -16,23 +16,21 @@
   <div class="control">
     <div class="buttons">
       <div class="menu">
-        <a href="./edit#actionmenu" target="_blank" class="brand button button-dropdown group"><h1>xpathr</h1></a>
+        <a href="./" class="brand button group"><h1>xpathr</h1></a>
+      </div>
+      <div id="actionsmenu" class="menu">
+        <a href="./edit#actionmenu" target="_blank" class="button button-dropdown group">File</a>
         <div class="dropdown" id="actionmenu">
           <div class="dropdownmenu">
-            <a id="addmeta" title="Add meta data to bin" class="button group" href="#">Add description</a>
-            <a title="Create milestone" class="button save group" href="./save">Create milestone</a>
-            <a id="startingpoint" title="Set as starting code" class="button group" href="./save">Save as template</a>
-            <a id="clone" title="Create a new copy" class="button clone group disabled" href="/clone">Clone</a>
-            <a id="download" title="Save to local drive" class="button download group disabled" href="./download">Download</a>
-            <a id="createnew" class="button group" title="Create fresh bin" href=".">New</a>
+            <a id="new" title="Create a new set of templates" href="#new">New</a>
+            <a id="process" title="Process the templates" href="#process">Process</a>
+            <a id="view" title="Preview the rendered templates" href="#view">View</a>
+            <a id="save-files" title="Save the template changes" href="#save-files">Save</a>
+            <a id="save-as" title="Save as a new set of templates" href="#save-as">Save As...</a>
           </div>
         </div>
-      </div><!--
-   --><div class="menu">
-        <span class="button group">Add library
-        <select id="library"></select>
-        </span>
-      </div><div id="sharemenu" class="menu hidden">
+      </div>
+      <div id="sharemenu" class="menu hidden">
         <a href="#share" class="button button-dropdown group">Share</a>
         <div class="dropdown" id="share">
           <div class="dropdowncontent">
@@ -59,60 +57,15 @@
       <div id="panels"></div>
       <div class="help">
         <div class="menu">
-          <a href="#login" class="button button-open" id="loginbtn">Log in</a>
-          <div class="dropdown dd-right" id="login">
-            <div class="dropdowncontent">
-              <form class="forgot" action="/forgot" method="post">
-                <div>
-                  <label>Email<br>
-                  <input name="email" required type="email"></label>
-                </div>
-                <div>
-                  <input type=submit value="Request password reset">
-                  <input type="hidden" name="_csrf" value="OXZiHN7dYqvuS9EpQIpr3sPE">
-                  <input type="hidden" name="_redirect" value="home">
-                </div>
-              </form>
-              <form class="login">
-                <p class="loginFeedback"></p>
-                <div>
-                  <label>Username<br>
-                  <input name="username" type="text"></label>
-                </div>
-                <div>
-                  <label>Password<br>
-                  <input name="password" type="password"></label>
-                </div>
-                <div>
-                  <input type=submit value="Log in">
-                  <a id="lostpass" href="./forgot">Reset password</a>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="menu">
-          <a href="#register" class="button button-open" id="regbtn">Register</a>
-          <div class="dropdown dd-right" id="register">
-            <div class="dropdowncontent">
-              <p>Registration allows you to retrieve your saved files.</p>
-              <form class="login">
-                <p class="loginFeedback"></p>
-                <div>
-                  <label>Username<br><input required name="username" type="text"></label>
-                </div>
-                <div>
-                  <label>Email<br>
-                  <input name="email" required type="email"></label>
-                </div>
-                <div>
-                  <label>Password<br>
-                  <input required name="password" type="password"></label>
-                </div>
-                <div>
-                  <input type=submit value="Register">
-                </div>
-              </form>
+          <a href="#utilitiesmenu" class="button button-dropdown group">Templates</a>
+          <div class="dropdown dd-right" id="templatesmenu">
+            <div class="dropdownmenu">
+              <a id="view-featured" class="button" title="View featured templates" href="#featured">Featured</a>
+              <a id="view-recent" class="button"  title="View recently saved templates" href="#recent">Recent</a>
+              <a id="view-popular" class="button" title="View popular templates" href="#popular">Popular</a>
+              <a id="view-categories" class="button" title="View templates by category" href="#categories">Categories</a>
+              <a id="view-tags" class="button" title="View templates by tags" href="#tags">Tags</a>
+              <a id="view-search" class="button" title="Search for templates" href="#search">Search</a>
             </div>
           </div>
         </div>
@@ -121,14 +74,12 @@
           <div class="dropdown dd-right" id="helpmenu">
             <div class="dropdownmenu">
               <a id="showhelp" href="#keyboardHelp">Keyboard Shortcuts</a>
-              <a id="showurls" href="#urls">JS Bin URLs</a>
-              <a target="_blank" href="http://jsbin.tumblr.com">Tutorials</a>
-              <a target="_blank" href="http://jsbin.tumblr.com/faq">FAQ</a>
-              <a target="_blank" href="http://github.com/remy/jsbin/issues/new">Send feedback &amp; file bugs</a>
-              <a target="_blank" href="http://github.com/remy/jsbin/">Fork on Github</a>
-              <a target="_blank" href="http://jsbin.tumblr.com/about">About</a>
+              <a id="about" href="#about">About xpathr</a>
             </div>
           </div>
+        </div>
+        <div class="menu">
+          <a href="#github" class="button" title="Log in with your GitHub account">Log in</a>
         </div>
       </div>
     </div>
@@ -359,7 +310,6 @@ Include alerts, prompts &amp; confirm boxes">Process XSLT</button>
 <script src="./js/editors/libraries.js"></script>
 <script src="./js/editors/library.js"></script>
 <script src="./js/editors/autocomplete.js"></script>
-<script src="./js/render/saved-history-preview.js"></script>
 <!-- <script src="./js/render/saved-history-preview.js"></script> -->
 <script src="./js/chrome/esc.js"></script>
 <script src="./js/chrome/download.js"></script>
