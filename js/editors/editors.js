@@ -300,27 +300,11 @@ var panelInit = {
   javascript: function () {
     return new Panel('javascript', { editor: true, label: 'JavaScript' });
   },
-  console: function () {
-    // hide and show callbacks registered in console.js
-    return new Panel('console', { label: 'CSS' });
+  css: function () {
+    return new Panel('css', { editor: true, label: 'CSS' });
   },
-  live: function () {
-    function show() {
-      // var panel = this;
-      if (panels.ready) {
-        renderLivePreview();
-      }
-    }
-
-    function hide() {
-      // detroy the iframe if we hide the panel
-      // note: $live is defined in live.js
-      if (panels.panels.console.visible === false) {
-        $live.find('iframe').remove();
-      }
-    }
-
-    return new Panel('live', { label: 'Output', show: show, hide: hide });
+  output: function () {
+    return new Panel('output', { editor: true, label: 'Output' });
   }
 };
 
@@ -330,6 +314,9 @@ var editors = panels.panels = {};
 editors.xml = panelInit.xml();
 editors.xslt = panelInit.xslt();
 editors.javascript = panelInit.javascript();
+editors.css = panelInit.css();
+editors.output = panelInit.output();
+
 /*
 editors.console = panelInit.console();
 upgradeConsolePanel(editors.console);

@@ -2,6 +2,8 @@ var $document = $(document),
     $source = $('#source');
 
 var editorModes = {
+  xml: 'xml',
+  xslt: 'xml',
   html: 'htmlmixed',
   javascript: 'javascript',
   css: 'css',
