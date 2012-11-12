@@ -1,3 +1,5 @@
+var template = {"xml":"<data>\n  <hello>paste your xml here</hello>\n</data>\n","url":"."};
+
 var xpathr = {
   "root":".",
   "static":".",
