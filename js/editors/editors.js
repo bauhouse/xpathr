@@ -330,6 +330,7 @@ var editors = panels.panels = {};
 editors.xml = panelInit.xml();
 editors.xslt = panelInit.xslt();
 editors.javascript = panelInit.javascript();
+/*
 editors.console = panelInit.console();
 upgradeConsolePanel(editors.console);
 editors.live = panelInit.live();
@@ -340,6 +341,7 @@ editors.live.settings.render = function (showAlerts) {
     renderLivePreview(showAlerts);
   }
 };
+*/
 
 // IMPORTANT this is nasty, but the sequence is important, because the
 // show/hide method is being called as the panels are being called as
@@ -440,12 +442,14 @@ var editorsReady = setInterval(function () {
     // if (typeof editors.onReady == 'function') editors.onReady();
     // panels.distribute();
 
+/*
     // if live is visible, render it
     if (panels.panels.live.visible) {
       panels.panels.live.render(true);
     } else if (panels.panels.console.visible) {
       renderLivePreview(true);
     }
+*/
 
     $(window).resize(function () {
       clearTimeout(resizeTimer);
