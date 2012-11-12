@@ -94,10 +94,11 @@
         <span class="name"><strong><a href="#htmlprocessors" class="fake-dropdown button-dropdown">XML</a></strong></span>
         <div class="dropdown" id="xmlprocessors">
           <div class="dropdownmenu processorSelector" data-type="xml">
-            <a href="#html">HTML</a>
-            <a href="#markdown">Markdown</a>
-            <a href="#jade">Jade</a>
-            <a href="#convert">Convert to HTML</a>
+            <a href="#data" class="current">data.xml</a>
+            <a href="#navigation">navigation.xml</a>
+            <a href="#document">document.xml</a>
+            <a href="#calendar">calendar.xml</a>
+            <a href="#new-xml">New XML file</a>
           </div>
         </div> 
       </div>
@@ -109,10 +110,10 @@
       <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="#xsltprocessors">XSLT</a></strong></span>
         <div class="dropdown" id="xsltprocessors">
           <div class="dropdownmenu processorSelector" data-type="xslt">
-            <a href="#css">CSS</a>
-            <a href="#less">LESS</a>
-            <a href="#stylus">Stylus</a>
-            <a href="#convert">Convert to CSS</a>
+            <a href="#master" class="current">master.xsl</a>
+            <a href="#navigation">navigation.xsl</a>
+            <a href="#html-manipulation">html-manipulation.xsl</a>
+            <a href="#new-xsl">New XSLT file</a>
           </div>
         </div> 
       </div>
@@ -124,10 +125,9 @@
       <div class="label menu"><span class="name"><strong><a  class="fake-dropdown button-dropdown" href="#javascriptprocessors">JavaScript</a></strong></span>
         <div class="dropdown" id="javascriptprocessors">
           <div class="dropdownmenu processorSelector" data-type="javascript">
-            <a href="#javascript">JavaScript</a>
-            <a href="#coffeescript">CoffeeScript</a>
-            <a href="#traceur">Traceur</a>
-            <a href="#convert">Convert to JavaScript</a>
+            <a href="#scripts">scripts.js</a>
+            <a href="#jquery">jquery.js</a>
+            <a href="#new-js">New JavaScript file</a>
           </div>
         </div> 
       </div>
@@ -136,14 +136,20 @@
       </div>
     </div>
     <div class="stretch console panel">
-      <div class="label">
-        <span class="name"><strong>CSS</strong></span>
-        <span class="options">
-          <button id="runconsole" title="ctrl + enter">Run</button>
-        </span>
+      <div class="label menu">
+        <span class="name"><strong><a  class="fake-dropdown button-dropdown" href="#cssprocessors">CSS</a></strong></span>
+        <div class="dropdown" id="cssprocessors">
+          <div class="dropdownmenu processorSelector" data-type="css">
+            <a href="#reset">reset.css</a>
+            <a href="#screen">screen.css</a>
+            <a href="#media-queries">media-queries.css</a>
+            <a href="#print">print.css</a>
+            <a href="#new-css">New CSS file</a>
+          </div>
+        </div> 
       </div>
       <div id="console" class="stretch"><ul id="output"></ul><form>
-          <textarea autofocus id="exec" spellcheck="false" autocapitalize="off" rows="1" autocorrect="off"></textarea>
+        <textarea autofocus id="exec" spellcheck="false" autocapitalize="off" rows="1" autocorrect="off"></textarea>
       </form></div>
     </div>
     <div id="live" class="stretch live panel">
