@@ -1,7 +1,7 @@
 xpathr
 ======
 
-xpathr - Collaborative XSLT Development
+[xpathr](http://xpathr.com/) - Collaborative XSLT Development
 
 
 ## ui3
@@ -23,8 +23,10 @@ from the latest development, I am starting over.
 
 ## About xpathr
 
-xpathr is an open source collaborative XSLT debugging tool developed with [Symphony CMS](http://getsymphony.com/) and the [GitHub API](http://developer.github.com/v3/gists/) for sharing code snippets as gists.
+[xpathr](http://xpathr.com/) is an open source collaborative XSLT debugging tool developed with [Symphony CMS](http://getsymphony.com/) and the [GitHub API](http://developer.github.com/v3/gists/) for sharing code snippets as gists.
 
 If you want to get involved to help make xpathr better (or perhaps fix a bug you've found), please fork [xpathr on GitHub](http://github.com/alpacaaa/xpathr) and send a pull request.
 
 xpathr was created by [Marco Sampellegrini](http://getsymphony.com/get-involved/member/alpacaaa/) and [Stephen Bau](http://getsymphony.com/get-involved/member/bauhouse/).
+
+Hosting for xpathr has been generously donated by [Domain7](http://domain7.com/).
