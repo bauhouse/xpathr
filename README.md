@@ -30,3 +30,9 @@ If you want to get involved to help make xpathr better (or perhaps fix a bug you
 xpathr was created by [Marco Sampellegrini](http://getsymphony.com/get-involved/member/alpacaaa/) and [Stephen Bau](http://getsymphony.com/get-involved/member/bauhouse/).
 
 Hosting for xpathr has been generously donated by [Domain7](http://domain7.com/).
+
+
+### Documentation
+
+ - [Development Log](https://github.com/bauhouse/xpathr/tree/ui3/docs/log.md)
+
