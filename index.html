@@ -18,20 +18,19 @@
     <div class="buttons">
         <div class="menu">
           <a href="./" class="brand button"><h1>xpathr</h1></a>
-          <a href="./#bins" target="_blank" class="button button-dropdown group button-dropdown-arrow">File</a>
+          <a href="#file" target="_blank" class="button button-dropdown group button-dropdown-arrow">File</a>
           <div class="dropdown" id="bins">
             <div class="dropdownmenu">
-              <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="./" data-label="new">New</a>
+              <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="#new" data-label="new">New</a>
               <hr data-desc="">
               <a id="addmeta" data-desc="Insert a description shown in My Bins" title="Add meta data to bin" class="button group" href="#add-description">Add description</a>
-              <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="./#save">Create milestone</a>
-              <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="./#clone">Clone</a>
+              <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="#save">Create milestone</a>
+              <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="#clone">Clone</a>
               <hr data-desc="">
               <a data-desc="Export individual panels to Github's gist as an anonymous user" id="export-as-gist" title="Create a new anonymous GitHub Gist from this bin" class="button group" href="#export-to-gist">Export as gist</a>
-              <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="./#download" data-label="download">Download</a>
+              <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="#download" data-label="download">Download</a>
               <a data-desc="Use content from this bin when creating new bins" class="startingpoint" title="Set as starting code" class="button group" href="./#save" data-label="save-as-template">Save as template</a>
-              <!-- <a data-desc="Reset to the original JS Bin starting point" id="cleartemplate" title="Reset to the original JS Bin starting template" class="button group" href="#clear-template" data-label="clear-template">Clear template</a> -->
-              <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="http://learn.jsbin.com/help/how-can-i-embed-jsbin">How to embed</a>
+              <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="#learn">How to embed</a>
             </div>
           </div>
         </div>
@@ -40,7 +39,7 @@
           <div class="dropdown" id="share">
             <div class="dropdowncontent">
               <form>
-                <div data-desc="This bin's full output without the JS Bin editor">
+                <div data-desc="This template's full output without the xpathr editor">
                   <strong><a class="link" data-path="/" target="_blank" href="./">Output only (with live reload)</a></strong><br><input data-path="/" class="link" id="livepreview" value="#" type="text">
                 </div>
                 <hr>
@@ -55,7 +54,7 @@
                   </ul>
                 </div>
                 <!-- <div id="removelock"><input type="button" title="Unlocks the revision that you own so that you can continue to write to this specific bin" class="unlocklockrevision" value="Unlock revision #1"> <small>to allow changes.</small></div> -->
-                <div data-desc="The url to this bin with the JS Bin editor">
+                <div data-desc="The url to this bin with the xpathr editor">
                   <a class="link heading" data-path="/edit" target="_blank" href="./edit">Link</a><br><input data-path="/edit" class="link" value="./edit" type="text">
                 </div>
                 <div data-desc="Embed this xpathr with the live output on your site">
@@ -166,7 +165,7 @@
 Include alerts, prompts &amp; confirm boxes">Process</button>
           <!--
           <label>Auto-run JS<input type="checkbox" id="enablejs"></label>
-          <a target="_blank" title="Live preview" id="jsbinurl" class="hidden" href=""><img src="./images/popout.png"></a>
+          <a target="_blank" title="Live preview" id="xpathrurl" class="hidden" href=""><img src="./images/popout.png"></a>
           -->
         </span>
         <span class="size"></span>
@@ -302,14 +301,14 @@ Include alerts, prompts &amp; confirm boxes">Process</button>
           <td>.css</td>
           <td>Load only the CSS for a bin</td>
         </tr>
-        <tr><td colspan="2"><br><small>Except for username prefixed urls, the url may start with http://jsbin.com/abc and the url fragments can be added to the url to view it differently.</small></td></tr>
+        <tr><td colspan="2"><br><small>Except for username prefixed urls, the url may start with http://xpathr.com/abc and the url fragments can be added to the url to view it differently.</small></td></tr>
       </tbody>
     </table>
   </div>
 </div>
 <script>
   var template = {"html":"<data>\n  <hello>paste your xml here</hello>\n</data>\n","url":"."};
-  var xpathr = {"root":"./","runner":"./jsbin/runner","static":"./","version":"3.11.23","state":{"token":"S4W5qfpGqRHp2JhaYjAFEWWg","stream":false,"streaming":false,"code":null,"revision":null,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","live"]}}; tips  = {};
+  var xpathr = {"root":"./","runner":"./","static":"./","version":"3.11.23","state":{"token":"S4W5qfpGqRHp2JhaYjAFEWWg","stream":false,"streaming":false,"code":null,"revision":null,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","live"]}}; tips  = {};
 </script>
     <script src="./js/chrome/hashbang-jump.js"></script>
     <script src="./js/vendor/jquery-1.11.0.js"></script>
