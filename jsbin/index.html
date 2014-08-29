@@ -1,444 +1,430 @@
 <!DOCTYPE html>
-<!-- saved from url=(0036)./welcome/1/edit -->
 <html id="jsbin" lang="en" class="">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>JS Bin - Collaborative JavaScript Debugging</title>
-  <!-- <link rel="icon" href="./images/favicon.png"> -->
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/flat-ui.css">
-  
-  <!--[if lte IE 9 ]><link rel="stylesheet" href="./css/ie.css"><![endif]-->
-  
-  <style type="text/css">#output li, #exec, .fakeInput, #history, .fakeInput:before, #exec:before, .editbox .CodeMirror{ font-size: 14px; }</style>
-  <!-- <link rel="stylesheet" href="./css/font.css" type="text/css"> -->
-</head>
-<!--[if lt IE 7]>  <body class="source ie ie6"> <![endif]-->
-<!--[if IE 7]>     <body class="source ie ie7"> <![endif]-->
-<!--[if gt IE 7]>  <body class="source ie">     <![endif]-->
-<!--[if !IE]><!-->
-<body class="source public panelsVisible ready" data-pinterest-extension-installed="cr1.3.4">
-<!--<![endif]-->
-<div id="control">
-  <div class="control">
-    <div id="menuinfo"><p></p></div>
-    <div class="buttons">
-      
-        <div class="menu">
-          <a href="./welcome/edit#bins" target="_blank" class="brand button button-dropdown group button-dropdown-arrow"><!-- <img src="./images/favicon.png"> --> Bins</a>
-          <div class="dropdown" id="bins">
-            <div class="dropdownmenu">
-              <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="./" data-label="new">New</a>
-              
-              
-              
-              <hr data-desc="">
-              <a id="addmeta" data-desc="Insert a description shown in My Bins" title="Add meta data to bin" class="button group" href="./#add-description">Add description</a>
-              <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="./save">Create milestone<span class="keyshortcut">⌘S</span></a>
-              <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="./clone">Clone<span class="keyshortcut">⌘⇧S</span></a>
-              <hr data-desc="">
-              <a data-desc="Export individual panels to Github&#39;s gist as an anonymous user" id="export-as-gist" title="Create a new anonymous GitHub Gist from this bin" class="button group" href="./#export-to-gist">Export as gist</a>
-              <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="./download" data-label="download">Download</a>
-              <a data-desc="Use content from this bin when creating new bins" class="startingpoint" title="Set as starting code" href="./save" data-label="save-as-template">Save as template</a>
-              <!-- <a data-desc="Reset to the original JS Bin starting point" id="cleartemplate" title="Reset to the original JS Bin starting template" class="button group" href="#clear-template" data-label="clear-template">Clear template</a> -->
-              <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="http://learn.jsbin.com/help/how-can-i-embed-jsbin">How to embed</a>
+  <head>
+    <meta charset="utf-8" />
+    <title>JS Bin - Collaborative JavaScript Debugging</title>
+    <!-- <link rel="icon" href="./images/favicon.png" /> -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/flat-ui.css" />
+    <!--[if lte IE 9 ]><link rel="stylesheet" href="./css/ie.css" /><![endif]-->
+    <style type="text/css">#output li, #exec, .fakeInput, #history, .fakeInput:before, #exec:before, .editbox .CodeMirror{ font-size: 14px; }</style>
+    <!-- <link rel="stylesheet" href="./css/font.css" type="text/css" /> -->
+  </head>
+  <!--[if lt IE 7]>  <body class="source ie ie6"> <![endif]-->
+  <!--[if IE 7]>     <body class="source ie ie7"> <![endif]-->
+  <!--[if gt IE 7]>  <body class="source ie">     <![endif]-->
+  <!--[if !IE]><!-->
+  <body class="source public panelsVisible ready" data-pinterest-extension-installed="cr1.3.4">
+  <!--<![endif]-->
+    <div id="control">
+      <div class="control">
+        <div id="menuinfo"><p></p></div>
+        <div class="buttons">
+          <div class="menu">
+            <a href="./welcome/edit#bins" target="_blank" class="brand button button-dropdown group button-dropdown-arrow"><!-- <img src="./images/favicon.png"> --> Bins</a>
+            <div class="dropdown" id="bins">
+              <div class="dropdownmenu">
+                <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="./" data-label="new">New</a>
+                <hr data-desc="">
+                <a id="addmeta" data-desc="Insert a description shown in My Bins" title="Add meta data to bin" class="button group" href="./#add-description">Add description</a>
+                <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="./save">Create milestone<span class="keyshortcut">⌘S</span></a>
+                <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="./clone">Clone<span class="keyshortcut">⌘⇧S</span></a>
+                <hr data-desc="">
+                <a data-desc="Export individual panels to Github&#39;s gist as an anonymous user" id="export-as-gist" title="Create a new anonymous GitHub Gist from this bin" class="button group" href="./#export-to-gist">Export as gist</a>
+                <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="./download" data-label="download">Download</a>
+                <a data-desc="Use content from this bin when creating new bins" class="startingpoint" title="Set as starting code" href="./save" data-label="save-as-template">Save as template</a>
+                <!-- <a data-desc="Reset to the original JS Bin starting point" id="cleartemplate" title="Reset to the original JS Bin starting template" class="button group" href="#clear-template" data-label="clear-template">Clear template</a> -->
+                <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="http://learn.jsbin.com/help/how-can-i-embed-jsbin">How to embed</a>
+              </div>
             </div>
-          </div>
-        </div><!-- spacer (or not) DO NOT TOUCH ERE BE DRAGONS etc wat?
-     --><div class="menu">
-          <span class="button group">Add library
-          <select id="library">
-            <option value="none">None</option>
-            <option value="" data-group="jQuery" class="heading">-------------</option>
-            <option value="jquery:0">jQuery 2.x WIP (via git)</option>
-            <option value="jquery:1">jQuery 2.0.3</option>
-            <option value="jquery:2">jQuery 1.x WIP (via git)</option>
-            <option value="jquery:3">jQuery 1.10.2</option>
-            <option value="jquery:4">jQuery 1.9.1</option>
-            <option value="jquery:5">jQuery 1.8.3</option>
-            <option value="" data-group="jQuery UI" class="heading">-------------</option>
-            <option value="jqueryui:0">jQuery UI WIP (via git)</option>
-            <option value="jqueryui:1">jQuery UI 1.10.4</option>
-            <option value="jqueryui:2">jQuery UI 1.9.2</option>
-            <option value="" data-group="jQuery Mobile" class="heading">-------------</option>
-            <option value="jquerymobile:0">jQuery Mobile WIP (via git)</option>
-            <option value="jquerymobile:1">jQuery Mobile 1.4.0</option>
-            <option value="jquerymobile:2">jQuery Mobile 1.3.2</option>
-            <option value="jquerymobile:3">jQuery Mobile 1.2.1</option>
-            <option value="jquerymobile:4">jQuery Mobile 1.1.2</option>
-            <option value="" data-group="Bootstrap" class="heading">-------------</option>
-            <option value="bootstrap:0">Bootstrap Latest</option>
-            <option value="bootstrap:1">Bootstrap 2.3.2</option>
-            <option value="" data-group="Prototype" class="heading">-------------</option>
-            <option value="prototype:0">Prototype latest</option>
-            <option value="prototype:1">Prototype 1.7.1</option>
-            <option value="prototype:2">Prototype 1.6.1.0</option>
-            <option value="prototype:3">script.aculo.us latest</option>
-            <option value="prototype:4">script.aculo.us 1.8.3</option>
-            <option value="" data-group="YUI" class="heading">-------------</option>
-            <option value="yui:0">YUI 3.10.0</option>
-            <option value="yui:1">YUI 2.9.0</option>
-            <option value="" data-group="MooTools" class="heading">-------------</option>
-            <option value="mootools:0">MooTools latest</option>
-            <option value="mootools:1">MooTools 1.4.5</option>
-            <option value="" data-group="Dojo" class="heading">-------------</option>
-            <option value="dojo:0">Dojo latest</option>
-            <option value="dojo:1">Dojo 1.8.4</option>
-            <option value="dojo:2">Dojo 1.7.4</option>
-            <option value="dojo:3">Dijit latest (Claro)</option>
-            <option value="dojo:4">Dijit 1.8.4 (Claro)</option>
-            <option value="dojo:5">Dijit 1.7.4 (Claro)</option>
-            <option value="" data-group="Kendo UI" class="heading">-------------</option>
-            <option value="kendoui:0">Kendo UI Q3 2013</option>
-            <option value="kendoui:1">Kendo UI Q2 2013</option>
-            <option value="" data-group="Testing" class="heading">-------------</option>
-            <option value="testing:0">QUnit</option>
-            <option value="" data-group="Zepto" class="heading">-------------</option>
-            <option value="zepto:0">Zepto latest</option>
-            <option value="zepto:1">Zepto 1.0</option>
-            <option value="" data-group="Angular" class="heading">-------------</option>
-            <option value="angular:0">Angular 1.2.1 Stable</option>
-            <option value="angular:1">Angular 1.1.5 Unstable</option>
-            <option value="angular:2">Angular 1.0.7 Stable</option>
-            <option value="" data-group="React" class="heading">-------------</option>
-            <option value="react:0">React 0.9.0</option>
-            <option value="react:1">React with Add-Ons 0.9.0</option>
-            <option value="" data-group="Enyo" class="heading">-------------</option>
-            <option value="enyo:0">Enyo latest</option>
-            <option value="enyo:1">Enyo 2.2.0</option>
-            <option value="" data-group="Other" class="heading">-------------</option>
-            <option value="other:0">Backbone latest</option>
-            <option value="other:1">MarionetteJS latest</option>
-            <option value="other:2">Bonsai 0.4.latest</option>
-            <option value="other:3">CoffeeScript</option>
-            <option value="other:4">Ember.js 1.0.0</option>
-            <option value="other:5">ES5 shim 2.0.8</option>
-            <option value="other:6">ext-core 3.1.0</option>
-            <option value="other:7">Foundation 5.0.3</option>
-            <option value="other:8">Handlebars.js 1.0.0</option>
-            <option value="other:9">Knockout 3.0.0</option>
-            <option value="other:10">Less 1.3.3</option>
-            <option value="other:11">Lo-Dash 2.4.1</option>
-            <option value="other:12">Modernizr 2.6.2</option>
-            <option value="other:13">Prefixfree 1.0.7</option>
-            <option value="other:14">Processing 1.4.1</option>
-            <option value="other:15">D3 3.x</option>
-            <option value="other:16">Raphaël 2.1.0</option>
-            <option value="other:17">Sammy 0.7.4</option>
-            <option value="other:18">Sencha Touch</option>
-            <option value="other:19">Traceur</option>
-            <option value="other:20">TwitterLib</option>
-            <option value="other:21">underscore</option>
-            <option value="other:22">CanJS 2.0.3</option>
-            <option value="other:23">Three.js r61</option>
-            <option value="other:24">HTML5 shiv</option>
-            <option value="other:25">Lungo</option>
-            <option value="other:26">Polymer 0.1.1</option>
-            <option value="other:27">Font Awesome 4.0.3</option></select>
-          </span>
-        </div><div id="sharemenu" class="menu">
-          <a href="./#share" class="button button-dropdown group">Share</a>
-          <div class="dropdown" id="share">
-            <div class="dropdowncontent">
-              <form>
-                <div data-desc="This bin&#39;s full output without the JS Bin editor">
-                  <strong><a class="link" data-path="/" target="_blank" href="./welcome/1/?html,output">Output only (with live reload)</a></strong><br><input data-path="/" class="link" id="livepreview" value="./welcome/" type="text">
+          </div><!-- spacer (or not) DO NOT TOUCH ERE BE DRAGONS etc wat?
+       --><div class="menu">
+            <span class="button group">Add library
+              <select id="library">
+                <option value="none">None</option>
+                <option value="" data-group="jQuery" class="heading">-------------</option>
+                <option value="jquery:0">jQuery 2.x WIP (via git)</option>
+                <option value="jquery:1">jQuery 2.0.3</option>
+                <option value="jquery:2">jQuery 1.x WIP (via git)</option>
+                <option value="jquery:3">jQuery 1.10.2</option>
+                <option value="jquery:4">jQuery 1.9.1</option>
+                <option value="jquery:5">jQuery 1.8.3</option>
+                <option value="" data-group="jQuery UI" class="heading">-------------</option>
+                <option value="jqueryui:0">jQuery UI WIP (via git)</option>
+                <option value="jqueryui:1">jQuery UI 1.10.4</option>
+                <option value="jqueryui:2">jQuery UI 1.9.2</option>
+                <option value="" data-group="jQuery Mobile" class="heading">-------------</option>
+                <option value="jquerymobile:0">jQuery Mobile WIP (via git)</option>
+                <option value="jquerymobile:1">jQuery Mobile 1.4.0</option>
+                <option value="jquerymobile:2">jQuery Mobile 1.3.2</option>
+                <option value="jquerymobile:3">jQuery Mobile 1.2.1</option>
+                <option value="jquerymobile:4">jQuery Mobile 1.1.2</option>
+                <option value="" data-group="Bootstrap" class="heading">-------------</option>
+                <option value="bootstrap:0">Bootstrap Latest</option>
+                <option value="bootstrap:1">Bootstrap 2.3.2</option>
+                <option value="" data-group="Prototype" class="heading">-------------</option>
+                <option value="prototype:0">Prototype latest</option>
+                <option value="prototype:1">Prototype 1.7.1</option>
+                <option value="prototype:2">Prototype 1.6.1.0</option>
+                <option value="prototype:3">script.aculo.us latest</option>
+                <option value="prototype:4">script.aculo.us 1.8.3</option>
+                <option value="" data-group="YUI" class="heading">-------------</option>
+                <option value="yui:0">YUI 3.10.0</option>
+                <option value="yui:1">YUI 2.9.0</option>
+                <option value="" data-group="MooTools" class="heading">-------------</option>
+                <option value="mootools:0">MooTools latest</option>
+                <option value="mootools:1">MooTools 1.4.5</option>
+                <option value="" data-group="Dojo" class="heading">-------------</option>
+                <option value="dojo:0">Dojo latest</option>
+                <option value="dojo:1">Dojo 1.8.4</option>
+                <option value="dojo:2">Dojo 1.7.4</option>
+                <option value="dojo:3">Dijit latest (Claro)</option>
+                <option value="dojo:4">Dijit 1.8.4 (Claro)</option>
+                <option value="dojo:5">Dijit 1.7.4 (Claro)</option>
+                <option value="" data-group="Kendo UI" class="heading">-------------</option>
+                <option value="kendoui:0">Kendo UI Q3 2013</option>
+                <option value="kendoui:1">Kendo UI Q2 2013</option>
+                <option value="" data-group="Testing" class="heading">-------------</option>
+                <option value="testing:0">QUnit</option>
+                <option value="" data-group="Zepto" class="heading">-------------</option>
+                <option value="zepto:0">Zepto latest</option>
+                <option value="zepto:1">Zepto 1.0</option>
+                <option value="" data-group="Angular" class="heading">-------------</option>
+                <option value="angular:0">Angular 1.2.1 Stable</option>
+                <option value="angular:1">Angular 1.1.5 Unstable</option>
+                <option value="angular:2">Angular 1.0.7 Stable</option>
+                <option value="" data-group="React" class="heading">-------------</option>
+                <option value="react:0">React 0.9.0</option>
+                <option value="react:1">React with Add-Ons 0.9.0</option>
+                <option value="" data-group="Enyo" class="heading">-------------</option>
+                <option value="enyo:0">Enyo latest</option>
+                <option value="enyo:1">Enyo 2.2.0</option>
+                <option value="" data-group="Other" class="heading">-------------</option>
+                <option value="other:0">Backbone latest</option>
+                <option value="other:1">MarionetteJS latest</option>
+                <option value="other:2">Bonsai 0.4.latest</option>
+                <option value="other:3">CoffeeScript</option>
+                <option value="other:4">Ember.js 1.0.0</option>
+                <option value="other:5">ES5 shim 2.0.8</option>
+                <option value="other:6">ext-core 3.1.0</option>
+                <option value="other:7">Foundation 5.0.3</option>
+                <option value="other:8">Handlebars.js 1.0.0</option>
+                <option value="other:9">Knockout 3.0.0</option>
+                <option value="other:10">Less 1.3.3</option>
+                <option value="other:11">Lo-Dash 2.4.1</option>
+                <option value="other:12">Modernizr 2.6.2</option>
+                <option value="other:13">Prefixfree 1.0.7</option>
+                <option value="other:14">Processing 1.4.1</option>
+                <option value="other:15">D3 3.x</option>
+                <option value="other:16">Raphaël 2.1.0</option>
+                <option value="other:17">Sammy 0.7.4</option>
+                <option value="other:18">Sencha Touch</option>
+                <option value="other:19">Traceur</option>
+                <option value="other:20">TwitterLib</option>
+                <option value="other:21">underscore</option>
+                <option value="other:22">CanJS 2.0.3</option>
+                <option value="other:23">Three.js r61</option>
+                <option value="other:24">HTML5 shiv</option>
+                <option value="other:25">Lungo</option>
+                <option value="other:26">Polymer 0.1.1</option>
+                <option value="other:27">Font Awesome 4.0.3</option></select>
+              </span>
+            </div><div id="sharemenu" class="menu">
+              <a href="./#share" class="button button-dropdown group">Share</a>
+              <div class="dropdown" id="share">
+                <div class="dropdowncontent">
+                  <form>
+                    <div data-desc="This bin&#39;s full output without the JS Bin editor">
+                      <strong><a class="link" data-path="/" target="_blank" href="./welcome/1/?html,output">Output only (with live reload)</a></strong><br><input data-path="/" class="link" id="livepreview" value="./welcome/" type="text">
+                    </div>
+                    <hr>
+                    <div id="sharepanels">
+                      <strong>Select panels to show:</strong>
+                      <ul class="inline">
+                        <li><label><input type="checkbox" data-panel="html" checked="checked">HTML</label></li>
+                        <li><label><input type="checkbox" data-panel="css">CSS</label></li>
+                        <li><label><input type="checkbox" data-panel="javascript">JS</label></li>
+                        <li><label><input type="checkbox" data-panel="console">Console</label></li>
+                        <li><label><input type="checkbox" data-panel="live" checked="checked">Output</label></li>
+                    </ul></div>
+                    <!-- <div id="removelock"><input type="button" title="Unlocks the revision that you own so that you can continue to write to this specific bin" class="unlocklockrevision" value="Unlock revision #1"> <small>to allow changes.</small></div> -->
+                    <div data-desc="The url to this bin with the JS Bin editor">
+                      <a class="link heading" data-path="/edit" target="_blank" href="./?html,output">Link</a><br><input data-path="/edit" class="link" value="./welcome/edit" type="text">
+                    </div>
+                    <div data-desc="Embed this bin with the live output on your site">
+                      <span class="heading">Embed</span><br><textarea id="embedfield" data-path="/embed" class="link">&lt;a class="jsbin-embed" href="./welcome/embed?live"&gt;JS Bin demo&lt;/a&gt;&lt;script src="./js/embed.js"&gt;&lt;/script&gt;</textarea>
+                    </div>
+                    <div data-desc="Training/Viewer mode: codecast your bin to any viewers" class="disabled">
+                      <a class="link heading" target="_blank" data-path="/watch" href="./welcome/1/watch?html,output">Codecast</a><br><input data-path="/watch" class="link" value="./welcome/watch" type="text">
+                    </div>
+                    <div data-desc="Disallow further changes to this specific revision" data-shortcut="ctrl+s" class="lockoption" id="enablelock"><div title="Locks the bin&#39;s content so no more changes will be made this URL, and typing will create a new bin as if you &#39;created milestone&#39;" class="icon-unlocked lockrevision"><span>Click to lock and prevent further changes</span></div></div>
+                  </form>
                 </div>
-                <hr>
-                <div id="sharepanels">
-                  <strong>Select panels to show:</strong>
-                  <ul class="inline">
-                    <li><label><input type="checkbox" data-panel="html" checked="checked">HTML</label></li>
-                    <li><label><input type="checkbox" data-panel="css">CSS</label></li>
-                    <li><label><input type="checkbox" data-panel="javascript">JS</label></li>
-                    <li><label><input type="checkbox" data-panel="console">Console</label></li>
-                    <li><label><input type="checkbox" data-panel="live" checked="checked">Output</label></li>
-                </ul></div>
-                <!-- <div id="removelock"><input type="button" title="Unlocks the revision that you own so that you can continue to write to this specific bin" class="unlocklockrevision" value="Unlock revision #1"> <small>to allow changes.</small></div> -->
-                <div data-desc="The url to this bin with the JS Bin editor">
-                  <a class="link heading" data-path="/edit" target="_blank" href="./?html,output">Link</a><br><input data-path="/edit" class="link" value="./welcome/edit" type="text">
-                </div>
-                <div data-desc="Embed this bin with the live output on your site">
-                  <span class="heading">Embed</span><br><textarea id="embedfield" data-path="/embed" class="link">&lt;a class="jsbin-embed" href="./welcome/embed?live"&gt;JS Bin demo&lt;/a&gt;&lt;script src="./js/embed.js"&gt;&lt;/script&gt;</textarea>
-                </div>
-                <div data-desc="Training/Viewer mode: codecast your bin to any viewers" class="disabled">
-                  <a class="link heading" target="_blank" data-path="/watch" href="./welcome/1/watch?html,output">Codecast</a><br><input data-path="/watch" class="link" value="./welcome/watch" type="text">
-                </div>
-                <div data-desc="Disallow further changes to this specific revision" data-shortcut="ctrl+s" class="lockoption" id="enablelock"><div title="Locks the bin&#39;s content so no more changes will be made this URL, and typing will create a new bin as if you &#39;created milestone&#39;" class="icon-unlocked lockrevision"><span>Click to lock and prevent further changes</span></div></div>
-              </form>
+              </div>
+            </div><!-- intentional space -->
+            <div id="start-saving" class="menu">
+              <a href="./welcome/save" class="save button group">Start saving your work</a>
             </div>
+          
+          <div id="panels">
+            <!--
+            <a class="button group hasContent active" href="./?html">HTML</a>
+            <a class="button group active" href="./?css">CSS</a>
+            <a class="button group hasContent active" href="./?javascript">JavaScript</a>
+            <a class="button group active" href="./?console">Console</a>
+            <a class="button group active" href="./?live">Output</a>
+            -->
           </div>
-        </div><!-- intentional space -->
-        <div id="start-saving" class="menu">
-          <a href="./welcome/save" class="save button group">Start saving your work</a>
-        </div>
-      
-      <div id="panels">
-        <a class="button group hasContent active" href="./?html">HTML</a>
-        <a class="button group active" href="./?css">CSS</a>
-        <a class="button group hasContent active" href="./?javascript">JavaScript</a>
-        <a class="button group active" href="./?console">Console</a>
-        <a class="button group active" href="./?live">Output</a>
-      </div>
-      <div class="help">
-        <div class="menu">
-          <a href="./login" class="button button-dropdown" id="loginbtn">Login/Register</a>
-        </div>
-        <div class="menu">
-          <a href="./#help" class="button button-dropdown">Help</a>
-          <div class="dropdown dd-right" id="help">
-            <div class="dropdownmenu">
-              <a data-shortcut="ctrl+shift+?" data-desc="Discover poweruser keyboard shortcuts" id="showhelp" href="./#keyboardHelp">Keyboard shortcuts<span class="keyshortcut">⌘⇧?</span></a>
-              <a data-desc="Shortcut &amp; direct access JS Bin URLs" id="showurls" href="./#urls">JS Bin URLs</a>
-              <hr data-desc="">
-              <a data-desc="Learn about JS Bin features &amp; tricks" target="_blank" href="http://learn.jsbin.com/help">Help topics</a>
-              <hr data-desc="">
-              <a data-desc="Help make JS Bin better" id="newissue" target="_blank" href="http://github.com/jsbin/jsbin/issues/new">Send feedback &amp; file bugs</a>
-              <a data-desc="Help make JS Bin better" target="_blank" href="http://github.com/jsbin/jsbin/">Fork on Github</a>
-              <a data-desc="Find out the latest news &amp; info" target="_blank" href="http://twitter.com/js_bin">Follow @js_bin</a>
+          <div class="help">
+            <div class="menu">
+              <a href="./login" class="button button-dropdown" id="loginbtn">Login/Register</a>
+            </div>
+            <div class="menu">
+              <a href="./#help" class="button button-dropdown">Help</a>
+              <div class="dropdown dd-right" id="help">
+                <div class="dropdownmenu">
+                  <a data-shortcut="ctrl+shift+?" data-desc="Discover poweruser keyboard shortcuts" id="showhelp" href="./#keyboardHelp">Keyboard shortcuts<span class="keyshortcut">⌘⇧?</span></a>
+                  <a data-desc="Shortcut &amp; direct access JS Bin URLs" id="showurls" href="./#urls">JS Bin URLs</a>
+                  <hr data-desc="">
+                  <a data-desc="Learn about JS Bin features &amp; tricks" target="_blank" href="http://learn.jsbin.com/help">Help topics</a>
+                  <hr data-desc="">
+                  <a data-desc="Help make JS Bin better" id="newissue" target="_blank" href="http://github.com/jsbin/jsbin/issues/new">Send feedback &amp; file bugs</a>
+                  <a data-desc="Help make JS Bin better" target="_blank" href="http://github.com/jsbin/jsbin/">Fork on Github</a>
+                  <a data-desc="Find out the latest news &amp; info" target="_blank" href="http://twitter.com/js_bin">Follow @js_bin</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="bin" class="stretch">
-  <div id="source" class="binview stretch">
-  <div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; left: 0%; right: 77.67857142857143%;"><div class="code stretch html panel">
-      <div class="label menu"><span class="name"><strong><a href="./#htmlprocessors" class="fake-dropdown button-dropdown">HTML</a></strong><span>Saved</span></span><div class="dropdown" id="htmlprocessors">
-          <div class="dropdownmenu processorSelector" data-type="html">
-            <a href="./#html">HTML</a>
-            <a href="./#markdown">Markdown</a>
-            <a href="./#jade">Jade</a>
-            <a href="./#convert">Convert to HTML</a>
+    <div id="bin" class="stretch">
+      <div id="source" class="binview stretch">
+        <div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; left: 0%; right: 77.67857142857143%;"><div class="code stretch html panel">
+          <div class="label menu"><span class="name"><strong><a href="./#htmlprocessors" class="fake-dropdown button-dropdown">HTML</a></strong><span>Saved</span></span><div class="dropdown" id="htmlprocessors">
+              <div class="dropdownmenu processorSelector" data-type="html">
+                <a href="./#html">HTML</a>
+                <a href="./#markdown">Markdown</a>
+                <a href="./#jade">Jade</a>
+                <a href="./#convert">Convert to HTML</a>
+              </div>
+            </div>
+          </div>
+          <div class="editbox">
+            <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="html" style="display: none;"></textarea><div class="CodeMirror cm-s-jsbin CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 55px; left: 53.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px; pointer-events: none;"><div style="height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; pointer-events: none;"><div style="width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" style="height: 861px;"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 221px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" style="padding-top: 39px;"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1; display: none;"></div><div class="CodeMirror-code"><pre><span class="cm-meta">&lt;!DOCTYPE html&gt;</span></pre><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre><span class="cm-tag">&lt;html&gt;</span></pre></div><pre>  <span class="cm-tag">&lt;head&gt;</span></pre><pre> &nbsp;  <span class="cm-tag">&lt;meta</span> <span class="cm-attribute">charset</span>=<span class="cm-string">"utf-8"</span><span class="cm-tag">&gt;</span></pre><pre> &nbsp;  <span class="cm-tag">&lt;title&gt;</span>JS Bin<span class="cm-tag">&lt;/title&gt;</span></pre><pre>  <span class="cm-tag">&lt;/head&gt;</span></pre><pre>  <span class="cm-tag">&lt;body&gt;</span></pre><pre>&nbsp;</pre><pre>  <span class="cm-tag">&lt;/body&gt;</span></pre><pre><span class="cm-tag">&lt;/html&gt;</span></pre><pre>&nbsp;</pre></div><div class="CodeMirror-cursor" style="left: 53.59375px; top: 16px; height: 15px;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 221px;"></div><div class="CodeMirror-gutters" style="display: none; height: 861px;"></div></div></div>
+          </div>
+        </div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 22.32142857142857%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); left: 22.32142857142857%; right: 62.023809523809526%;"><div class="code stretch css panel">
+          <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="./#cssprocessors">CSS</a></strong><span>Saved</span></span>
+            <div class="dropdown" id="cssprocessors">
+              <div class="dropdownmenu processorSelector" data-type="css">
+                <a href="./#css">CSS</a>
+                <a href="./#less">LESS</a>
+                <!-- <a href="#stylus">Stylus</a> --><!-- Removed because of a crash bug in stylus https://twitter.com/phuunet/status/377735455670030336 -->
+                <a href="./#convert">Convert to CSS</a>
+              </div>
+            </div>
+          </div>
+          <div class="editbox">
+            <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="css" style="display: none;"></textarea><div class="CodeMirror cm-s-jsbin CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 39px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px; pointer-events: none;"><div style="height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; pointer-events: none;"><div style="width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" style="height: 861px;"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 61px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" style="padding-top: 39px;"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1; display: none;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre>&nbsp;</pre></div></div><div class="CodeMirror-cursor" style="left: 5.59375px; top: 0px; height: 15px; visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 61px;"></div><div class="CodeMirror-gutters" style="display: none; height: 861px;"></div></div></div>
+          </div>
+        </div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 37.976190476190474%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); right: 40.5952380952381%; left: 37.976190476190474%;"><div class="code stretch javascript panel">
+          <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="./#javascriptprocessors">JavaScript</a></strong><span>Saved</span></span>
+            <div class="dropdown" id="javascriptprocessors">
+              <div class="dropdownmenu processorSelector" data-type="javascript">
+                <a href="./#javascript">JavaScript</a>
+                <a href="./#coffeescript">CoffeeScript</a>
+                <a href="./#jsx">JSX (React)</a>
+                <a href="./#processing">Processing</a>
+                <a href="./#traceur">Traceur</a>
+                <a href="./#typescript">TypeScript</a>
+                <a href="./#convert">Convert to JavaScript</a>
+              </div>
+            </div>
+          </div>
+          <div class="editbox">
+            <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="javascript" style="display: none;"></textarea><div class="CodeMirror cm-s-jsbin CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 39px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px; pointer-events: none;"><div style="height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; pointer-events: none;"><div style="width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" style="height: 861px;"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 109px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" style="padding-top: 39px;"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1; display: none;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre><span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">innerHTML</span> <span class="cm-operator">=</span> <span class="cm-string">'&lt;p&gt;&lt;strong&gt;This URL does not have any code saved to it.&lt;/strong&gt;&lt;/p&gt;'</span>;</pre></div><pre>&nbsp;</pre></div><div class="CodeMirror-cursor" style="left: 5.59375px; top: 0px; height: 15px;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 109px;"></div><div class="CodeMirror-gutters" style="display: none; height: 861px;"></div></div></div>
+          </div>
+          <details style="display: none;"><summary class="summary">warnings</summary></details></div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 59.4047619047619%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); right: 24.404761904761912%; left: 59.4047619047619%;"><div class="stretch console panel">
+            <div class="label">
+              <span class="name"><strong>Console</strong></span>
+              <span class="options">
+                <button id="runconsole" title="ctrl + enter" style="display: none;">Run</button>
+              </span>
+            </div>
+            <div id="console" class="stretch"><ul id="output"></ul><form><div autofocus="" id="exec" autocapitalize="off" spellcheck="false"><span id="cursor" spellcheck="false" autocapitalize="off" autocorrect="off" contenteditable=""></span></div></form></div>
+          </div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 75.59523809523809%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; right: 0%; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); left: 75.59523809523809%;"><div id="live" class="stretch live panel focus"><iframe class="stretch" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts" frameborder="0" src="./runner.html"></iframe>
+            <div class="label">
+              <span class="name"><strong>Output</strong></span>
+              <span class="options">
+                <button id="runwithalerts" title="ctrl + enter
+      Include alerts, prompts &amp; confirm boxes">Run with JS</button>
+                <label>Auto-run JS<input type="checkbox" id="enablejs" checked="checked"></label>
+                <a target="_blank" title="Live preview" id="jsbinurl" class="" href="./welcome">Live</a>
+              </span>
+              <span class="size" style="display: none;">409px</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="editbox">
-        <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="html" style="display: none;"></textarea><div class="CodeMirror cm-s-jsbin CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 55px; left: 53.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px; pointer-events: none;"><div style="height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; pointer-events: none;"><div style="width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" style="height: 861px;"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 221px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" style="padding-top: 39px;"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1; display: none;"></div><div class="CodeMirror-code"><pre><span class="cm-meta">&lt;!DOCTYPE html&gt;</span></pre><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre><span class="cm-tag">&lt;html&gt;</span></pre></div><pre>  <span class="cm-tag">&lt;head&gt;</span></pre><pre> &nbsp;  <span class="cm-tag">&lt;meta</span> <span class="cm-attribute">charset</span>=<span class="cm-string">"utf-8"</span><span class="cm-tag">&gt;</span></pre><pre> &nbsp;  <span class="cm-tag">&lt;title&gt;</span>JS Bin<span class="cm-tag">&lt;/title&gt;</span></pre><pre>  <span class="cm-tag">&lt;/head&gt;</span></pre><pre>  <span class="cm-tag">&lt;body&gt;</span></pre><pre>&nbsp;</pre><pre>  <span class="cm-tag">&lt;/body&gt;</span></pre><pre><span class="cm-tag">&lt;/html&gt;</span></pre><pre>&nbsp;</pre></div><div class="CodeMirror-cursor" style="left: 53.59375px; top: 16px; height: 15px;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 221px;"></div><div class="CodeMirror-gutters" style="display: none; height: 861px;"></div></div></div>
+      <div id="panelswaiting">
       </div>
-    </div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 22.32142857142857%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); left: 22.32142857142857%; right: 62.023809523809526%;"><div class="code stretch css panel">
-      <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="./#cssprocessors">CSS</a></strong><span>Saved</span></span>
-        <div class="dropdown" id="cssprocessors">
-          <div class="dropdownmenu processorSelector" data-type="css">
-            <a href="./#css">CSS</a>
-            <a href="./#less">LESS</a>
-            <!-- <a href="#stylus">Stylus</a> --><!-- Removed because of a crash bug in stylus https://twitter.com/phuunet/status/377735455670030336 -->
-            <a href="./#convert">Convert to CSS</a>
-          </div>
-        </div>
+      <form id="saveform" method="post" action="./welcome/save">
+        <input type="hidden" name="method">
+        <input type="hidden" name="_csrf" value="Zs+B5O3qlNwU1HG5k+zTiB8S">
+      </form>
+    </div>
+    <div id="tip" class=" notification">
+      <p>
+        You can jump to the latest bin by adding <code>/latest</code> to your URL
+      </p>
+      <a class="dismiss" href="./#">Dismiss x</a>
+    </div>
+    <div id="keyboardHelp" class="modal">
+      <div>
+        <h2>Keyboard Shortcuts</h2>
+        <table>
+          <thead>
+            <tr>
+              <th class="shortcut">Shortcut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>cmd + [num]</td>
+              <td>Toggle nth panel</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <small>
+                  <input type="checkbox" id="enablealt" class="enablealt">
+                  <label for="enablealt">Require alt key, leaving cmd+1, 2 etc for tab switching.</label>
+                </small>
+              </td>
+            </tr>
+            <tr>
+              <td>cmd + 0</td>
+              <td>Close focused panel</td>
+            </tr>
+            <tr>
+              <td>cmd + enter</td>
+              <td>Re-render output.<br>If console visible: run JS in console</td>
+            </tr>
+            <tr>
+              <td>ctrl + l</td>
+              <td>Clear the console</td>
+            </tr>
+            <tr>
+              <td>cmd + /</td>
+              <td>Toggle comment on selected lines</td>
+            </tr>
+            <!-- <tr>
+              <td>cmd + alt + .</td>
+              <td>Close current HTML element</td>
+            </tr> -->
+            <tr>
+              <td>cmd + [</td>
+              <td>Indents selected lines</td>
+            </tr>
+            <tr>
+              <td>cmd + ]</td>
+              <td>Unindents selected lines</td>
+            </tr>
+            <tr>
+              <td>tab</td>
+              <td>Code complete (JavaScript only) &amp; Emmet expand</td>
+            </tr>
+            <tr>
+              <td>cmd + s</td>
+              <td>Save &amp; lock current Bin from further changes</td>
+            </tr>
+            <tr>
+              <td>cmd + shift + s</td>
+              <td>Clone Bin</td>
+            </tr>
+            <!-- too confusing, let's throw it away -->
+            <!--
+            <tr>
+              <td>cmd + \</td>
+              <td>Hide navigation bar</td>
+            </tr>
+            <tr>
+              <td>esc, cmd + [num]</td>
+              <td>JS Bin ignores this sequence, and returns control to browser shortcuts</td>
+            </tr>
+            <tr>
+              <td>cmd + §<br>(or `)</td>
+              <td>Hide focused panel</td>
+            </tr>-->
+            <tr><td colspan="2"><small><br>JS Bin also supports <a href="http://docs.emmet.io/" target="_blank">Emmet/Zen Coding</a> shortcuts</small></td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="editbox">
-        <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="css" style="display: none;"></textarea><div class="CodeMirror cm-s-jsbin CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 39px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px; pointer-events: none;"><div style="height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; pointer-events: none;"><div style="width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" style="height: 861px;"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 61px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" style="padding-top: 39px;"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1; display: none;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre>&nbsp;</pre></div></div><div class="CodeMirror-cursor" style="left: 5.59375px; top: 0px; height: 15px; visibility: hidden;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none; visibility: hidden;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 61px;"></div><div class="CodeMirror-gutters" style="display: none; height: 861px;"></div></div></div>
+    </div>
+    <div id="urlHelp" class="modal">
+      <div>
+        <h2>JS Bin URLs</h2>
+        <table>
+          <thead>
+            <tr>
+              <th class="shortcut">URL</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>/</td>
+              <td>Show the full rendered output.<br><small>This content will update in real time as it's updated from the /edit url.</small></td>
+            </tr>
+            <tr>
+              <td>/edit</td>
+              <td>Edit the current bin</td>
+            </tr>
+            <tr>
+              <td>/watch</td>
+              <td>Follow a Code Casting session</td>
+            </tr>
+            <tr>
+              <td>/embed</td>
+              <td>Create an embeddable version of the bin</td>
+            </tr>
+            <tr>
+              <td>/latest</td>
+              <td>Load the very latest bin (/latest goes in place of the revision)</td>
+            </tr>
+            <tr>
+              <td>/[username]/last</td>
+              <td>View the last edited bin for this user</td>
+            </tr>
+            <tr>
+              <td>/[username]/last/edit</td>
+              <td>Edit the last edited bin for this user</td>
+            </tr>
+            <tr>
+              <td>/[username]/last/watch</td>
+              <td>Follow the Code Casting session for the latest bin for this user</td>
+            </tr>
+            <tr>
+              <td>/quiet</td>
+              <td>Remove analytics and edit button from rendered output</td>
+            </tr>
+            <tr>
+              <td>.js</td>
+              <td>Load only the JavaScript for a bin</td>
+            </tr>
+            <tr>
+              <td>.css</td>
+              <td>Load only the CSS for a bin</td>
+            </tr>
+            <tr><td colspan="2"><br><small>Except for username prefixed urls, the url may start with http://jsbin.com/abc and the url fragments can be added to the url to view it differently.</small></td></tr>
+          </tbody>
+        </table>
       </div>
-    </div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 37.976190476190474%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); right: 40.5952380952381%; left: 37.976190476190474%;"><div class="code stretch javascript panel">
-      <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="./#javascriptprocessors">JavaScript</a></strong><span>Saved</span></span>
-        <div class="dropdown" id="javascriptprocessors">
-          <div class="dropdownmenu processorSelector" data-type="javascript">
-            <a href="./#javascript">JavaScript</a>
-            <a href="./#coffeescript">CoffeeScript</a>
-            <a href="./#jsx">JSX (React)</a>
-            <a href="./#processing">Processing</a>
-            <a href="./#traceur">Traceur</a>
-            <a href="./#typescript">TypeScript</a>
-            <a href="./#convert">Convert to JavaScript</a>
-          </div>
-        </div>
-      </div>
-      <div class="editbox">
-        <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="javascript" style="display: none;"></textarea><div class="CodeMirror cm-s-jsbin CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 39px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none; font-size: 4px;"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px; min-height: 18px; pointer-events: none;"><div style="height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px; pointer-events: none;"><div style="width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" style="height: 861px;"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 109px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" style="padding-top: 39px;"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1; display: none;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre><span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">innerHTML</span> <span class="cm-operator">=</span> <span class="cm-string">'&lt;p&gt;&lt;strong&gt;This URL does not have any code saved to it.&lt;/strong&gt;&lt;/p&gt;'</span>;</pre></div><pre>&nbsp;</pre></div><div class="CodeMirror-cursor" style="left: 5.59375px; top: 0px; height: 15px;">&nbsp;</div><div class="CodeMirror-cursor CodeMirror-secondarycursor" style="display: none;">&nbsp;</div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 109px;"></div><div class="CodeMirror-gutters" style="display: none; height: 861px;"></div></div></div>
-      </div>
-    <details style="display: none;"><summary class="summary">warnings</summary></details></div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 59.4047619047619%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); right: 24.404761904761912%; left: 59.4047619047619%;"><div class="stretch console panel">
-      <div class="label">
-        <span class="name"><strong>Console</strong></span>
-        <span class="options">
-          <button id="runconsole" title="ctrl + enter" style="display: none;">Run</button>
-        </span>
-      </div>
-      <div id="console" class="stretch"><ul id="output"></ul><form><div autofocus="" id="exec" autocapitalize="off" spellcheck="false"><span id="cursor" spellcheck="false" autocapitalize="off" autocorrect="off" contenteditable=""></span></div></form></div>
-    </div></div><div class="resize" style="display: block; top: 0px; bottom: 0px; width: 8px; margin-left: -4px; height: 100%; right: auto; opacity: 0; position: absolute; cursor: ew-resize; border-left-width: 1px; border-left-style: solid; border-left-color: rgba(218, 218, 218, 0.498039); z-index: 99999; left: 75.59523809523809%;"></div><div class="stretch panelwrapper" style="display: block; top: 0px; bottom: 0px; right: 0%; border-top-width: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(204, 204, 204); left: 75.59523809523809%;"><div id="live" class="stretch live panel focus"><iframe class="stretch" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts" frameborder="0" src="./runner.html"></iframe>
-      <div class="label">
-        <span class="name"><strong>Output</strong></span>
-        <span class="options">
-          <button id="runwithalerts" title="ctrl + enter
-Include alerts, prompts &amp; confirm boxes">Run with JS</button>
-          <label>Auto-run JS<input type="checkbox" id="enablejs" checked="checked"></label>
-          <a target="_blank" title="Live preview" id="jsbinurl" class="" href="./welcome">Live</a>
-        </span>
-        <span class="size" style="display: none;">409px</span>
-      </div>
-    </div></div></div>
-  <div id="panelswaiting">
-    
-    
-    
-    
-    
-  </div>
-  <form id="saveform" method="post" action="./welcome/save">
-    <input type="hidden" name="method">
-    <input type="hidden" name="_csrf" value="Zs+B5O3qlNwU1HG5k+zTiB8S">
-  </form>
-</div>
-<div id="tip" class=" notification">
-  <p>
-    
-    You can jump to the latest bin by adding <code>/latest</code> to your URL
-  </p>
-  <a class="dismiss" href="./#">Dismiss x</a>
-</div>
-<div id="keyboardHelp" class="modal">
-  <div>
-    <h2>Keyboard Shortcuts</h2>
-    <table>
-      <thead>
-        <tr>
-          <th class="shortcut">Shortcut</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>cmd + [num]</td>
-          <td>Toggle nth panel</td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <small>
-              <input type="checkbox" id="enablealt" class="enablealt">
-              <label for="enablealt">Require alt key, leaving cmd+1, 2 etc for tab switching.</label>
-            </small>
-          </td>
-        </tr>
-        <tr>
-          <td>cmd + 0</td>
-          <td>Close focused panel</td>
-        </tr>
-        <tr>
-          <td>cmd + enter</td>
-          <td>Re-render output.<br>If console visible: run JS in console</td>
-        </tr>
-        <tr>
-          <td>ctrl + l</td>
-          <td>Clear the console</td>
-        </tr>
-        <tr>
-          <td>cmd + /</td>
-          <td>Toggle comment on selected lines</td>
-        </tr>
-        <!-- <tr>
-          <td>cmd + alt + .</td>
-          <td>Close current HTML element</td>
-        </tr> -->
-        <tr>
-          <td>cmd + [</td>
-          <td>Indents selected lines</td>
-        </tr>
-        <tr>
-          <td>cmd + ]</td>
-          <td>Unindents selected lines</td>
-        </tr>
-        <tr>
-          <td>tab</td>
-          <td>Code complete (JavaScript only) &amp; Emmet expand</td>
-        </tr>
-        <tr>
-          <td>cmd + s</td>
-          <td>Save &amp; lock current Bin from further changes</td>
-        </tr>
-        <tr>
-          <td>cmd + shift + s</td>
-          <td>Clone Bin</td>
-        </tr>
-        <!-- too confusing, let's throw it away -->
-        <!--
-        <tr>
-          <td>cmd + \</td>
-          <td>Hide navigation bar</td>
-        </tr>
-        <tr>
-          <td>esc, cmd + [num]</td>
-          <td>JS Bin ignores this sequence, and returns control to browser shortcuts</td>
-        </tr>
-        <tr>
-          <td>cmd + §<br>(or `)</td>
-          <td>Hide focused panel</td>
-        </tr>-->
-
-        <tr><td colspan="2"><small><br>JS Bin also supports <a href="http://docs.emmet.io/" target="_blank">Emmet/Zen Coding</a> shortcuts</small></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div id="urlHelp" class="modal">
-  <div>
-    <h2>JS Bin URLs</h2>
-    <table>
-      <thead>
-        <tr>
-          <th class="shortcut">URL</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/</td>
-          <td>Show the full rendered output.<br><small>This content will update in real time as it's updated from the /edit url.</small></td>
-        </tr>
-        <tr>
-          <td>/edit</td>
-          <td>Edit the current bin</td>
-        </tr>
-        <tr>
-          <td>/watch</td>
-          <td>Follow a Code Casting session</td>
-        </tr>
-        <tr>
-          <td>/embed</td>
-          <td>Create an embeddable version of the bin</td>
-        </tr>
-        <tr>
-          <td>/latest</td>
-          <td>Load the very latest bin (/latest goes in place of the revision)</td>
-        </tr>
-        <tr>
-          <td>/[username]/last</td>
-          <td>View the last edited bin for this user</td>
-        </tr>
-        <tr>
-          <td>/[username]/last/edit</td>
-          <td>Edit the last edited bin for this user</td>
-        </tr>
-        <tr>
-          <td>/[username]/last/watch</td>
-          <td>Follow the Code Casting session for the latest bin for this user</td>
-        </tr>
-        <tr>
-          <td>/quiet</td>
-          <td>Remove analytics and edit button from rendered output</td>
-        </tr>
-        <tr>
-          <td>.js</td>
-          <td>Load only the JavaScript for a bin</td>
-        </tr>
-        <tr>
-          <td>.css</td>
-          <td>Load only the CSS for a bin</td>
-        </tr>
-        <tr><td colspan="2"><br><small>Except for username prefixed urls, the url may start with http://jsbin.com/abc and the url fragments can be added to the url to view it differently.</small></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<script>
-  var template = {"html":"<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <title>JS Bin</title>\n  </head>\n  <body>\n\n  </body>\n</html>\n","javascript":"document.body.innerHTML = '<p><strong>This URL does not have any code saved to it.</strong></p>';\n","css":"","url":"./welcome"};
-  var jsbin = {"root":"http://localhost:3000","runner":"./runner","static":"http://localhost:3000","version":"3.11.23","state":{"token":"Zs+B5O3qlNwU1HG5k+zTiB8S","stream":false,"streaming":false,"code":"welcome","revision":1,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","javascript","live"]}}; tips  = {};
-</script>
-
-  
+    </div>
+    <script>
+      var template = {"html":"<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <title>JS Bin</title>\n  </head>\n  <body>\n\n  </body>\n</html>\n","javascript":"document.body.innerHTML = '<p><strong>This URL does not have any code saved to it.</strong></p>';\n","css":"","url":"./welcome"};
+      var jsbin = {"root":"http://localhost:3000","runner":"./runner","static":"http://localhost:3000","version":"3.11.23","state":{"token":"Zs+B5O3qlNwU1HG5k+zTiB8S","stream":false,"streaming":false,"code":"welcome","revision":1,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","javascript","live"]}}; tips  = {};
+    </script>
     <script src="./js/chrome/hashbang-jump.js"></script>
     <script src="./js/vendor/jquery-1.11.0.js"></script>
     <script src="./js/vendor/jquery-migrate.js"></script>
@@ -491,7 +477,5 @@ Include alerts, prompts &amp; confirm boxes">Run with JS</button>
     <script src="./js/chrome/spinner.js"></script>
     <script src="./js/chrome/infocard.js"></script>
     <script src="./js/chrome/app.js"></script>
-  
-
-
-<span style="height: 20px; width: 40px; min-height: 20px; min-width: 40px; position: absolute; opacity: 0.85; z-index: 8675309; display: none; cursor: pointer; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAADU0lEQVR42s2WXUhTYRjHz0VEVPRFUGmtVEaFUZFhHxBhsotCU5JwBWEf1EWEEVHQx4UfFWYkFa2biPJiXbUta33OXFtuUXMzJ4bK3Nqay7m5NeZq6h/tPQ+xU20zugjOxR/+7/O8539+5znnwMtNTExwJtMb3L/fiLv3botCSmUjeCaejTOb39AiFothfHxcFIrHY8RksZjBsckJcOIRMfFsHD/SsbExUYpnI8DR0dGUGjSb0byhEJp5Uqg5CTSzc2CQleJbMEj9/ywBcGRkJEk9DQqouEVQT1sK444yWI9UonmTjGqauVLEIlHa9x8lAMbj8SSpp0rwKGMVvg8P46vbg0C7na8z8JsMcgHe7jlEa+edRhiLy8n/TUMfu6EvLElk+U0WtGwrTrdfAGQf5J8iiK4LVzDU28t8JtMSocf8E+l68myaNFXm/6rXslLK7ay5TOunuRvZWpJuvwAYjUaTpOIWoquuAZ219RTaxKYp9BbjycoN5FvL9qH9TBX5rvoGdJythvXYSTxdtRnWylO/ZdqrLsGwszzhWQ593z2KlAwCYCQSSZJ6ehZ0W7bD9VBLgN0NCqr3qR7R2rBrL3pu3Sb/7nDlz2uy6cG0OXk0GTbZXzNp8trsPAQdTj6frlWzN2DcXZGKQQAMh8NJ6rpyHe+PnkCr/CAFdZyvpfpjuvkifLF9wIt1Wwlo0OHie1RvWrKa93RjzfzliTzPKz3ltB0/Tevmwp14wGUgHAzSOoUEwFAolFaaBSuhnslPRkJexUJtZ6v5HtUeLswl33n1BgEY5fvhs9sJ3FAiT+QYyyvoAQJuD0KBAFRTJNAuz5/s3gJgMBhMJwrVFRThM5tY5zUF/A4X1f2fvQTRLCuBreoim0YmAbqNJryvPEXeeq46kaNdkQ/1HCncbJKPs9ZSv2VHGfWsZ2hfkhKAfr8/pdxWKx4wwD69PmVfNSOL+lr2w+gYqHpWDtXt1xQ8AMlWU0e1lqLd/APRHoP8AJqWrQG9gYxcPMsvSJUvAA4MDKTUJ7MZLaVy8v+qT21tcDx/OemePr0RTkNrur4A6PP5xCgBsL+/X4wiQDpuuVxOeL1eMYmYeDY6sOp0z+B0OuHxeEQhxkJMFosJiSO/UinOI/8Pc+l7KKArAT8AAAAASUVORK5CYII=);"></span></body></html>
+  </body>
+</html>
