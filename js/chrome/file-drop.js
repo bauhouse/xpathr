@@ -46,7 +46,7 @@ function allowDrop(holder) {
 
       try {
         // now kick off - basically just doing a copy and paste job from @wookiehangover - thanks man! :)
-        var worker = new Worker(jsbin.root + '/js/editors/sync-worker.js');
+        var worker = new Worker(xpathr.root + '/js/editors/sync-worker.js');
 
         // pass the worker the file object
         worker.postMessage(file);

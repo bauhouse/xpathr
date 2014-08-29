@@ -1,8 +1,8 @@
-/*global jsbin, $*/
+/*global xpathr, $*/
 
 var settings = {
   save: function () {
-    localStorage.setItem('settings', JSON.stringify(jsbin.settings));
+    localStorage.setItem('settings', JSON.stringify(xpathr.settings));
 
     $.ajax({
       url: '/account/editor',
@@ -10,7 +10,7 @@ var settings = {
       dataType: 'json',
       data: {
         settings: localStorage.settings,
-        _csrf: jsbin.state.token
+        _csrf: xpathr.state.token
       },
       success: function() {
         if (console && console.log) {

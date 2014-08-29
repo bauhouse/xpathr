@@ -11,7 +11,7 @@ panels.getVisible = function () {
 
 panels.save = function () {
   // don't save panel state if we're in embed mode
-  if (jsbin.embed) {
+  if (xpathr.embed) {
     return;
   }
 
@@ -32,7 +32,7 @@ panels.save = function () {
     state[panel.name] = left;
   }
 
-  sessionStorage.setItem('jsbin.panels', JSON.stringify(state));
+  sessionStorage.setItem('xpathr.panels', JSON.stringify(state));
 };
 
 function getQuery(qs) {
@@ -107,8 +107,8 @@ function stringAsPanelsToOpen(query) {
 
 panels.restore = function () {
   'use strict';
-  /*globals jsbin, editors, $window, $document*/
-  // if there are panel names on the hash (v2 of jsbin) or in the query (v3)
+  /*globals xpathr, editors, $window, $document*/
+  // if there are panel names on the hash (v2 of xpathr) or in the query (v3)
   // then restore those specific panels and evenly distribute them.
   var open = [],
       defaultPanels = ['html', 'live'], // sigh, live == output :(
@@ -116,7 +116,7 @@ panels.restore = function () {
       search = location.search.substring(1),
       hash = location.hash.substring(1),
       toopen = [],
-      state = jsbin.embed ? null : JSON.parse(sessionStorage.getItem('jsbin.panels') || 'null'),
+      state = xpathr.embed ? null : JSON.parse(sessionStorage.getItem('xpathr.panels') || 'null'),
       hasContent = { javascript: editors.javascript.getCode().length,
         css: editors.css.getCode().length,
         html: editors.html.getCode().length
@@ -133,8 +133,8 @@ panels.restore = function () {
       validPanels = 'live javascript html css console'.split(' '),
       cachedHash = '';
 
-  if (history.replaceState && (location.pathname.indexOf('/edit') !== -1) || ((location.origin + location.pathname) === jsbin.getURL() + '/')) {
-    history.replaceState(null, '', jsbin.getURL() + (jsbin.getURL() === jsbin.root ? '' : '/edit') + (hash ? '#' + hash : ''));
+  if (history.replaceState && (location.pathname.indexOf('/edit') !== -1) || ((location.origin + location.pathname) === xpathr.getURL() + '/')) {
+    history.replaceState(null, '', xpathr.getURL() + (xpathr.getURL() === xpathr.root ? '' : '/edit') + (hash ? '#' + hash : ''));
   }
 
   if (search || hash) {
@@ -180,7 +180,7 @@ panels.restore = function () {
     }
     else {
       // load from personal settings
-      toopen = jsbin.settings.panels;
+      toopen = xpathr.settings.panels;
     }
   }
 
@@ -268,7 +268,7 @@ panels.restore = function () {
       }
     }
 
-    // support the old jsbin v1 links directly to the preview
+    // support the old xpathr v1 links directly to the preview
     if (toopen.length === 1 && toopen[0] === 'preview') {
       panels.panels.live.show();
     }
@@ -282,7 +282,7 @@ panels.restore = function () {
   // for (name in this.panels) {
   //   panel = this.panels[name];
   //   if (panel.editor) {
-  //     // panel.setCode(sessionStorage.getItem('jsbin.content.' + name) || template[name]);
+  //     // panel.setCode(sessionStorage.getItem('xpathr.content.' + name) || template[name]);
   //   }
   // }
 
@@ -305,7 +305,7 @@ panels.savecontent = function () {
   var name, panel;
   for (name in this.panels) {
     panel = this.panels[name];
-    if (panel.editor) sessionStorage.setItem('jsbin.content.' + name, panel.getCode());
+    if (panel.editor) sessionStorage.setItem('xpathr.content.' + name, panel.getCode());
   }
 };
 
@@ -379,7 +379,7 @@ panels.distribute = function () {
         height = 100 / nestedPanels.length;
         nestedPanels.each(function (i) {
           bottom = 100 - (height * (i+1));
-          var panel = jsbin.panels.panels[$.data(this, 'name')];
+          var panel = xpathr.panels.panels[$.data(this, 'name')];
           // $(this).css({ top: top + '%', bottom: bottom + '%' });
           $(this).css('top', top + '%');
           $(this).css('bottom', bottom + '%' );
@@ -391,7 +391,7 @@ panels.distribute = function () {
         });
       }
     }
-  } else if (!jsbin.embed) {
+  } else if (!xpathr.embed) {
     $('#history').show();
     setTimeout(function () {
       $body.removeClass('panelsVisible');
@@ -414,15 +414,15 @@ panels.hide = function (panelId) {
     panels[panelId].hide();
   }
 
-  var visible = jsbin.panels.getVisible();
+  var visible = xpathr.panels.getVisible();
   if (visible.length) {
-    jsbin.panels.focused = visible[0];
-    if (jsbin.panels.focused.editor) {
-      jsbin.panels.focused.editor.focus();
+    xpathr.panels.focused = visible[0];
+    if (xpathr.panels.focused.editor) {
+      xpathr.panels.focused.editor.focus();
     } else {
-      jsbin.panels.focused.$el.focus();
+      xpathr.panels.focused.$el.focus();
     }
-    jsbin.panels.focused.focus();
+    xpathr.panels.focused.focus();
   }
 
   /*
@@ -448,7 +448,7 @@ Panel.prototype.distribute = function () {
   panels.distribute();
 };
 
-jsbin.panels = panels;
+xpathr.panels = panels;
 
 var ignoreDuringLive = /^\s*(while|do|for)[\s*|$]/;
 
@@ -656,6 +656,6 @@ var editorsReady = setInterval(function () {
     });
 
     $document.trigger('sizeeditors');
-    $document.trigger('jsbinReady');
+    $document.trigger('xpathrReady');
   }
 }, 100);

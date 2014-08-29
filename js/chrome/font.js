@@ -2,11 +2,11 @@
  * font
  * Reads user setting and configures the CodeMirror font size
  * ========================================================================== */
-/*global jsbin:true*/
+/*global xpathr:true*/
 var font = (function (document) {
   var head = document.getElementsByTagName('head')[0],
       selectors = '#output li, #exec, .fakeInput, #history, .fakeInput:before, #exec:before, #bin .editbox .CodeMirror, .mobile textarea',
-      size = jsbin.settings.font || 14;
+      size = xpathr.settings.font || 14;
 
   // via http://stackoverflow.com/questions/2041495/create-dynamic-inline-stylesheet
   function font(size) {
@@ -22,9 +22,9 @@ var font = (function (document) {
     head.appendChild(el);
   }
 
-  if (Object.defineProperty && jsbin.settings) {
+  if (Object.defineProperty && xpathr.settings) {
     try {
-      Object.defineProperty(jsbin.settings, 'font', {
+      Object.defineProperty(xpathr.settings, 'font', {
         configurable: true,
         enumerable: true,
         get: function () {

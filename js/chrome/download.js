@@ -1,5 +1,5 @@
 $('#download').click(function (event) {
   event.preventDefault();
-  window.location = jsbin.getURL() + '/download';
+  window.location = xpathr.getURL() + '/download';
   analytics.download();
 });

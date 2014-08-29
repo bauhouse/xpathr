@@ -1,29 +1,29 @@
 (function () {
-  /*global jsbin, $, $body, $document, analytics, settings*/
+  /*global xpathr, $, $body, $document, analytics, settings*/
   'use strict';
 
   if (!$('#toppanel').length) {
     return;
   }
 
-  if (jsbin.settings.gui === undefined) {
-    jsbin.settings.gui = {};
+  if (xpathr.settings.gui === undefined) {
+    xpathr.settings.gui = {};
   }
-  if (jsbin.settings.gui.toppanel === undefined) {
-    jsbin.settings.gui.toppanel = true;
-    localStorage.setItem('settings', JSON.stringify(jsbin.settings));
+  if (xpathr.settings.gui.toppanel === undefined) {
+    xpathr.settings.gui.toppanel = true;
+    localStorage.setItem('settings', JSON.stringify(xpathr.settings));
   }
 
-  if ($body.hasClass('toppanel') && jsbin.settings.gui.toppanel === false) {
+  if ($body.hasClass('toppanel') && xpathr.settings.gui.toppanel === false) {
     $body.addClass('toppanel-close');
     $body.removeClass('toppanel');
   }
 
   // analytics for panel state
-  analytics.welcomePanelState(jsbin.settings.gui.toppanel);
+  analytics.welcomePanelState(xpathr.settings.gui.toppanel);
 
   var removeToppanel = function() {
-    jsbin.settings.gui.toppanel = false;
+    xpathr.settings.gui.toppanel = false;
     settings.save();
     $body.addClass('toppanel-close');
     $body.removeClass('toppanel');
@@ -32,7 +32,7 @@
   };
 
   var showToppanel = function() {
-    jsbin.settings.gui.toppanel = true;
+    xpathr.settings.gui.toppanel = true;
     settings.save();
     $body.removeClass('toppanel-close');
     $body.addClass('toppanel');
@@ -94,7 +94,7 @@
       var blogpost = data.blog[0];
       // this is daft, but it means that the landing page is the same
       // for all, and ensures that blog comments end up on a single place
-      var root = jsbin.root.replace(/^https/, 'http');
+      var root = xpathr.root.replace(/^https/, 'http');
       $('.toppanel-blog ul').html('<li><a href="' + root + '/' + blogpost.slug + '" target="_blank" class="toppanel-link">' + blogpost.title.replace(/TWDTW.*:\s/, '') + '</a></li>');
 
       var last = null;

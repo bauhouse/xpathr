@@ -55,7 +55,7 @@
   }
 
   CodeMirror.registerHelper('hint', 'javascript', function(editor, options) {
-    // JSBIN EDIT (note: dedupe is in jsbin.js)
+    // JSBIN EDIT (note: dedupe is in xpathr.js)
     var keywords = dedupe(javascriptKeywords.concat(editor.getCode().replace(/\W/g, ' ').replace(/\s+/g, ' ').trim().split(' '))).sort(function (a, b) {
       return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
     });

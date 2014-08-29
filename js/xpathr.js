@@ -105,7 +105,7 @@ function exposeSettings() {
 
   function mockPanels() {
     var results = {};
-    var panels = jsbin.panels.panels;
+    var panels = xpathr.panels.panels;
     ['css', 'javascript', 'html'].forEach(function (type) {
       results[type] = {
         setCode: panels[type].setCode.bind(panels[type]),
@@ -122,30 +122,30 @@ function exposeSettings() {
     return results;
   }
 
-  if (window.jsbin instanceof Node || !window.jsbin) { // because...STUPIDITY!!!
-    window.jsbin = {
-      'static': jsbin['static'],
-      version: jsbin.version,
-      embed: jsbin.embed,
+  if (window.xpathr instanceof Node || !window.xpathr) { // because...STUPIDITY!!!
+    window.xpathr = {
+      'static': xpathr['static'],
+      version: xpathr.version,
+      embed: xpathr.embed,
       panels: {
         // FIXME decide whether this should be locked down further
         panels: mockPanels()
       }
     }; // create the holding object
 
-    if (jsbin.state.metadata && jsbin.user && jsbin.state.metadata.name === jsbin.user.name && jsbin.user.name) {
-      window.jsbin.settings = jsbin.settings;
+    if (xpathr.state.metadata && xpathr.user && xpathr.state.metadata.name === xpathr.user.name && xpathr.user.name) {
+      window.xpathr.settings = xpathr.settings;
       return;
     }
 
     var key = 'o' + (Math.random() * 1).toString(32).slice(2);
     Object.defineProperty(window, key, {
       get:function () {
-        window.jsbin.settings = jsbin.settings;
-        console.log('jsbin.settings can how be modified on the console');
+        window.xpathr.settings = xpathr.settings;
+        console.log('xpathr.settings can how be modified on the console');
       }
     });
-    if (!jsbin.embed) {
+    if (!xpathr.embed) {
       console.log('To edit settings, type this string into the console: ' + key);
     }
   }
@@ -159,18 +159,18 @@ if (storedSettings === "undefined") {
 
 // In all cases localStorage takes precedence over user settings so users can
 // configure it from the console and overwrite the server delivered settings
-jsbin.settings = $.extend({}, jsbin.settings, JSON.parse(storedSettings || '{}'));
+xpathr.settings = $.extend({}, xpathr.settings, JSON.parse(storedSettings || '{}'));
 
-if (jsbin.user) {
-  jsbin.settings = $.extend({}, jsbin.user.settings, jsbin.settings);
+if (xpathr.user) {
+  xpathr.settings = $.extend({}, xpathr.user.settings, xpathr.settings);
 }
 
 // if the above code isn't dodgy, this for hellz bells is:
-jsbin.mobile = /WebKit.*Mobile.*|Android/.test(navigator.userAgent);
-jsbin.tablet = /iPad/i.test(navigator.userAgent); // sue me.
+xpathr.mobile = /WebKit.*Mobile.*|Android/.test(navigator.userAgent);
+xpathr.tablet = /iPad/i.test(navigator.userAgent); // sue me.
 // IE detect - sadly uglify is compressing the \v1 trick to death :(
 // via @padolsey & @jdalton - https://gist.github.com/527683
-jsbin.ie = (function(){
+xpathr.ie = (function(){
   var undef,
       v = 3,
       div = document.createElement('div'),
@@ -182,22 +182,22 @@ jsbin.ie = (function(){
   return v > 4 ? v : undef;
 }());
 
-if (!storedSettings && (location.origin + location.pathname) === jsbin.root + '/') {
+if (!storedSettings && (location.origin + location.pathname) === xpathr.root + '/') {
   // first timer - let's welcome them shall we, Dave?
   localStorage.setItem('settings', '{}');
 }
 
-if (!jsbin.settings.editor) {
-  // backward compat with jsbin-v2
-  jsbin.settings.editor = {};
+if (!xpathr.settings.editor) {
+  // backward compat with xpathr-v2
+  xpathr.settings.editor = {};
 }
 
-if (jsbin.settings.codemirror) {
-  $.extend(jsbin.settings.editor, jsbin.settings.codemirror);
+if (xpathr.settings.codemirror) {
+  $.extend(xpathr.settings.editor, xpathr.settings.codemirror);
 }
 
-if (jsbin.settings.editor.theme) {
-  $(document.documentElement).addClass('cm-s-' + jsbin.settings.editor.theme.split(' ')[0]);
+if (xpathr.settings.editor.theme) {
+  $(document.documentElement).addClass('cm-s-' + xpathr.settings.editor.theme.split(' ')[0]);
 }
 
 // Add a pre-filter to all ajax requests to add a CSRF header to prevent
@@ -206,17 +206,17 @@ jQuery.ajaxPrefilter(function (options, original, xhr) {
   var skip = {head: 1, get: 1};
   if (!skip[options.type.toLowerCase()] &&
       !options.url.match(/^https:\/\/api.github.com/)) {
-    xhr.setRequestHeader('X-CSRF-Token', jsbin.state.token);
+    xhr.setRequestHeader('X-CSRF-Token', xpathr.state.token);
   }
 });
 
-jsbin.owner = function () {
-  return jsbin.user && jsbin.user.name && jsbin.state.metadata && jsbin.state.metadata.name === jsbin.user.name;
+xpathr.owner = function () {
+  return xpathr.user && xpathr.user.name && xpathr.state.metadata && xpathr.state.metadata.name === xpathr.user.name;
 };
 
-jsbin.getURL = function (withoutRoot, share) {
-  var url = withoutRoot ? '' : (share ? jsbin.shareRoot : jsbin.root),
-      state = jsbin.state;
+xpathr.getURL = function (withoutRoot, share) {
+  var url = withoutRoot ? '' : (share ? xpathr.shareRoot : xpathr.root),
+      state = xpathr.state;
 
   if (state.code) {
     url += '/' + state.code;
@@ -257,33 +257,33 @@ function objectValue(path, context) {
 var $window = $(window),
     $body = $('body'),
     $document = $(document),
-    debug = jsbin.settings.debug === undefined ? false : jsbin.settings.debug,
+    debug = xpathr.settings.debug === undefined ? false : xpathr.settings.debug,
     documentTitle = 'JS Bin',
     $bin = $('#bin'),
     loadGist,
     // splitterSettings = JSON.parse(localStorage.getItem('splitterSettings') || '[ { "x" : null }, { "x" : null } ]'),
     unload = function () {
       // sessionStorage.setItem('javascript', editors.javascript.getCode());
-      if (jsbin.panels.focused.editor) {
+      if (xpathr.panels.focused.editor) {
         try { // this causes errors in IE9 - so we'll use a try/catch to get through it
-          sessionStorage.setItem('line', jsbin.panels.focused.editor.getCursor().line);
-          sessionStorage.setItem('character', jsbin.panels.focused.editor.getCursor().ch);
+          sessionStorage.setItem('line', xpathr.panels.focused.editor.getCursor().line);
+          sessionStorage.setItem('character', xpathr.panels.focused.editor.getCursor().ch);
         } catch (e) {
           sessionStorage.setItem('line', 0);
           sessionStorage.setItem('character', 0);
         }
       }
 
-      sessionStorage.setItem('url', jsbin.getURL());
-      localStorage.setItem('settings', JSON.stringify(jsbin.settings));
+      sessionStorage.setItem('url', xpathr.getURL());
+      localStorage.setItem('settings', JSON.stringify(xpathr.settings));
 
-      if (jsbin.panels.saveOnExit === false) {
+      if (xpathr.panels.saveOnExit === false) {
         return;
       }
-      jsbin.panels.save();
-      jsbin.panels.savecontent();
+      xpathr.panels.save();
+      xpathr.panels.savecontent();
 
-      var panel = jsbin.panels.focused;
+      var panel = xpathr.panels.focused;
       if (panel) {
         sessionStorage.setItem('panel', panel.id);
       }
@@ -295,7 +295,7 @@ $window.unload(unload);
 //   if (e.storageArea === localStorage && e.key === 'settings') {
 //     console.log('updating from storage');
 //     console.log(JSON.parse(localStorage.settings));
-//     jsbin.settings = JSON.parse(localStorage.settings);
+//     xpathr.settings = JSON.parse(localStorage.settings);
 //   }
 // });
 
@@ -319,10 +319,10 @@ if (location.search.indexOf('api=') !== -1) {
       }
     }
 
-    $.getScript(jsbin.root + '/js/chrome/sandbox.js', function () {
+    $.getScript(xpathr.root + '/js/chrome/sandbox.js', function () {
       var sandbox = new Sandbox(apiurl);
       sandbox.get('settings', function (data) {
-        $.extend(jsbin.settings, data);
+        $.extend(xpathr.settings, data);
         unload();
         window.location = location.pathname + (newUrlParts.length ? '?' + newUrlParts.join(',') : '');
       });
@@ -332,7 +332,7 @@ if (location.search.indexOf('api=') !== -1) {
 }
 
 
-$document.one('jsbinReady', function () {
+$document.one('xpathrReady', function () {
   exposeSettings();
   $bin.removeAttr('style');
   $body.addClass('ready');
@@ -343,7 +343,7 @@ if (navigator.userAgent.indexOf(' Mac ') !== -1) (function () {
   el.innerHTML = el.innerHTML.replace(/ctrl/g, 'cmd').replace(/Ctrl/g, 'ctrl');
 })();
 
-if (jsbin.embed) {
+if (xpathr.embed) {
   $window.on('focus', function () {
     return false;
   });

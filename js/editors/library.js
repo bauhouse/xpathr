@@ -186,7 +186,7 @@ var htmlLinkToJade = (function(){
 }());
 
 function isJadeActive(){
-  return jsbin.state.processors.html === 'jade';
+  return xpathr.state.processors.html === 'jade';
 }
 
 function isCssFile(url) {

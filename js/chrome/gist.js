@@ -1,5 +1,5 @@
 var Gist = (function () { // jshint ignore:line
-  /*global $:true, jsbin:true, processors:true, $document*/
+  /*global $:true, xpathr:true, processors:true, $document*/
   'use strict';
 
   // Only allow gist import/export if CORS is supported
@@ -15,8 +15,8 @@ var Gist = (function () { // jshint ignore:line
     var gist = this,
         token = '';
     gist.code = {};
-    if (jsbin.user && jsbin.user.github_token) { // jshint ignore:line
-      token = '?access_token=' + jsbin.user.github_token; // jshint ignore:line
+    if (xpathr.user && xpathr.user.github_token) { // jshint ignore:line
+      token = '?access_token=' + xpathr.user.github_token; // jshint ignore:line
     }
     $.get('https://api.github.com/gists/' + id + token, function (data) {
       if (!data) {return;}
@@ -32,14 +32,14 @@ var Gist = (function () { // jshint ignore:line
   Gist.prototype.setCode = function () {
     var gist = this;
     $.each(gist.code, function (ext, data) {
-      var processorInit = jsbin.processors.findByExtension(ext),
+      var processorInit = xpathr.processors.findByExtension(ext),
           target = processorInit.target || processorInit.id,
-          panel = jsbin.panels.panels[target];
+          panel = xpathr.panels.panels[target];
       if (!panel) {return;}
       processors.set(target, processorInit.id);
-      jsbin.saveDisabled = true;
+      xpathr.saveDisabled = true;
       panel.setCode(data);
-      jsbin.saveDisabled = false;
+      xpathr.saveDisabled = false;
     });
   };
 
@@ -54,16 +54,16 @@ var Gist = (function () { // jshint ignore:line
     };
 
     var panels = {
-      html: jsbin.panels.panels.html.render(),
-      javascript: jsbin.panels.panels.javascript.render(),
-      css: jsbin.panels.panels.css.render()
+      html: xpathr.panels.panels.html.render(),
+      javascript: xpathr.panels.panels.javascript.render(),
+      css: xpathr.panels.panels.css.render()
     };
 
     RSVP.hash(panels).then(function (panels) {
       // Build a file name
       Object.keys(panels).forEach(function (key) {
         var ext = processors[key].extensions ? processors[key].extensions[0] : key;
-        var file = ['jsbin', (jsbin.state.code || 'untitled'), ext].join('.');
+        var file = ['xpathr', (xpathr.state.code || 'untitled'), ext].join('.');
         if (panels[key].length) {
           gist.files[file] = {
             content: panels[key]
@@ -72,13 +72,13 @@ var Gist = (function () { // jshint ignore:line
       });
 
       if (!gist.files.javascript && !gist.files.css) {
-        delete gist.files[['jsbin', (jsbin.state.code || 'untitled'), 'html'].join('.')]
+        delete gist.files[['xpathr', (xpathr.state.code || 'untitled'), 'html'].join('.')]
       }
 
-      if (jsbin.state.processors) {
-        panels.source = jsbin.state.processors;
+      if (xpathr.state.processors) {
+        panels.source = xpathr.state.processors;
         Object.keys(panels.source).forEach(function (key) {
-          panels.source[key] = jsbin.panels.panels[key].getCode();
+          panels.source[key] = xpathr.panels.panels[key].getCode();
         });
       }
 
@@ -90,21 +90,21 @@ var Gist = (function () { // jshint ignore:line
 
       var desc = [];
 
-      if (jsbin.state.title) {
-        desc.push(jsbin.state.title);
+      if (xpathr.state.title) {
+        desc.push(xpathr.state.title);
       }
 
-      if (jsbin.state.description) {
-        desc.push(jsbin.state.description);
+      if (xpathr.state.description) {
+        desc.push(xpathr.state.description);
       }
 
-      desc.push('// source ' + jsbin.getURL());
+      desc.push('// source ' + xpathr.getURL());
 
       gist.description = desc.join('\n\n');
 
       var token = '';
-      if (jsbin.user && jsbin.user.github_token) { // jshint ignore:line
-        token = '?access_token=' + jsbin.user.github_token; // jshint ignore:line
+      if (xpathr.user && xpathr.user.github_token) { // jshint ignore:line
+        token = '?access_token=' + xpathr.user.github_token; // jshint ignore:line
       }
 
       $.ajax({

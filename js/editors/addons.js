@@ -1,9 +1,9 @@
 (function () {
   'use strict';
-  /*globals $, jsbin, CodeMirror*/
+  /*globals $, xpathr, CodeMirror*/
 
   // ignore addons for embedded views
-  if (jsbin.embed) {
+  if (xpathr.embed) {
     return;
   }
 
@@ -20,8 +20,8 @@
     matchbrackets: false
   };
 
-  if (!jsbin.settings.addons) {
-    jsbin.settings.addons = defaults;
+  if (!xpathr.settings.addons) {
+    xpathr.settings.addons = defaults;
   }
 
   var detailsSupport = 'open' in document.createElement('details');
@@ -42,12 +42,12 @@
     if (val === 'js') {
       d = true;
     }
-    settingsHints[h] = (jsbin.settings[h] !== undefined) ? jsbin.settings[h] : d;
+    settingsHints[h] = (xpathr.settings[h] !== undefined) ? xpathr.settings[h] : d;
   });
 
-  settingsHintShow = $.extend({}, hintShow, jsbin.settings.hintShow);
+  settingsHintShow = $.extend({}, hintShow, xpathr.settings.hintShow);
   settingsHintShow.tooltip = settingsHintShow.gutter;
-  var settingsAddons = $.extend({}, jsbin.settings.addons, settingsHints);
+  var settingsAddons = $.extend({}, xpathr.settings.addons, settingsHints);
 
   var addons = {
     closebrackets: {
@@ -159,7 +159,7 @@
         '/js/vendor/codemirror4/addon/hint/show-hint.css',
         '/js/vendor/codemirror4/addon/tern/tern.css',
         '/js/vendor/codemirror4/addon/hint/show-hint.js',
-        '/js/prod/addon-tern-' + jsbin.version + '.min.js'
+        '/js/prod/addon-tern-' + xpathr.version + '.min.js'
       ],
       test: function () {
         return (typeof window.ternBasicDefs !== 'undefined') &&
@@ -201,7 +201,7 @@
                (typeof CSSLint !== 'undefined');
       },
       done: function(cm) {
-        if (cm.getOption('mode') !== 'css' || jsbin.state.processors.css !== undefined) {
+        if (cm.getOption('mode') !== 'css' || xpathr.state.processors.css !== undefined) {
           return;
         }
         hintingDone(cm);
@@ -214,7 +214,7 @@
                (typeof JSHINT !== 'undefined');
       },
       done: function(cm) {
-        if (cm.getOption('mode') !== 'javascript' || jsbin.state.processors.javascript !== undefined) {
+        if (cm.getOption('mode') !== 'javascript' || xpathr.state.processors.javascript !== undefined) {
           return;
         }
         hintingDone(cm, {
@@ -232,7 +232,7 @@
                (typeof HTMLHint !== 'undefined');
       },
       done: function(cm) {
-        if (cm.getOption('mode') !== 'htmlmixed' || jsbin.state.processors.html !== undefined) {
+        if (cm.getOption('mode') !== 'htmlmixed' || xpathr.state.processors.html !== undefined) {
           return;
         }
         hintingDone(cm);
@@ -248,7 +248,7 @@
                (typeof coffeelint !== 'undefined');
       },
       done: function(cm) {
-        if (cm.getOption('mode') !== 'coffeescript' || jsbin.state.processors.javascript !== 'coffeescript') {
+        if (cm.getOption('mode') !== 'coffeescript' || xpathr.state.processors.javascript !== 'coffeescript') {
           return;
         }
         hintingDone(cm);
@@ -263,19 +263,19 @@
 
   function load(url) {
     if (url.indexOf('http') !== 0) {
-      url = jsbin.static + url;
+      url = xpathr.static + url;
     }
 
     if (url.slice(-3) === '.js') {
       return $.ajax({
-        url: url + '?' + jsbin.version, // manual cache busting
+        url: url + '?' + xpathr.version, // manual cache busting
         dataType: 'script',
         cache: true
       });
     } else if (url.slice(-4) === '.css') {
       var d = $.Deferred();
       setTimeout(function () {
-        $body.append('<link rel="stylesheet" href="' + url + '?' + jsbin.version + '">');
+        $body.append('<link rel="stylesheet" href="' + url + '?' + xpathr.version + '">');
         d.resolve();
       }, 0);
       return d;
@@ -328,7 +328,7 @@
     var opt = $.extend({}, settingsHintShow);
     opt.consoleParent = cm.getWrapperElement().parentNode.parentNode;
     setOption(cm, 'lintOpt', opt);
-    setOption(cm, 'lintRules', $.extend({}, defhintOptions, jsbin.settings[mode + 'hintOptions']));
+    setOption(cm, 'lintRules', $.extend({}, defhintOptions, xpathr.settings[mode + 'hintOptions']));
     if (opt.gutter) {
       var gutters = cm.getOption('gutters');
       if (gutters.indexOf('CodeMirror-lint-markers') === -1) {
@@ -370,7 +370,7 @@
       $.when.call($, addon.url.map(load)).done(function () {
         if (addon.done) {
           ready(addon.test).then(function () {
-            jsbin.panels.allEditors(function (panel) {
+            xpathr.panels.allEditors(function (panel) {
               if (panel.editor) {
                 addon.done(panel.editor);
               }

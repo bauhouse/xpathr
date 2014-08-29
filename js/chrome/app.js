@@ -8,12 +8,12 @@ if (/gist\/.*/.test(window.location.pathname)) {
   if (editors.ready) {
     loadGist();
   } else {
-    $document.on('jsbinReady', loadGist);
+    $document.on('xpathrReady', loadGist);
   }
 }
 
 // prevent the app from accidently getting scrolled out of view
-if (!jsbin.mobile) document.body.onscroll = window.onscroll = function () {
+if (!xpathr.mobile) document.body.onscroll = window.onscroll = function () {
   if (document.body.scrollTop !== 0) {
     window.scrollTo(0,0);
   }
@@ -35,10 +35,10 @@ if (CodeMirror.keyMap && CodeMirror.keyMap['default']) {
 
 var link = document.createElement('link');
 link.rel = 'stylesheet';
-link.href = jsbin['static'] + '/css/font.css?' + jsbin.version;
+link.href = xpathr['static'] + '/css/font.css?' + xpathr.version;
 link.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(link);
 
-if (jsbin.embed) {
+if (xpathr.embed) {
   analytics.embed();
 }

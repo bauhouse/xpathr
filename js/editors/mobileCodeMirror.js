@@ -2,11 +2,11 @@
 var noop = function () {},
     rootClassName = document.body.className;
 
-var simple = jsbin.settings.editor && jsbin.settings.editor.simple;
+var simple = xpathr.settings.editor && xpathr.settings.editor.simple;
 
-if (simple || jsbin.mobile || jsbin.tablet || rootClassName.indexOf('ie6') !== -1 || rootClassName.indexOf('ie7') !== -1) {
+if (simple || xpathr.mobile || xpathr.tablet || rootClassName.indexOf('ie6') !== -1 || rootClassName.indexOf('ie7') !== -1) {
   $('body').addClass('mobile');
-  jsbin.lameEditor = true;
+  xpathr.lameEditor = true;
   Editor = function (el, options) {
     this.textarea = el;
     this.win = { document : this.textarea };
@@ -20,7 +20,7 @@ if (simple || jsbin.mobile || jsbin.tablet || rootClassName.indexOf('ie6') !== -
     this.textarea.style.opacity = 1;
     // this.textarea.style.width = '100%';
 
-    $(this.textarea)[jsbin.mobile || jsbin.tablet ? 'blur' : 'keyup'](throttle(function () {
+    $(this.textarea)[xpathr.mobile || xpathr.tablet ? 'blur' : 'keyup'](throttle(function () {
       $(document).trigger('codeChange', { panelId: el.id });
     }, 200));
 

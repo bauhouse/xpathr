@@ -27,7 +27,7 @@ function Sandbox(url) {
 
   var iframe = document.createElement('iframe');
       frameHost = location.origin,
-      iframe.src = jsbin.root + '/sandbox.html?' + url,
+      iframe.src = xpathr.root + '/sandbox.html?' + url,
       body = document.body,
       source = null,
       guid = +new Date,

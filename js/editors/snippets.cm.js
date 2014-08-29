@@ -1,4 +1,4 @@
-/*global jsbin:true, CodeMirror:true */
+/*global xpathr:true, CodeMirror:true */
 (function() {
   'use strict';
   var defaults = {
@@ -12,7 +12,7 @@
         targetCursorPos = -1,
         macro = '',
         tagName = tok.string,
-        snippets = jsbin.settings.snippets || defaults;
+        snippets = xpathr.settings.snippets || defaults;
 
     if (tok.end > pos.ch) {
       tagName = tagName.slice(0, tagName.length - tok.end + pos.ch);

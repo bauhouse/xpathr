@@ -1,9 +1,9 @@
 (function () {
-  /*global spinner, $, jsbin, prettyDate, EventSource, throttle, $document, analytics*/
+  /*global spinner, $, xpathr, prettyDate, EventSource, throttle, $document, analytics*/
   'use strict';
 
   // don't insert this on embeded views
-  if (jsbin.embed) {
+  if (xpathr.embed) {
     return;
   }
 
@@ -17,7 +17,7 @@
   }
 
   function updateInfoCard(event) {
-    var meta = jsbin.state.metadata || {};
+    var meta = xpathr.state.metadata || {};
     var classes = [];
     var es = null;
     var owner = false;
@@ -28,7 +28,7 @@
       classes.push(meta.name);
     }
 
-    if (jsbin.state.checksum || (jsbin.user && (meta.name === jsbin.user.name))) {
+    if (xpathr.state.checksum || (xpathr.user && (meta.name === xpathr.user.name))) {
       owner = true;
       classes.push('author');
     }
@@ -37,7 +37,7 @@
       s.stop();
     }
 
-    if (!jsbin.state.streaming || owner === true) {
+    if (!xpathr.state.streaming || owner === true) {
       $header.find('time').html(event ? 'just now' : prettyDate(meta.last_updated));
     } else if (owner === false) {
       $header.find('time').html('Streaming');
@@ -47,7 +47,7 @@
       }
     }
 
-    if (!jsbin.checksum) {
+    if (!xpathr.checksum) {
       classes.push('meta');
     }
 
@@ -63,7 +63,7 @@
       classes.push('public');
     } // TODO handle team
 
-    if (jsbin.state.code) {
+    if (xpathr.state.code) {
       $template.addClass(classes.join(' ')).parent().removeAttr('hidden');
 
       $header.click(function (e) {
@@ -74,11 +74,11 @@
 
       var viewers = 0;
 
-      if (jsbin.state.streaming) {
+      if (xpathr.state.streaming) {
         if (window.EventSource && owner) {
           listenStats();
           handleVisibility();
-          var url = jsbin.getURL();
+          var url = xpathr.getURL();
           $document.on('saved', function () {
             var newurl = window.location.toString();
             if (url !== newurl) {
@@ -86,8 +86,8 @@
               listenStats();
             }
           });
-        } else if (jsbin.saveDisabled === true && window.location.pathname.slice(-5) === '/edit') {
-          $.getScript(jsbin.static + '/js/spike.js?' + jsbin.version);
+        } else if (xpathr.saveDisabled === true && window.location.pathname.slice(-5) === '/edit') {
+          $.getScript(xpathr.static + '/js/spike.js?' + xpathr.version);
           $document.on('stats', throttle(updateStats, 1000));
         }
       }
@@ -143,7 +143,7 @@
     function listenStats() {
       if (window.EventSource && owner) {
         // TODO use pagevisibility api to close connection
-        es = new EventSource(jsbin.getURL() + '/stats?checksum=' + jsbin.state.checksum);
+        es = new EventSource(xpathr.getURL() + '/stats?checksum=' + xpathr.state.checksum);
         es.addEventListener('stats', throttle(updateStats, 1000));
       }
     }

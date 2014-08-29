@@ -12,7 +12,7 @@ var processor = (function () {
     // RS: the empty comment in the end of the harness, ensures any
     // open comments are closed, and will ensure the harness is hidden
     // from the user.
-    restore: '<!--jsbin live harness--><script>try{delete window.print;delete window.alert;delete window.prompt;delete window.confirm;delete window.open;}catch(e){}</script>'
+    restore: '<!--xpathr live harness--><script>try{delete window.print;delete window.alert;delete window.prompt;delete window.confirm;delete window.open;}catch(e){}</script>'
   };
 
   /**
@@ -75,9 +75,9 @@ var processor = (function () {
     combinedSource.push(doctype);
 
     // this ensures that requests are bounced away from
-    // jsbin when they're relative. They shouldn't be
-    // hitting jsbin directly for broken images, etc.
-    combinedSource.push('<base href="//null.jsbin.com/">');
+    // xpathr when they're relative. They shouldn't be
+    // hitting xpathr directly for broken images, etc.
+    combinedSource.push('<base href="//null.xpathr.com/">');
 
     // Kill the blocking functions
     // IE requires that this is done in the script, rather than off the window

@@ -1,13 +1,13 @@
-/*globals objectValue, $, jsbin, $body, $document*/
+/*globals objectValue, $, xpathr, $body, $document*/
 var keyboardHelpVisible = false;
 
-var customKeys = objectValue('jsbin.settings.keys') || {};
+var customKeys = objectValue('xpathr.settings.keys') || {};
 
 function enableAltUse() {
-  if (!jsbin.settings.keys) {
-    jsbin.settings.keys = {};
+  if (!xpathr.settings.keys) {
+    xpathr.settings.keys = {};
   }
-  jsbin.settings.keys.useAlt = this.checked;
+  xpathr.settings.keys.useAlt = this.checked;
 }
 
 $('input.enablealt').attr('checked', customKeys.useAlt ? true : false).change(enableAltUse);
@@ -58,7 +58,7 @@ if (!customKeys.disabled) {
     } else if (event.metaKey && event.shiftKey && event.which === 8) { // cmd+shift+backspace
       $('a.deletebin:first').trigger('click', 'keyboard');
       event.preventDefault();
-    } else if (!jsbin.embed && event.metaKey && event.which === 83) { // save
+    } else if (!xpathr.embed && event.metaKey && event.which === 83) { // save
       if (event.shiftKey === false) {
         if (saveChecksum) {
           saveChecksum = false;
@@ -71,12 +71,12 @@ if (!customKeys.disabled) {
         $('a.clone').click();
         event.preventDefault();
       }
-    } else if (event.which === closekey && event.metaKey && includeAltKey && jsbin.panels.focused) {
-      jsbin.panels.hide(jsbin.panels.focused.id);
+    } else if (event.which === closekey && event.metaKey && includeAltKey && xpathr.panels.focused) {
+      xpathr.panels.hide(xpathr.panels.focused.id);
     } else if (event.which === 220 && (event.metaKey || event.ctrlKey)) {
-      jsbin.settings.hideheader = !jsbin.settings.hideheader;
-      $body[jsbin.settings.hideheader ? 'addClass' : 'removeClass']('hideheader');
-    } else if (event.which === 76 && event.ctrlKey && jsbin.panels.panels.console.visible) {
+      xpathr.settings.hideheader = !xpathr.settings.hideheader;
+      $body[xpathr.settings.hideheader ? 'addClass' : 'removeClass']('hideheader');
+    } else if (event.which === 76 && event.ctrlKey && xpathr.panels.panels.console.visible) {
       if (event.shiftKey) {
         // reset
         jsconsole.reset();
@@ -95,10 +95,10 @@ function keycontrol(event) {
 
   var panel = {};
 
-  if (jsbin.panels.focused && jsbin.panels.focused.editor) {
-    panel = jsbin.panels.focused.editor;
-  } else if (jsbin.panels.focused) {
-    panel = jsbin.panels.focused;
+  if (xpathr.panels.focused && xpathr.panels.focused.editor) {
+    panel = xpathr.panels.focused.editor;
+  } else if (xpathr.panels.focused) {
+    panel = xpathr.panels.focused;
   }
 
   var codePanel = { css: 1, javascript: 1, html: 1}[panel.id],
@@ -145,23 +145,23 @@ function keycontrol(event) {
 
     // shortcut for showing a panel
     if (panelShortcuts[event.which] !== undefined && event.metaKey && includeAltKey) {
-      if (jsbin.panels.focused.id === panelShortcuts[event.which]) {
+      if (xpathr.panels.focused.id === panelShortcuts[event.which]) {
         // this has been disabled in favour of:
         // if the panel is visible, and the user tries cmd+n - then the browser
         // gets the key command.
-        jsbin.panels.hide(panelShortcuts[event.which]);
+        xpathr.panels.hide(panelShortcuts[event.which]);
         event.stop();
       } else {
         // show
-        jsbin.panels.show(panelShortcuts[event.which]);
+        xpathr.panels.show(panelShortcuts[event.which]);
         event.stop();
 
-        if (!customKeys.useAlt && (!jsbin.settings.keys || !jsbin.settings.keys.seenWarning)) {
+        if (!customKeys.useAlt && (!xpathr.settings.keys || !xpathr.settings.keys.seenWarning)) {
           var cmd = $.browser.platform === 'mac' ? 'cmd' : 'ctrl';
-          if (!jsbin.settings.keys) {
-            jsbin.settings.keys = {};
+          if (!xpathr.settings.keys) {
+            xpathr.settings.keys = {};
           }
-          jsbin.settings.keys.seenWarning = true;
+          xpathr.settings.keys.seenWarning = true;
           $document.trigger('tip', {
             type: 'notification',
             content: '<label><input type="checkbox" class="enablealt"> <strong>Turn this off</strong>. Reserve ' + cmd + '+[n] for switching browser tabs and use ' + cmd + '+<u>alt</u>+[n] to switch JS Bin panels. You can access this any time in <strong>Help&rarr;Keyboard</strong></label>'
@@ -190,9 +190,9 @@ function keycontrol(event) {
       $body.removeClass('keyboardHelp');
       keyboardHelpVisible = false;
       event.stop();
-    } else if (event.which === 27 && jsbin.panels.focused && codePanel) {
+    } else if (event.which === 27 && xpathr.panels.focused && codePanel) {
       // event.stop();
-      // return CodeMirror.commands.autocomplete(jsbin.panels.focused.editor);
+      // return CodeMirror.commands.autocomplete(xpathr.panels.focused.editor);
     } else if (event.which === 190 && includeAltKey && event.metaKey && panel.id === 'html') {
       // auto close the element
       if (panel.somethingSelected()) {return;}

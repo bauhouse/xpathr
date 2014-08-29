@@ -1,18 +1,18 @@
 function archive(unarchive) {
-  /*global jsbin, $, $document, analytics*/
+  /*global xpathr, $, $document, analytics*/
   'use strict';
   var type = unarchive === false ? 'unarchive' : 'archive';
   var text = unarchive === false ? 'restore from archive' : 'archiving';
-  analytics[type](jsbin.getURL());
-  if (!jsbin.user.name) {
+  analytics[type](xpathr.getURL());
+  if (!xpathr.user.name) {
     $document.trigger('tip', {
       type: 'notication',
       content: 'You must be logged in and the owner of the bin to archive.'
     });
-  } else if (jsbin.owner()) {
+  } else if (xpathr.owner()) {
     $.ajax({
       type: 'POST',
-      url: jsbin.getURL() + '/' + type,
+      url: xpathr.getURL() + '/' + type,
       error: function () {
         $document.trigger('tip', {
           type: 'error',
@@ -20,7 +20,7 @@ function archive(unarchive) {
         });
       },
       success: function () {
-        jsbin.state.metadata.archive = unarchive !== false;
+        xpathr.state.metadata.archive = unarchive !== false;
         updateArchiveMenu();
         $document.trigger('tip', {
           type: 'notication',
@@ -38,7 +38,7 @@ function archive(unarchive) {
 }
 
 function updateArchiveMenu() {
-  if (jsbin.state.metadata && jsbin.state.metadata.archive) {
+  if (xpathr.state.metadata && xpathr.state.metadata.archive) {
     $('a.archivebin').hide();
     $('a.unarchivebin').show();
   } else {

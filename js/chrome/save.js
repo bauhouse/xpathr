@@ -38,7 +38,7 @@ $('a.save').click(function (event) {
   analytics.milestone();
   // if save is disabled, hitting save will trigger a reload
   var ajax = true;
-  if (jsbin.saveDisabled === true) {
+  if (xpathr.saveDisabled === true) {
     ajax = false;
   }
   saveCode('save', ajax);
@@ -64,7 +64,7 @@ function updateSavedState() {
   }).get().join(',');
   $shareLinks.each(function () {
     var path = this.getAttribute('data-path');
-    var url = jsbin.getURL(false, path === '/') + path + (query && this.id !== 'livepreview' ? '?' + query : ''),
+    var url = xpathr.getURL(false, path === '/') + path + (query && this.id !== 'livepreview' ? '?' + query : ''),
         nodeName = this.nodeName;
     var hash = panels.getHighlightLines();
 
@@ -80,7 +80,7 @@ function updateSavedState() {
         this.value += hash;
       }
     } else if (nodeName === 'TEXTAREA') {
-      this.value = ('<a class="jsbin-embed" href="' + url + hash + '">' + documentTitle + '</a><' + 'script src="' + jsbin.static + '/js/embed.js"><' + '/script>').replace(/<>"&/g, function (m) {
+      this.value = ('<a class="xpathr-embed" href="' + url + hash + '">' + documentTitle + '</a><' + 'script src="' + xpathr.static + '/js/embed.js"><' + '/script>').replace(/<>"&/g, function (m) {
           return {
             '<': '&lt;',
             '>': '&gt;',
@@ -100,14 +100,14 @@ $document.on('saved', function () {
   updateSavedState();
   $shareLinks.closest('.menu').removeClass('hidden');
 
-  $('#jsbinurl').attr('href', jsbin.getURL()).removeClass('hidden');
+  $('#xpathrurl').attr('href', xpathr.getURL()).removeClass('hidden');
   $('#clone').removeClass('hidden');
 });
 
-var saveChecksum = jsbin.state.checksum || sessionStorage.getItem('checksum') || false;
+var saveChecksum = xpathr.state.checksum || sessionStorage.getItem('checksum') || false;
 
 // store it back on state
-jsbin.state.checksum = saveChecksum;
+xpathr.state.checksum = saveChecksum;
 
 if (saveChecksum) {
   // remove the disabled class, but also remove the cancelling event handlers
@@ -142,7 +142,7 @@ function onSaveError(jqXHR, panelId) {
 
 
 // only start live saving it they're allowed to (whereas save is disabled if they're following)
-if (!jsbin.saveDisabled) {
+if (!xpathr.saveDisabled) {
   $('.code.panel .label .name').append('<span>Saved</span>');
 
   var savingLabels = {
@@ -151,11 +151,11 @@ if (!jsbin.saveDisabled) {
     css: $('.panel.css .name span')
   };
 
-  $document.bind('jsbinReady', function () {
-    jsbin.panels.allEditors(function (panel) {
+  $document.bind('xpathrReady', function () {
+    xpathr.panels.allEditors(function (panel) {
       panel.on('processor', function () {
         // if the url doesn't match the root - i.e. they've actually saved something then save on processor change
-        if (jsbin.root !== jsbin.getURL()) {
+        if (xpathr.root !== xpathr.getURL()) {
           $document.trigger('codeChange', [{ panelId: panel.id }]);
         }
       });
@@ -183,13 +183,13 @@ if (!jsbin.saveDisabled) {
         return;
       }
 
-      if (jsbin.state.deleted) {
+      if (xpathr.state.deleted) {
         return;
       }
 
       var panelId = data.panelId;
 
-      jsbin.panels.savecontent();
+      xpathr.panels.savecontent();
 
       if (saving.inprogress()) {
         // queue up the request and wait
@@ -200,7 +200,7 @@ if (!jsbin.saveDisabled) {
       saving.inprogress(true);
 
       // We force a full save if there's no checksum OR if there's no bin code/url
-      if (!saveChecksum || !jsbin.state.code) {
+      if (!saveChecksum || !xpathr.state.code) {
         // create the bin and when the response comes back update the url
         saveCode('save', true);
       } else {
@@ -209,10 +209,10 @@ if (!jsbin.saveDisabled) {
     }, 250));
   });
 } else {
-  $document.one('jsbinReady', function () {
+  $document.one('xpathrReady', function () {
     'use strict';
     var shown = false;
-    if (!jsbin.embed && !jsbin.sandbox) {
+    if (!xpathr.embed && !xpathr.sandbox) {
       $document.on('codeChange.live', function (event, data) {
         if (!data.onload && !shown && data.origin !== 'setValue') {
           shown = true;
@@ -223,7 +223,7 @@ if (!jsbin.saveDisabled) {
 
           $document.trigger('tip', {
             type: 'notification',
-            content: 'You\'re currently viewing someone else\'s live stream, but you can <strong><a href="' + jsbin.root + '/clone">clone your own copy</a></strong> (' + cmd + plus + shift + plus + 'S) at any time to save your edits'
+            content: 'You\'re currently viewing someone else\'s live stream, but you can <strong><a href="' + xpathr.root + '/clone">clone your own copy</a></strong> (' + cmd + plus + shift + plus + 'S) at any time to save your edits'
           });
         }
       });
@@ -241,13 +241,13 @@ function compressKeys(keys, obj) {
 function updateCode(panelId, callback) {
   var panelSettings = {};
 
-  if (jsbin.state.processors) {
-    panelSettings.processors = jsbin.state.processors;
+  if (xpathr.state.processors) {
+    panelSettings.processors = xpathr.state.processors;
   }
 
   var data = {
-    code: jsbin.state.code,
-    revision: jsbin.state.revision,
+    code: xpathr.state.code,
+    revision: xpathr.state.revision,
     method: 'update',
     panel: panelId,
     content: editors[panelId].getCode(),
@@ -255,12 +255,12 @@ function updateCode(panelId, callback) {
     settings: JSON.stringify(panelSettings),
   };
 
-  if (jsbin.settings.useCompression) {
+  if (xpathr.settings.useCompression) {
     compressKeys('content', data);
   }
 
   $.ajax({
-    url: jsbin.getURL() + '/save',
+    url: xpathr.getURL() + '/save',
     data: data,
     type: 'post',
     dataType: 'json',
@@ -287,7 +287,7 @@ $('a.clone').click(function (event) {
   event.preventDefault();
 
   // save our panel layout - assumes our user is happy with this layout
-  jsbin.panels.save();
+  xpathr.panels.save();
   analytics.clone();
 
   var $form = setupform('save,new');
@@ -302,18 +302,18 @@ var $form = $('form#saveform').empty()
     .append('<input type="hidden" name="html" />')
     .append('<input type="hidden" name="css" />')
     .append('<input type="hidden" name="method" />')
-    .append('<input type="hidden" name="_csrf" value="' + jsbin.state.token + '" />')
+    .append('<input type="hidden" name="_csrf" value="' + xpathr.state.token + '" />')
     .append('<input type="hidden" name="settings" />');
 
   var settings = {};
 
-  if (jsbin.state.processors) {
-    settings.processors = jsbin.state.processors;
+  if (xpathr.state.processors) {
+    settings.processors = xpathr.state.processors;
   }
 
   // this prevents new revisions forking off the welcome bin
   // because it's looking silly!
-  if (jsbin.state.code === 'welcome') {
+  if (xpathr.state.code === 'welcome') {
     $form.attr('action', '/save');
   }
 
@@ -343,15 +343,15 @@ function saveCode(method, ajax, ajaxCallback) {
   // create form and post to it
   var $form = setupform(method);
   // save our panel layout - assumes our user is happy with this layout
-  jsbin.panels.save();
-  jsbin.panels.saveOnExit = true;
+  xpathr.panels.save();
+  xpathr.panels.saveOnExit = true;
 
   var data = $form.serializeArray().reduce(function(obj, data) {
     obj[data.name] = data.value;
     return obj;
   }, {});
 
-  if (jsbin.settings.useCompression) {
+  if (xpathr.settings.useCompression) {
     compressKeys('html,css,javascript', data);
   }
 
@@ -373,18 +373,18 @@ function saveCode(method, ajax, ajaxCallback) {
         sessionStorage.setItem('checksum', data.checksum);
         saveChecksum = data.checksum;
 
-        jsbin.state.checksum = saveChecksum;
-        jsbin.state.code = data.code;
-        jsbin.state.revision = data.revision;
-        jsbin.state.metadata = { name: jsbin.user.name };
-        $form.attr('action', jsbin.getURL() + '/save');
+        xpathr.state.checksum = saveChecksum;
+        xpathr.state.code = data.code;
+        xpathr.state.revision = data.revision;
+        xpathr.state.metadata = { name: xpathr.user.name };
+        $form.attr('action', xpathr.getURL() + '/save');
 
         if (window.history && window.history.pushState) {
           // updateURL(edit);
           var hash = panels.getHighlightLines();
           if (hash) hash = '#' + hash;
-          window.history.pushState(null, '', jsbin.getURL() + '/edit' + hash);
-          sessionStorage.setItem('url', jsbin.getURL());
+          window.history.pushState(null, '', xpathr.getURL() + '/edit' + hash);
+          sessionStorage.setItem('url', xpathr.getURL());
         } else {
           window.location.hash = data.edit;
         }

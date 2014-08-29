@@ -1,4 +1,4 @@
-/*globals $, CodeMirror, jsbin, jshintEnabled, RSVP */
+/*globals $, CodeMirror, xpathr, jshintEnabled, RSVP */
 
 var $document = $(document),
     $source = $('#source'),
@@ -22,9 +22,9 @@ var editorModes = {
 
 var badChars = new RegExp('[\u200B\u0080-\u00a0]', 'g');
 
-if (jsbin.settings.editor.tabMode === 'default') {
+if (xpathr.settings.editor.tabMode === 'default') {
   CodeMirror.keyMap.basic.Tab = undefined;
-} else if (jsbin.settings.editor.tabMode !== 'classic') {
+} else if (xpathr.settings.editor.tabMode !== 'classic') {
   CodeMirror.keyMap.basic.Tab = 'indentMore';
 }
 
@@ -101,16 +101,16 @@ var Panel = function (name, settings) {
   if (settings.editor) {
     cmSettings = {
       parserfile: [],
-      readOnly: jsbin.state.embed ? 'nocursor' : false,
+      readOnly: xpathr.state.embed ? 'nocursor' : false,
       dragDrop: false, // we handle it ourselves
       mode: editorModes[panelLanguage],
       lineWrapping: true,
       // gutters: ['line-highlight'],
-      theme: jsbin.settings.theme || 'jsbin',
+      theme: xpathr.settings.theme || 'xpathr',
       highlighLine: true
     };
 
-    $.extend(cmSettings, jsbin.settings.editor || {});
+    $.extend(cmSettings, xpathr.settings.editor || {});
 
     cmSettings.extraKeys = {};
 
@@ -144,7 +144,7 @@ var Panel = function (name, settings) {
 
     // Bind events using CM3 syntax
     panel.editor.on('change', function codeChange(cm, changeObj) {
-      if (jsbin.saveDisabled) {
+      if (xpathr.saveDisabled) {
         $document.trigger('codeChange.live', [{ panelId: panel.id, revert: true, origin: changeObj.origin }]);
       } else {
         $document.trigger('codeChange', [{ panelId: panel.id, revert: true, origin: changeObj.origin }]);
@@ -180,14 +180,14 @@ var Panel = function (name, settings) {
     panel.splitter = $();
   }
 
-  if (jsbin.state.processors && jsbin.state.processors[name]) {
-    panelLanguage = jsbin.state.processors[name];
-    jsbin.processors.set(panel, jsbin.state.processors[name]);
+  if (xpathr.state.processors && xpathr.state.processors[name]) {
+    panelLanguage = xpathr.state.processors[name];
+    xpathr.processors.set(panel, xpathr.state.processors[name]);
   } else if (settings.processor) { // FIXME is this even used?
     panelLanguage = settings.processors[settings.processor];
-    jsbin.processors.set(panel, settings.processor);
+    xpathr.processors.set(panel, settings.processor);
   } else if (processors[panel.id]) {
-    jsbin.processors.set(panel, panel.id);
+    xpathr.processors.set(panel, panel.id);
   } else {
     // this is just a dummy function for console & output...which makes no sense...
     panel.processor = function (str) {
@@ -207,7 +207,7 @@ var Panel = function (name, settings) {
   }
 
   // append panel to controls
-  if (jsbin.state.embed) {
+  if (xpathr.state.embed) {
     // showPanelButton = window.location.search.indexOf(panel.id) !== -1;
   }
 
@@ -287,7 +287,7 @@ Panel.prototype = {
 
           populateEditor(panel, panel.name);
         }
-        if (!panel.virgin || jsbin.panels.ready) {
+        if (!panel.virgin || xpathr.panels.ready) {
           panel.editor.focus();
           panel.focus();
         }
@@ -354,15 +354,15 @@ Panel.prototype = {
 
     // this.controlButton.show();
     // setTimeout(function () {
-    var visible = jsbin.panels.getVisible();
+    var visible = xpathr.panels.getVisible();
     if (visible.length) {
-      jsbin.panels.focused = visible[0];
-      if (jsbin.panels.focused.editor) {
-        jsbin.panels.focused.editor.focus();
+      xpathr.panels.focused = visible[0];
+      if (xpathr.panels.focused.editor) {
+        xpathr.panels.focused.editor.focus();
       } else {
-        jsbin.panels.focused.$el.focus();
+        xpathr.panels.focused.$el.focus();
       }
-      jsbin.panels.focused.focus();
+      xpathr.panels.focused.focus();
     }
 
     $document.trigger('sizeeditors');
@@ -397,7 +397,7 @@ Panel.prototype = {
   },
   focus: function () {
     this.$panel.removeClass('blur');
-    jsbin.panels.focus(this);
+    xpathr.panels.focus(this);
   },
   render: function () {
     'use strict';
@@ -407,7 +407,7 @@ Panel.prototype = {
       if (panel.editor) {
         panel.processor(panel.getCode()).then(resolve, reject);
       } else if (panel.visible && panel.settings.render) {
-        if (jsbin.panels.ready) {
+        if (xpathr.panels.ready) {
           panel.settings.render.apply(panel, args);
         }
         resolve();
@@ -418,7 +418,7 @@ Panel.prototype = {
     if (this.settings.init) this.settings.init.call(this);
   },
   _setupEditor: function () {
-    var focusedPanel = sessionStorage.getItem('panel') || jsbin.settings.focusedPanel,
+    var focusedPanel = sessionStorage.getItem('panel') || xpathr.settings.focusedPanel,
         panel = this,
         editor = panel.editor;
 
@@ -448,7 +448,7 @@ Panel.prototype = {
     // });
 
     // This prevents the browser from jumping
-    if (jsbin.mobile || jsbin.tablet || jsbin.embed) {
+    if (xpathr.mobile || xpathr.tablet || xpathr.embed) {
       editor._focus = editor.focus;
       editor.focus = function () {
         // console.log('ignoring manual call');
@@ -482,7 +482,7 @@ Panel.prototype = {
         $error = panel.$el.find('details');
         offset += ($error.filter(':visible').height() || 0);
 
-        if (!jsbin.lameEditor) {
+        if (!xpathr.lameEditor) {
           editor.scroller.height(height - offset);
         }
         try { editor.refresh(); } catch (e) {}
@@ -512,7 +512,7 @@ Panel.prototype = {
         // another fracking timeout to avoid conflict with other panels firing up
         setTimeout(function () {
           panel.focus();
-          if (panel.visible && !jsbin.mobile && !jsbin.tablet) {
+          if (panel.visible && !xpathr.mobile && !xpathr.tablet) {
             editor.focus();
 
             var code = editor.getCode().split('\n'),
@@ -555,14 +555,14 @@ Panel.prototype = {
 function populateEditor(editor, panel) {
   if (!editor.codeSet) {
     // populate - should eventually use: session, saved data, local storage
-    var cached = sessionStorage.getItem('jsbin.content.' + panel), // session code
-        saved = jsbin.embed ? null : localStorage.getItem('saved-' + panel), // user template
+    var cached = sessionStorage.getItem('xpathr.content.' + panel), // session code
+        saved = xpathr.embed ? null : localStorage.getItem('saved-' + panel), // user template
         sessionURL = sessionStorage.getItem('url'),
         changed = false;
 
     // if we clone the bin, there will be a checksum on the state object
     // which means we happily have write access to the bin
-    if (sessionURL !== jsbin.getURL() && !jsbin.state.checksum) {
+    if (sessionURL !== xpathr.getURL() && !xpathr.state.checksum) {
       // nuke the live saving checksum
       sessionStorage.removeItem('checksum');
       saveChecksum = false;
@@ -570,7 +570,7 @@ function populateEditor(editor, panel) {
 
     if (template && cached == template[panel]) { // restored from original saved
       editor.setCode(cached);
-    } else if (cached && sessionURL == jsbin.getURL() && sessionURL !== jsbin.root) { // try to restore the session first - only if it matches this url
+    } else if (cached && sessionURL == xpathr.getURL() && sessionURL !== xpathr.root) { // try to restore the session first - only if it matches this url
       editor.setCode(cached);
       // tell the document that it's currently being edited, but check that it doesn't match the saved template
       // because sessionStorage gets set on a reload
@@ -579,7 +579,7 @@ function populateEditor(editor, panel) {
       editor.setCode(saved);
       var processor = JSON.parse(localStorage.getItem('saved-processors') || '{}')[panel];
       if (processor) {
-        jsbin.processors.set(jsbin.panels.panels[panel], processor);
+        xpathr.processors.set(xpathr.panels.panels[panel], processor);
       }
     } else { // otherwise fall back on the JS Bin default
       editor.setCode(template[panel]);

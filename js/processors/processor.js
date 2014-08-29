@@ -1,11 +1,11 @@
-/*globals jsbin, _, $, RSVP, renderLivePreview, editors, throttle, debounceAsync, hintingDone, CodeMirror, Panel, editorModes */
-var processors = jsbin.processors = (function () {
+/*globals xpathr, _, $, RSVP, renderLivePreview, editors, throttle, debounceAsync, hintingDone, CodeMirror, Panel, editorModes */
+var processors = xpathr.processors = (function () {
   'use strict';
   /*
    * Debugging note: to emulate a slow connection, or a processor taking too
    * long to load, find the processor in question, and change the `init` method
    * to setTimeout(getScript, n seconds) - this will give you an idea of how
-   * jsbin behaves when the processor isn't ready and the user makes calls to it
+   * xpathr behaves when the processor isn't ready and the user makes calls to it
    */
 
 
@@ -31,13 +31,13 @@ var processors = jsbin.processors = (function () {
   };
 
   /**
-   * A version of $.getScript, but using our jsbin version
+   * A version of $.getScript, but using our xpathr version
    * as the cachebuster
    */
   var getScript = function (url, callback) {
     $.ajax({
       cache: true,
-      url: url + '?' + jsbin.version,
+      url: url + '?' + xpathr.version,
       dataType: 'script',
       success: callback
     });
@@ -159,9 +159,9 @@ var processors = jsbin.processors = (function () {
       id: 'coffeescript',
       target: 'javascript',
       extensions: ['coffee'],
-      url: jsbin.static + '/js/vendor/coffee-script.js',
+      url: xpathr.static + '/js/vendor/coffee-script.js',
       init: function coffeescript(ready) {
-        getScript(jsbin.static + '/js/vendor/codemirror4/mode/coffeescript/coffeescript.js', ready);
+        getScript(xpathr.static + '/js/vendor/codemirror4/mode/coffeescript/coffeescript.js', ready);
       },
       handler: function (source, resolve, reject) {
         var renderedCode = '';
@@ -186,7 +186,7 @@ var processors = jsbin.processors = (function () {
       id: 'jsx',
       target: 'javascript',
       extensions: ['jsx'],
-      url: jsbin.static + '/js/vendor/JSXTransformer.js',
+      url: xpathr.static + '/js/vendor/JSXTransformer.js',
       init: function jsx(ready) {
         // Don't add React if the code already contains a script whose name
         // starts with 'react', to avoid duplicate copies.
@@ -211,9 +211,9 @@ var processors = jsbin.processors = (function () {
       id: 'livescript',
       target: 'javascript',
       extensions: ['ls'],
-      url: jsbin.static + '/js/vendor/livescript.js',
+      url: xpathr.static + '/js/vendor/livescript.js',
       init: function livescript(ready) {
-        getScript(jsbin.static + '/js/vendor/codemirror4/mode/livescript/livescript.js', ready);
+        getScript(xpathr.static + '/js/vendor/codemirror4/mode/livescript/livescript.js', ready);
       },
       handler: function (source, resolve, reject) {
         var renderedCode = '';
@@ -245,7 +245,7 @@ var processors = jsbin.processors = (function () {
       id: 'typescript',
       target: 'javascript',
       extensions: ['ts'],
-      url: jsbin.static + '/js/vendor/typescript.min.js',
+      url: xpathr.static + '/js/vendor/typescript.min.js',
       init: passthrough,
       handler: function typescript(source, resolve, reject) {
         var noop = function () {};
@@ -275,7 +275,7 @@ var processors = jsbin.processors = (function () {
         });
         compiler.parser.errorRecovery = true;
 
-        compiler.addUnit(source, 'jsbin.ts');
+        compiler.addUnit(source, 'xpathr.ts');
         compiler.typeCheck();
         compiler.reTypeCheck();
         compiler.emit();
@@ -298,9 +298,9 @@ var processors = jsbin.processors = (function () {
       id: 'markdown',
       target: 'html',
       extensions: ['md', 'markdown', 'mdown'],
-      url: jsbin.static + '/js/vendor/marked.min.js',
+      url: xpathr.static + '/js/vendor/marked.min.js',
       init: function markdown(ready) {
-        getScript(jsbin.static + '/js/vendor/codemirror4/mode/markdown/markdown.js', ready);
+        getScript(xpathr.static + '/js/vendor/codemirror4/mode/markdown/markdown.js', ready);
       },
       handler: function (source, resolve, reject) {
         try {
@@ -315,10 +315,10 @@ var processors = jsbin.processors = (function () {
       id: 'processing',
       target: 'javascript',
       extensions: ['pde'],
-      url: jsbin.static + '/js/vendor/processing.min.js',
+      url: xpathr.static + '/js/vendor/processing.min.js',
       init: function (ready) {
         $('#library').val( $('#library').find(':contains("Processing")').val() ).trigger('change');
-        getScript(jsbin.static + '/js/vendor/codemirror4/mode/clike/clike.js', ready);
+        getScript(xpathr.static + '/js/vendor/codemirror4/mode/clike/clike.js', ready);
       },
       handler: function processing(source, resolve, reject) {
         try {
@@ -346,9 +346,9 @@ var processors = jsbin.processors = (function () {
       id: 'jade',
       target: 'html',
       extensions: ['jade'],
-      url: jsbin.static + '/js/vendor/jade.js?1.4.2',
+      url: xpathr.static + '/js/vendor/jade.js?1.4.2',
       init: function jade(ready) {
-        getScript(jsbin.static + '/js/vendor/codemirror4/mode/jade/jade.js', ready);
+        getScript(xpathr.static + '/js/vendor/codemirror4/mode/jade/jade.js', ready);
       },
       handler: function jade(source, resolve, reject) {
         try {
@@ -377,7 +377,7 @@ var processors = jsbin.processors = (function () {
       id: 'less',
       target: 'css',
       extensions: ['less'],
-      url: jsbin.static + '/js/vendor/less-1.7.3.min.js',
+      url: xpathr.static + '/js/vendor/less-1.7.3.min.js',
       init: passthrough,
       handler: function less(source, resolve, reject) {
         window.less.Parser().parse(source, function (error, result) {
@@ -408,11 +408,11 @@ var processors = jsbin.processors = (function () {
       id: 'scss',
       target: 'scss',
       extensions: ['scss'],
-      // url: jsbin.static + '/js/vendor/sass/dist/sass.worker.js',
+      // url: xpathr.static + '/js/vendor/sass/dist/sass.worker.js',
       init: passthrough,
         /* keeping old code for local version of scss if we ever want it again */
-        // getScript(jsbin.static + '/js/vendor/codemirror3/mode/sass/sass.js', function () {
-        // Sass.initialize(jsbin.static + '/js/vendor/sass/dist/worker.min.js');
+        // getScript(xpathr.static + '/js/vendor/codemirror3/mode/sass/sass.js', function () {
+        // Sass.initialize(xpathr.static + '/js/vendor/sass/dist/worker.min.js');
       handler: throttle(debounceAsync(function sass(source, resolve, reject, done) {
         $.ajax({
           type: 'post',
@@ -420,13 +420,13 @@ var processors = jsbin.processors = (function () {
           data: {
             language: 'scss',
             source: source,
-            url: jsbin.state.code,
-            revision: jsbin.state.revision
+            url: xpathr.state.code,
+            revision: xpathr.state.revision
           },
           success: function (data) {
             if (data.errors) {
               // console.log(data.errors);
-              var cm = jsbin.panels.panels.css.editor;
+              var cm = xpathr.panels.panels.css.editor;
               if (typeof cm.updateLinting !== 'undefined') {
                 hintingDone(cm);
                 var err = formatErrors(data.errors);
@@ -457,7 +457,7 @@ var processors = jsbin.processors = (function () {
       target: 'sass',
       extensions: ['sass'],
       init: function (ready) {
-        getScript(jsbin.static + '/js/vendor/codemirror4/mode/sass/sass.js', ready);
+        getScript(xpathr.static + '/js/vendor/codemirror4/mode/sass/sass.js', ready);
       },
       handler: throttle(debounceAsync(function (source, resolve, reject, done) {
         $.ajax({
@@ -466,13 +466,13 @@ var processors = jsbin.processors = (function () {
           data: {
             language: 'sass',
             source: source,
-            url: jsbin.state.code,
-            revision: jsbin.state.revision
+            url: xpathr.state.code,
+            revision: xpathr.state.revision
           },
           success: function (data) {
             if (data.errors) {
               // console.log(data.errors);
-              var cm = jsbin.panels.panels.css.editor;
+              var cm = xpathr.panels.panels.css.editor;
               if (typeof cm.updateLinting !== 'undefined') {
                 hintingDone(cm);
                 var err = formatErrors(data.errors);
@@ -494,7 +494,7 @@ var processors = jsbin.processors = (function () {
       id: 'myth',
       target: 'css',
       extensions: ['myth'],
-      url: jsbin.static + '/js/vendor/myth.min.js',
+      url: xpathr.static + '/js/vendor/myth.min.js',
       init: function (ready) {
         ready();
       },
@@ -526,7 +526,7 @@ var processors = jsbin.processors = (function () {
       id: 'stylus',
       target: 'css',
       extensions: ['styl'],
-      url: jsbin.static + '/js/vendor/stylus.js',
+      url: xpathr.static + '/js/vendor/stylus.js',
       init: passthrough,
       handler: function stylus(source, resolve, reject) {
         window.stylus(source).render(function (error, result) {
@@ -562,7 +562,7 @@ var processors = jsbin.processors = (function () {
         id: 'traceur',
         target: 'javascript',
         extensions: ['traceur'],
-        url: jsbin.static + '/js/vendor/traceur.js',
+        url: xpathr.static + '/js/vendor/traceur.js',
         init: function (ready) {
           // Only create these once, when the processor is loaded
           $('#library').val( $('#library').find(':contains("Traceur")').val() ).trigger('change');
@@ -582,7 +582,7 @@ var processors = jsbin.processors = (function () {
 
           var url = location.href;
           var project = new window.traceur.semantics.symbols.Project(url);
-          var name = 'jsbin';
+          var name = 'xpathr';
 
           var sourceFile = new window.traceur.syntax.SourceFile(name, source);
           project.addFile(sourceFile);
@@ -597,7 +597,7 @@ var processors = jsbin.processors = (function () {
   };
 
   var render = function() {
-    if (jsbin.panels.ready) {
+    if (xpathr.panels.ready) {
       editors.console.render();
     }
   };
@@ -628,7 +628,7 @@ var processors = jsbin.processors = (function () {
         originalLabel = $label.text();
 
     $el.find('a').click(function (e) {
-      var panel = jsbin.panels.panels[panelId];
+      var panel = xpathr.panels.panels[panelId];
       var $panelButton = $panelButtons.find('a[href$="' + panelId + '"]');
 
       e.preventDefault();
@@ -639,16 +639,16 @@ var processors = jsbin.processors = (function () {
         $panelButton.html(labelData || label);
         $label.text(label);
         if (target === panelId) {
-          jsbin.processors.reset(panelId);
+          xpathr.processors.reset(panelId);
           render();
         } else {
-          jsbin.processors.set(panelId, target, render);
+          xpathr.processors.set(panelId, target, render);
         }
       } else {
         $label.text(originalLabel);
         $panelButton.html(originalLabel);
         panel.render().then(function (source) {
-          jsbin.processors.reset(panelId);
+          xpathr.processors.reset(panelId);
           panel.setCode(source);
         });
       }
@@ -671,11 +671,11 @@ var processors = jsbin.processors = (function () {
       panel = panelId;
       panelId = panel.id;
     } else {
-      panel = jsbin.panels.panels[panelId];
+      panel = xpathr.panels.panels[panelId];
     }
 
-    if (!jsbin.state.processors) {
-      jsbin.state.processors = {};
+    if (!xpathr.state.processors) {
+      xpathr.state.processors = {};
     }
 
     var cmMode = processorName ? editorModes[processorName] || editorModes[panelId] : editorModes[panelId];
@@ -688,7 +688,7 @@ var processors = jsbin.processors = (function () {
 
     panel.trigger('processor', processorName || 'none');
     if (processorName && processors[processorName]) {
-      jsbin.state.processors[panelId] = processorName;
+      xpathr.state.processors[panelId] = processorName;
       panel.processor = processors[processorName](function () {
         // processor is ready
         panel.editor.setOption('mode', cmMode);
@@ -702,7 +702,7 @@ var processors = jsbin.processors = (function () {
       panel.editor.setOption('smartIndent', smartIndent);
 
       panel.processor = defaultProcessor;
-      delete jsbin.state.processors[panelId];
+      delete xpathr.state.processors[panelId];
       delete panel.type;
     }
 
@@ -718,7 +718,7 @@ var processors = jsbin.processors = (function () {
     if (isHint) {
       panel.editor.lintStop();
     }
-    if (jsbin.settings[mmMode + 'hint']) {
+    if (xpathr.settings[mmMode + 'hint']) {
       panel.editor.setOption('mode', cmMode);
       if (typeof hintingDone !== 'undefined') {
         panel.editor.setOption('mode', cmMode);
@@ -739,7 +739,7 @@ var processors = jsbin.processors = (function () {
     if (!id) {
       return defaultProcessor;
     }
-    return jsbin.processors[id];
+    return xpathr.processors[id];
   };
 
   processors.by = processorBy;

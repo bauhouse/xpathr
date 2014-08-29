@@ -1,4 +1,4 @@
-/*globals $, jsbin, editors, RSVP, loopProtect, documentTitle, CodeMirror, hintingDone*/
+/*globals $, xpathr, editors, RSVP, loopProtect, documentTitle, CodeMirror, hintingDone*/
 
 var renderCodeWorking = false;
 
@@ -38,7 +38,7 @@ var getRenderedCode = function () {
 
         if ($.isArray(error)) { // then this is for our hinter
           // console.log(data.errors);
-          var cm = jsbin.panels.panels[language].editor;
+          var cm = xpathr.panels.panels[language].editor;
 
           // if we have the error reporting function (called updateLinting)
           if (typeof cm.updateLinting !== 'undefined') {
@@ -81,7 +81,7 @@ var getPreparedCode = (function () {
       shortDocReady: /\$\(function/,
       console: /(^.|\b)console\.(\S+)/g,
 
-      // https://github.com/jsbin/jsbin/issues/1833
+      // https://github.com/xpathr/xpathr/issues/1833
       consoleReplace: /\b(console\.(?:log|warn|error)(?:.apply|.call)?\(('[^']*'|"[^"]*"|\([^)]*\)|[^\/\(\)'"]*|\/\/[^\n]*\n)*\))/g,
       script: /<\/script/ig,
       code: /%code%/,
@@ -151,9 +151,9 @@ var getPreparedCode = (function () {
 
         // RS: not sure why I ran this in closure, but it means the expected globals are no longer so
         // js = "window.onload = function(){" + js + "\n}\n";
-        var type = jsbin.panels.panels.javascript.type ? ' type="text/' + jsbin.panels.panels.javascript.type + '"' : '';
+        var type = xpathr.panels.panels.javascript.type ? ' type="text/' + xpathr.panels.panels.javascript.type + '"' : '';
 
-        js += '\n\n//# sourceURL=' + jsbin.state.code + '.js';
+        js += '\n\n//# sourceURL=' + xpathr.state.code + '.js';
 
         html += '<script' + type + '>' + js + '\n</script>\n' + close;
       }
@@ -164,7 +164,7 @@ var getPreparedCode = (function () {
         // 'console.' and then checks the position of the code. If it's inside
         // an openning script tag, it'll change it to window.top._console,
         // otherwise it'll leave it.
-        var first = ' /* double call explained https://github.com/jsbin/jsbin/issues/1833 */';
+        var first = ' /* double call explained https://github.com/xpathr/xpathr/issues/1833 */';
         html = html.replace(re.consoleReplace, function (all, str, arg, pos) {
           var open = html.lastIndexOf('<script', pos),
               close = html.lastIndexOf('</script', pos),
@@ -204,8 +204,8 @@ var getPreparedCode = (function () {
       // Add defer to all inline script tags in IE.
       // This is because IE runs scripts as it loads them, so variables that
       // scripts like jQuery add to the global scope are undefined.
-      // See http://jsbin.com/ijapom/5
-      if (jsbin.ie && re.scriptopen.test(html)) {
+      // See http://xpathr.com/ijapom/5
+      if (xpathr.ie && re.scriptopen.test(html)) {
         html = html.replace(/<script(.*?)>/gi, function (all, match) {
           if (match.indexOf('src') !== -1) {
             return all;
@@ -219,14 +219,14 @@ var getPreparedCode = (function () {
       if (description) {
         var i = description.indexOf('content=') + 'content='.length;
         var quote = description.slice(i, i+1);
-        jsbin.state.description = description.substr(i + 1).replace(new RegExp(quote + '.*$'), '');
+        xpathr.state.description = description.substr(i + 1).replace(new RegExp(quote + '.*$'), '');
       }
 
 
       // read the element out of the html code and plug it in to our document.title
       var newDocTitle = (html.match(re.title) || [,''])[1].trim();
       if (newDocTitle && newDocTitle !== documentTitle) {
-        jsbin.state.title = documentTitle = newDocTitle;
+        xpathr.state.title = documentTitle = newDocTitle;
         if (documentTitle) {
           document.title = documentTitle + ' - ' + 'JS Bin';
         } else {

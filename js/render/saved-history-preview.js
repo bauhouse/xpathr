@@ -1,7 +1,7 @@
 ;(function () {
-  /*global jsbin, $, $document, analytics*/
+  /*global xpathr, $, $document, analytics*/
   'use strict';
-  if (!jsbin.user || !jsbin.user.name || jsbin.embed) {
+  if (!xpathr.user || !xpathr.user.name || xpathr.embed) {
     return;
   }
 
@@ -11,7 +11,7 @@
       $history; // set in hookUserHistory()
 
   $document.on('history:open', function () {
-    if ($history && jsbin.panels.getVisible().length === 0) {
+    if ($history && xpathr.panels.getVisible().length === 0) {
       $history.appendTo('body');
     }
   }).on('history:close', function () {
@@ -30,7 +30,7 @@
     } else {
       $.ajax({
         dataType: 'html',
-        url: jsbin.root + '/list',
+        url: xpathr.root + '/list',
         error: function () {
           requestAttempts--;
           if (requestAttempts > 0) {
@@ -108,7 +108,7 @@
       // Instantly update this row and the page layout
       $row.toggleClass('archived');
 
-      analytics[this.pathname.indexOf('unarchive') === -1 ? 'archive' : 'unarchive'](jsbin.root + $row.data('url'));
+      analytics[this.pathname.indexOf('unarchive') === -1 ? 'archive' : 'unarchive'](xpathr.root + $row.data('url'));
 
       updateLayout($tbodys, $history.hasClass('archive_mode'));
       // Then send the update to the server
@@ -173,8 +173,8 @@
   };
 
   // inside a ready call because history DOM is rendered *after* our JS to improve load times.
-  $(document).on('jsbinReady', function ()  {
-    if (jsbin.embed) {
+  $(document).on('xpathrReady', function ()  {
+    if (xpathr.embed) {
       return;
     }
 
@@ -191,7 +191,7 @@
 
     // this code attempts to only call the list ajax request only if
     // the user should want to see the list page - most users will
-    // jump in and jump out of jsbin, and never see this page,
+    // jump in and jump out of xpathr, and never see this page,
     // so let's not send this ajax request.
     //
     // The list should be loaded when:

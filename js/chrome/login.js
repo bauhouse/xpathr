@@ -11,7 +11,7 @@ $('form.login').submit(function (event) {
       $loginFeedback = form.find('.loginFeedback');
 
 
-  // jsbin.settings.home = name; // will save later
+  // xpathr.settings.home = name; // will save later
   $loginFeedback.show().text('Checking...');
 
   $.ajax({

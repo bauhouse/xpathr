@@ -30,8 +30,8 @@ $.fn.splitter = function () {
             init: {
               top: 0,
               bottom: 0,
-              width: jsbin.mobile ? 44 : 8,
-              'margin-left': jsbin.mobile ? '-22px' : '-4px',
+              width: xpathr.mobile ? 44 : 8,
+              'margin-left': xpathr.mobile ? '-22px' : '-4px',
               height: '100%',
               left: 'auto',
               right: 'auto',

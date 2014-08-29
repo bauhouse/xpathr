@@ -42,7 +42,7 @@ should be asked on the
 - If the problem can not be reproduced in any of the demos included in the
   CodeMirror distribution, please provide an HTML document that demonstrates
   the problem. The best way to do this is to go to
-  [jsbin.com](http://jsbin.com/ihunin/edit), enter it there, press save, and
+  [xpathr.com](http://xpathr.com/ihunin/edit), enter it there, press save, and
   include the resulting link in your bug report.
 
 ## Contributing code

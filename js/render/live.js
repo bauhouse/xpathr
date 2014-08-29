@@ -54,10 +54,10 @@ var deferCallable = function (newFn, trigger) {
 function sendReload() {
   if (saveChecksum) {
     $.ajax({
-      url: jsbin.getURL() + '/reload',
+      url: xpathr.getURL() + '/reload',
       data: {
-        code: jsbin.state.code,
-        revision: jsbin.state.revision,
+        code: xpathr.state.code,
+        revision: xpathr.state.revision,
         checksum: saveChecksum
       },
       type: 'post'
@@ -70,16 +70,16 @@ function codeChangeLive(event, data) {
 
   var editor,
       line,
-      panel = jsbin.panels.panels.live;
+      panel = xpathr.panels.panels.live;
 
-  if (jsbin.panels.ready) {
-    if (jsbin.settings.includejs === false && data.panelId === 'javascript') {
+  if (xpathr.panels.ready) {
+    if (xpathr.settings.includejs === false && data.panelId === 'javascript') {
       // ignore
     } else if (panel.visible) {
       // test to see if they're write a while loop
-      if (!jsbin.lameEditor && jsbin.panels.focused && jsbin.panels.focused.id === 'javascript') {
+      if (!xpathr.lameEditor && xpathr.panels.focused && xpathr.panels.focused.id === 'javascript') {
         // check the current line doesn't match a for or a while or a do - which could trip in to an infinite loop
-        editor = jsbin.panels.focused.editor;
+        editor = xpathr.panels.focused.editor;
         line = editor.getLine(editor.getCursor().line);
         if (ignoreDuringLive.test(line) === true) {
           // ignore
@@ -139,12 +139,12 @@ var renderer = (function () {
 
     // specific change to handle reveal embedding
     try {
-      if (event.data.indexOf('slide:') === 0 || event.data === 'jsbin:refresh') {
+      if (event.data.indexOf('slide:') === 0 || event.data === 'xpathr:refresh') {
         // reset the state of the panel visibility
-        jsbin.panels.allEditors(function (p) {
+        xpathr.panels.allEditors(function (p) {
           p.visible = false;
         });
-        jsbin.panels.restore();
+        xpathr.panels.restore();
         return;
       }
     } catch (e) {}
@@ -191,7 +191,7 @@ var renderer = (function () {
    * Pass loop protection hit calls up to the error UI
    */
   renderer.loopProtectHit = function (line) {
-    var cm = jsbin.panels.panels.javascript.editor;
+    var cm = xpathr.panels.panels.javascript.editor;
 
     // grr - more setTimeouts to the rescue. We need this to go in *after*
     // jshint does it's magic, but jshint set on a setTimeout, so we have to
@@ -229,12 +229,12 @@ var renderer = (function () {
     var embedResizeDone = false;
 
     return function (data) {
-      if (!jsbin.embed) {
+      if (!xpathr.embed) {
         // Display the iframe size in px in the JS Bin UI
         size.show().html(data.width + 'px');
         hide();
       }
-      if (jsbin.embed && self !== top && embedResizeDone === false) {
+      if (xpathr.embed && self !== top && embedResizeDone === false) {
         embedResizeDone = true;
         // Inform the outer page of a size change
         var height = ($body.outerHeight(true) - $(renderer.runner.iframe).height()) + data.offsetHeight;
@@ -247,7 +247,7 @@ var renderer = (function () {
    * When the iframe focuses, simulate that here
    */
   renderer.focus = function () {
-    jsbin.panels.focus(jsbin.panels.panels.live);
+    xpathr.panels.focus(xpathr.panels.panels.live);
     // also close any open dropdowns
     closedropdown();
   };
@@ -263,7 +263,7 @@ var renderer = (function () {
     if (!window._console[method]) {method = 'log';}
 
     // skip the entire console rendering if the console is hidden
-    if (!jsbin.panels.panels.console.visible) { return; }
+    if (!xpathr.panels.panels.console.visible) { return; }
 
     window._console[method].apply(window._console, args);
   };
@@ -299,7 +299,7 @@ var renderer = (function () {
  * Live rendering.
  *
  * Comes in two tasty flavours. Basic mode, which is essentially an IE7
- * fallback. Take a look at https://github.com/jsbin/jsbin/issues/651 for more.
+ * fallback. Take a look at https://github.com/xpathr/xpathr/issues/651 for more.
  * It uses the iframe's name and JS Bin's event-stream support to keep the
  * page up-to-date.
  *
@@ -327,14 +327,14 @@ var renderLivePreview = (function () {
     iframe.setAttribute('frameBorder', '0');
     iframe.setAttribute('name', '<proxy>');
     $live.prepend(iframe);
-    iframe.src = jsbin.runner;
+    iframe.src = xpathr.runner;
     try {
-      iframe.contentWindow.name = '/' + jsbin.state.code + '/' + jsbin.state.revision;
+      iframe.contentWindow.name = '/' + xpathr.state.code + '/' + xpathr.state.revision;
     } catch (e) {
       // ^- this shouldn't really fail, but if we're honest, it's a fucking mystery as to why it even works.
       // problem is: if this throws (because iframe.contentWindow is undefined), then the execution exits
       // and `var renderLivePreview` is set to undefined. The knock on effect is that the calls to renderLivePreview
-      // then fail, and jsbin doesn't boot up. Tears all round, so we catch.
+      // then fail, and xpathr doesn't boot up. Tears all round, so we catch.
     }
   }
 
@@ -346,17 +346,17 @@ var renderLivePreview = (function () {
     // Inform other pages event streaming render to reload
     if (requested) { sendReload(); }
     getPreparedCode().then(function (source) {
-      var includeJsInRealtime = jsbin.settings.includejs;
+      var includeJsInRealtime = xpathr.settings.includejs;
 
       // Tell the iframe to reload
-      var visiblePanels = jsbin.panels.getVisible();
-      var outputPanelOpen = visiblePanels.indexOf(jsbin.panels.panels.live) > -1;
-      var consolePanelOpen = visiblePanels.indexOf(jsbin.panels.panels.console) > -1;
+      var visiblePanels = xpathr.panels.getVisible();
+      var outputPanelOpen = visiblePanels.indexOf(xpathr.panels.panels.live) > -1;
+      var consolePanelOpen = visiblePanels.indexOf(xpathr.panels.panels.console) > -1;
       if (!outputPanelOpen && !consolePanelOpen) {
         return;
       }
       // this is a flag that helps detect crashed runners
-      if (jsbin.settings.includejs) {
+      if (xpathr.settings.includejs) {
         sessionStorage.runnerPending = 1;
       }
 
@@ -364,8 +364,8 @@ var renderLivePreview = (function () {
         source: source,
         options: {
           requested: requested,
-          debug: jsbin.settings.debug,
-          includeJsInRealtime: jsbin.settings.includejs
+          debug: xpathr.settings.debug,
+          includeJsInRealtime: xpathr.settings.includejs
         }
       });
 

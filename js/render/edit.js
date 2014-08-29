@@ -1,5 +1,5 @@
 // "Edit in JS Bin" button setup
-function jsbinShowEdit(options) {
+function xpathrShowEdit(options) {
   'use strict';
   if (window.location.hash === '#noedit') {return;}
 

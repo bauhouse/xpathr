@@ -1,4 +1,4 @@
-/*globals $:true, JSHINT:true, editors:true, $document:true, escapeHTML:true, jsbin:true, throttle:true */
+/*globals $:true, JSHINT:true, editors:true, $document:true, escapeHTML:true, xpathr:true, throttle:true */
 
 var jshint = function () {
   var source = editors.javascript.editor.getCode();
@@ -8,7 +8,7 @@ var jshint = function () {
     'eqnull': true
   };
   
-  $.extend(options, jsbin.settings.jshintOptions || {});
+  $.extend(options, xpathr.settings.jshintOptions || {});
   var ok = JSHINT(source, options);
 
   return ok ? true : JSHINT.data();
@@ -111,9 +111,9 @@ var checkForErrors = function () {
   }
 };
 
-if (jsbin.settings.jshint === true || jsbin.settings.jshint === undefined) {
+if (xpathr.settings.jshint === true || xpathr.settings.jshint === undefined) {
   $(document).bind('codeChange', throttle(checkForErrors, 1000));
-  $(document).bind('jsbinReady', checkForErrors);
+  $(document).bind('xpathrReady', checkForErrors);
 }
 
 // })();

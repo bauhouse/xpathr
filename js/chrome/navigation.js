@@ -7,9 +7,9 @@ var $startingpoint = $('a.startingpoint').click(function (event) {
     localStorage.setItem('saved-css', editors.css.getCode());
 
     localStorage.setItem('saved-processors', JSON.stringify({
-      javascript: jsbin.panels.panels.javascript.processor.id,
-      html: jsbin.panels.panels.html.processor.id,
-      css: jsbin.panels.panels.css.processor.id,
+      javascript: xpathr.panels.panels.javascript.processor.id,
+      html: xpathr.panels.panels.html.processor.id,
+      css: xpathr.panels.panels.css.processor.id,
     }));
 
     $document.trigger('tip', {
@@ -53,7 +53,7 @@ $('a.logout').click(function (event) {
   // Clear session storage so private bins wont be cached.
   for (i = 0; i < sessionStorage.length; i++) {
     key = sessionStorage.key(i);
-    if (key.indexOf('jsbin.content.') === 0) {
+    if (key.indexOf('xpathr.content.') === 0) {
       sessionStorage.removeItem(key);
     }
   }
@@ -69,7 +69,7 @@ $('.homebtn').click(function (event, data) {
     analytics.open(data);
   }
 
-  jsbin.panels.hideAll();
+  xpathr.panels.hideAll();
   return false;
 });
 
@@ -103,7 +103,7 @@ $('#sharemenu').bind('open', function () {
   // $lockrevision.removeClass('icon-unlock').addClass('icon-lock');
 
   $panelCheckboxes.attr('checked', false);
-  jsbin.panels.getVisible().forEach(function (panel) {
+  xpathr.panels.getVisible().forEach(function (panel) {
     $panelCheckboxes.filter('[data-panel="' + panel.id + '"]').attr('checked', true).change();
   });
 
@@ -134,7 +134,7 @@ function closedropdown() {
     // $body.removeClass('menuinfo');
     dropdownOpen = false;
     onhover = false;
-    var f = jsbin.panels.focused;
+    var f = xpathr.panels.focused;
     if (f) {
       f.focus();
       if (f.editor) {
@@ -219,9 +219,9 @@ var $dropdownLinks = $('.dropdownmenu a, .dropdownmenu .button').mouseup(functio
   fromClick = true;
 });
 
-$('#jsbinurl').click(function (e) {
+$('#xpathrurl').click(function (e) {
   setTimeout(function () {
-    jsbin.panels.panels.live.hide();
+    xpathr.panels.panels.live.hide();
   }, 0);
 });
 
@@ -265,10 +265,10 @@ $('#showurls').click(function () {
 });
 
 $('.code.panel > .label > span.name').dblclick(function () {
-  jsbin.panels.allEditors(function (panel) {
+  xpathr.panels.allEditors(function (panel) {
     var lineNumbers = !panel.editor.getOption('lineNumbers');
     panel.editor.setOption('lineNumbers', lineNumbers);
-    jsbin.settings.editor.lineNumbers = lineNumbers;
+    xpathr.settings.editor.lineNumbers = lineNumbers;
   });
 });
 
@@ -277,10 +277,10 @@ $('#createnew').click(function (event) {
   var i, key;
   analytics.createNew();
   // FIXME this is out and out [cr]lazy....
-  jsbin.panels.savecontent = function(){};
+  xpathr.panels.savecontent = function(){};
   for (i = 0; i < sessionStorage.length; i++) {
     key = sessionStorage.key(i);
-    if (key.indexOf('jsbin.content.') === 0) {
+    if (key.indexOf('xpathr.content.') === 0) {
       sessionStorage.removeItem(key);
     }
   }
@@ -288,18 +288,18 @@ $('#createnew').click(function (event) {
   // clear out the write checksum too
   sessionStorage.removeItem('checksum');
 
-  jsbin.panels.saveOnExit = false;
+  xpathr.panels.saveOnExit = false;
 
   // first try to restore their default panels
-  jsbin.panels.restore();
+  xpathr.panels.restore();
 
   // if nothing was shown, show html & live
   setTimeout(function () {
-    if (jsbin.panels.getVisible().length === 0) {
-      jsbin.panels.panels.html.show();
-      jsbin.panels.panels.live.show();
+    if (xpathr.panels.getVisible().length === 0) {
+      xpathr.panels.panels.html.show();
+      xpathr.panels.panels.live.show();
     }
-    window.location = jsbin.root;
+    window.location = xpathr.root;
   }, 0);
 });
 
@@ -312,7 +312,7 @@ var $visibilityButtons = $('#control a.visibilityToggle').click(function(event) 
   var visibility = $(this).data('vis');
 
   $.ajax({
-    url: jsbin.getURL() + '/' + visibility,
+    url: xpathr.getURL() + '/' + visibility,
     type: 'post',
     success: function (data) {
 
@@ -344,24 +344,24 @@ $('#lostpass').click(function (e) {
   return false;
 });
 
-jsbin.settings.includejs = jsbin.settings.includejs === undefined ? true : jsbin.settings.includejs;
+xpathr.settings.includejs = xpathr.settings.includejs === undefined ? true : xpathr.settings.includejs;
 
 // ignore for embed as there might be a lot of embeds on the page
-if (!jsbin.embed && sessionStorage.runnerPending) {
+if (!xpathr.embed && sessionStorage.runnerPending) {
   $document.trigger('tip', {
     content: 'It looks like your last session may have crashed, so I\'ve disabled "Auto-run JS" for you',
     type: 'error'
   });
-  jsbin.settings.includejs = false;
+  xpathr.settings.includejs = false;
 }
 
 $('#enablejs').change(function () {
-  jsbin.settings.includejs = this.checked;
-  analytics.enableLiveJS(jsbin.settings.includejs);
+  xpathr.settings.includejs = this.checked;
+  analytics.enableLiveJS(xpathr.settings.includejs);
   editors.live.render();
-}).attr('checked', jsbin.settings.includejs);
+}).attr('checked', xpathr.settings.includejs);
 
-if (!jsbin.embed && jsbin.settings.hideheader) {
+if (!xpathr.embed && xpathr.settings.hideheader) {
   $body.addClass('hideheader');
 }
 
@@ -413,7 +413,7 @@ $('#addmeta').click(function () {
   // if not - insert
   // <meta name="description" content="" />
   // if meta description is in the HTML, highlight it
-  var editor = jsbin.panels.panels.html,
+  var editor = xpathr.panels.panels.html,
       cm = editor.editor,
       html = editor.getCode();
 
@@ -460,11 +460,11 @@ $('a.publish-to-vanity').on('click', function (event) {
   $.ajax({
     type: 'post',
     url: this.href,
-    data: { url: jsbin.getURL() },
+    data: { url: xpathr.getURL() },
     success: function () {
       $document.trigger('tip', {
         type: 'notification',
-        content: 'This bin is now published to your vanity URL: <a target="_blank" href="' + jsbin.shareRoot + '">' + jsbin.shareRoot + '</a>'
+        content: 'This bin is now published to your vanity URL: <a target="_blank" href="' + xpathr.shareRoot + '">' + xpathr.shareRoot + '</a>'
       });
     },
     error: function (xhr) {
@@ -482,10 +482,10 @@ $('a.deletebin').on('click', function (e) {
     analytics['delete']();
     $.ajax({
       type: 'post',
-      url: jsbin.getURL() + '/delete',
-      data: { checksum: jsbin.state.checksum },
+      url: xpathr.getURL() + '/delete',
+      data: { checksum: xpathr.state.checksum },
       success: function () {
-        jsbin.state.deleted = true;
+        xpathr.state.deleted = true;
         $document.trigger('tip', {
           type: 'error',
           content: 'This bin is now deleted. You can continue to edit, but once you leave the bin can\'t be retrieved'
@@ -517,20 +517,20 @@ $('a.unarchivebin').on('click', function (e) {
 var $enableUniversalEditor = $('#enableUniversalEditor').on('change', function (e) {
   e.preventDefault();
 
-  jsbin.settings.editor.simple = this.checked;
-  analytics.universalEditor(jsbin.settings.editor.simple);
+  xpathr.settings.editor.simple = this.checked;
+  analytics.universalEditor(xpathr.settings.editor.simple);
   window.location.reload();
 });
 
-if (jsbin.settings.editor.simple) {
+if (xpathr.settings.editor.simple) {
   $enableUniversalEditor.prop('checked', true);
 }
 
 $('#skipToEditor').click(function () {
-  if (jsbin.settings.editor.simple) {
+  if (xpathr.settings.editor.simple) {
     $('#html').focus();
   } else {
-    jsbin.panels.panels.html.editor.focus();
+    xpathr.panels.panels.html.editor.focus();
   }
 });
 

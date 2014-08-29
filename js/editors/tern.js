@@ -1,8 +1,8 @@
 (function () {
   'use strict';
-  /*globals $, jsbin, CodeMirror, template, ternDefinitions, ternBasicDefs */
+  /*globals $, xpathr, CodeMirror, template, ternDefinitions, ternBasicDefs */
 
-  if (jsbin.embed) {
+  if (xpathr.embed) {
     return;
   }
 
@@ -111,11 +111,11 @@
   };
 
   CodeMirror.startTern = function() {
-    loadTern(jsbin.panels.panels.javascript.editor);
-    searchTernDefinition(jsbin.panels.panels.html.getCode());
+    loadTern(xpathr.panels.panels.javascript.editor);
+    searchTernDefinition(xpathr.panels.panels.html.getCode());
 
     $('#library').bind('change', function () {
-      searchTernDefinition(jsbin.panels.panels.html.getCode());
+      searchTernDefinition(xpathr.panels.panels.html.getCode());
     });
   };
 

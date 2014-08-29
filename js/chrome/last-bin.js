@@ -10,7 +10,7 @@
   }
 
   function save() {
-    var url = jsbin.getURL(true) + '/edit';
+    var url = xpathr.getURL(true) + '/edit';
     if (url) {
       document.cookie = 'last=' + encodeURIComponent(url) + '; expires=' + getExpires() + '; path=/';
     } else {
@@ -40,7 +40,7 @@
   }
 
   // save the bin url when the bin is saved, changed and when we load first time
-  if (jsbin && jsbin.getURL) {
+  if (xpathr && xpathr.getURL) {
     $document.on('saved', save);
     save();
   } else {

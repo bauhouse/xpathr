@@ -466,7 +466,7 @@ var libraries = [
   },
   {
     'url': [
-      jsbin.static + '/js/vendor/traceur.js'
+      xpathr.static + '/js/vendor/traceur.js'
     ],
     'label': 'Traceur'
   },

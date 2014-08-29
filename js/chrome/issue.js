@@ -1,17 +1,17 @@
 var githubIssue = (function () {
-/*global $:true, jsbin:true */
+/*global $:true, xpathr:true */
   'use strict';
 
   function githubIssue() {
-    var url = 'http://github.com/jsbin/jsbin/issues/new';
+    var url = 'http://github.com/xpathr/xpathr/issues/new';
     var body = ['Please provide any additional information, record a screencast ',
                'with http://quickcast.io or http://screenr.com and attach a screenshot ',
                'if possible.\n\n**JS Bin info**\n\n* [%url%](%url%)\n* ',
                window.navigator.userAgent + '\n',
-               (jsbin.user && jsbin.user.name ? '* ' + jsbin.user.name : ''),
+               (xpathr.user && xpathr.user.name ? '* ' + xpathr.user.name : ''),
                '\n'].join('');
 
-    return url + '?body=' + encodeURIComponent(body.replace(/%url%/g, jsbin.getURL()));
+    return url + '?body=' + encodeURIComponent(body.replace(/%url%/g, xpathr.getURL()));
   }
 
   var $newissue = $('#newissue');
