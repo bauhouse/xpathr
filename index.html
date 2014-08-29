@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html id="jsbin" lang="en" class="">
+<head>
+  <meta charset=utf-8>
+  <title>JS Bin - Collaborative JavaScript Debugging</title>
+  <link rel="icon" href="./jsbin/images/favicon.png">
+  <link rel="stylesheet" href="./jsbin/css/style.css">
+  <link rel="stylesheet" href="./jsbin/css/flat-ui.css">
+  <!--[if lte IE 9 ]><link rel="stylesheet" href="./jsbin/css/ie.css"><![endif]-->
+</head>
+<!--[if lt IE 7]>  <body class="source ie ie6"> <![endif]-->
+<!--[if IE 7]>     <body class="source ie ie7"> <![endif]-->
+<!--[if gt IE 7]>  <body class="source ie">     <![endif]-->
+  <!--[if !IE]><!--> <body class="source public">    <!--<![endif]-->
+<div id="control">
+  <div class="control">
+    <div id="menuinfo"><p></p></div>
+    <div class="buttons">
+        <div class="menu">
+          <a href="./jsbin/edit#bins" target="_blank" class="brand button button-dropdown group button-dropdown-arrow"><img src="./jsbin/images/favicon.png"> Bins</a>
+          <div class="dropdown" id="bins">
+            <div class="dropdownmenu">
+              <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="./jsbin/" data-label="new">New</a>
+              <hr data-desc="">
+              <a id="addmeta" data-desc="Insert a description shown in My Bins" title="Add meta data to bin" class="button group" href="#add-description">Add description</a>
+              <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="./jsbin/save">Create milestone</a>
+              <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="./jsbin/clone">Clone</a>
+              <hr data-desc="">
+              <a data-desc="Export individual panels to Github's gist as an anonymous user" id="export-as-gist" title="Create a new anonymous GitHub Gist from this bin" class="button group" href="#export-to-gist">Export as gist</a>
+              <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="./jsbin/download" data-label="download">Download</a>
+              <a data-desc="Use content from this bin when creating new bins" class="startingpoint" title="Set as starting code" class="button group" href="./jsbin/save" data-label="save-as-template">Save as template</a>
+              <!-- <a data-desc="Reset to the original JS Bin starting point" id="cleartemplate" title="Reset to the original JS Bin starting template" class="button group" href="#clear-template" data-label="clear-template">Clear template</a> -->
+              <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="http://learn.jsbin.com/help/how-can-i-embed-jsbin">How to embed</a>
+            </div>
+          </div>
+        </div><!-- spacer (or not) DO NOT TOUCH ERE BE DRAGONS etc wat?
+     --><div class="menu">
+          <span class="button group">Add library
+          <select id="library"></select>
+          </span>
+        </div><div id="sharemenu" class="menu hidden">
+          <a href="#share" class="button button-dropdown group">Share</a>
+          <div class="dropdown" id="share">
+            <div class="dropdowncontent">
+              <form>
+                <div data-desc="This bin's full output without the JS Bin editor">
+                  <strong><a class="link" data-path="/" target="_blank" href="http://localhost:3000">Output only (with live reload)</a></strong><br><input data-path="/" class="link" id="livepreview" value="./" type="text">
+                </div>
+                <hr>
+                <div id="sharepanels">
+                  <strong>Select panels to show:</strong>
+                  <ul class="inline">
+                    <li><label><input type="checkbox" data-panel="html">HTML</label></li>
+                    <li><label><input type="checkbox" data-panel="css">CSS</label></li>
+                    <li><label><input type="checkbox" data-panel="javascript">JS</label></li>
+                    <li><label><input type="checkbox" data-panel="console">Console</label></li>
+                    <li><label><input type="checkbox" data-panel="live">Output</label></li>
+                </div>
+                <!-- <div id="removelock"><input type="button" title="Unlocks the revision that you own so that you can continue to write to this specific bin" class="unlocklockrevision" value="Unlock revision #1"> <small>to allow changes.</small></div> -->
+                <div data-desc="The url to this bin with the JS Bin editor">
+                  <a class="link heading" data-path="/edit" target="_blank" href="./jsbin/edit">Link</a><br><input data-path="/edit" class="link" value="./edit" type="text">
+                </div>
+                <div data-desc="Embed this bin with the live output on your site">
+                  <span class="heading">Embed</span><br><textarea id="embedfield" data-path="/embed" class="link">&lt;a class=&quot;jsbin-embed&quot; href=&quot;./embed?live&quot;&gt;JS Bin demo&lt;/a&gt;&lt;script src=&quot;./js/embed.js&quot;&gt;&lt;/script&gt;</textarea>
+                </div>
+                <div data-desc="Training/Viewer mode: codecast your bin to any viewers" class="disabled">
+                  <a class="link heading" target="_blank" data-path="/watch" href="./jsbin/watch">Codecast</a></br><input data-path="/watch" class="link" value="./watch" type="text">
+                </div>
+                <div data-desc="Disallow further changes to this specific revision" data-shortcut="ctrl+s" class="lockoption" id="enablelock"><div title="Locks the bin's content so no more changes will be made this URL, and typing will create a new bin as if you 'created milestone'" class="icon-unlocked lockrevision"><span>Click to lock and prevent further changes</span></div></div>
+              </form>
+            </div>
+          </div>
+        </div><!-- intentional space -->
+        <div id="start-saving" class="menu">
+          <a href="/save" class="save button group">Start saving your work</a>
+        </div>
+      <div id="panels"></div>
+      <div class="help">
+        <div class="menu">
+          <a href="/login" class="button button-dropdown" id="loginbtn">Login/Register</a>
+        </div>
+        <div class="menu">
+          <a href="#help" class="button button-dropdown">Help</a>
+          <div class="dropdown dd-right" id="help">
+            <div class="dropdownmenu">
+              <a data-shortcut="ctrl+shift+?" data-desc="Discover poweruser keyboard shortcuts" id="showhelp" href="#keyboardHelp">Keyboard shortcuts</a>
+              <a data-desc="Shortcut & direct access JS Bin URLs" id="showurls" href="#urls">JS Bin URLs</a>
+              <hr data-desc="">
+              <a data-desc="Learn about JS Bin features & tricks" target="_blank" href="http://learn.jsbin.com/help">Help topics</a>
+              <hr data-desc="">
+              <a data-desc="Help make JS Bin better" id="newissue" target="_blank" href="http://github.com/jsbin/jsbin/issues/new">Send feedback &amp; file bugs</a>
+              <a data-desc="Help make JS Bin better" target="_blank" href="http://github.com/jsbin/jsbin/">Fork on Github</a>
+              <a data-desc="Find out the latest news & info" target="_blank" href="http://twitter.com/js_bin">Follow @js_bin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="bin" class="stretch" style="opacity: 0; filter:alpha(opacity=0);">
+  <div id="source" class="binview stretch">
+  </div>
+  <div id="panelswaiting">
+    <div class="code stretch html panel">
+      <div class="label menu"><span class="name"><strong><a href="#htmlprocessors" class="fake-dropdown button-dropdown">HTML</a></strong></span><div class="dropdown" id="htmlprocessors">
+          <div class="dropdownmenu processorSelector" data-type="html">
+            <a href="#html">HTML</a>
+            <a href="#markdown">Markdown</a>
+            <a href="#jade">Jade</a>
+            <a href="#convert">Convert to HTML</a>
+          </div>
+        </div>
+      </div>
+      <div class="editbox">
+        <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="html"></textarea>
+      </div>
+    </div>
+    <div class="code stretch javascript panel">
+      <div class="label menu"><span class="name"><strong><a  class="fake-dropdown button-dropdown" href="#javascriptprocessors">JavaScript</a></strong></span>
+        <div class="dropdown" id="javascriptprocessors">
+          <div class="dropdownmenu processorSelector" data-type="javascript">
+            <a href="#javascript">JavaScript</a>
+            <a href="#coffeescript">CoffeeScript</a>
+            <a href="#jsx">JSX (React)</a>
+            <a href="#processing">Processing</a>
+            <a href="#traceur">Traceur</a>
+            <a href="#typescript">TypeScript</a>
+            <a href="#convert">Convert to JavaScript</a>
+          </div>
+        </div>
+      </div>
+      <div class="editbox">
+        <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="javascript"></textarea>
+      </div>
+    </div>
+    <div class="code stretch css panel">
+      <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="#cssprocessors">CSS</a></strong></span>
+        <div class="dropdown" id="cssprocessors">
+          <div class="dropdownmenu processorSelector" data-type="css">
+            <a href="#css">CSS</a>
+            <a href="#less">LESS</a>
+            <!-- <a href="#stylus">Stylus</a> --><!-- Removed because of a crash bug in stylus https://twitter.com/phuunet/status/377735455670030336 -->
+            <a href="#convert">Convert to CSS</a>
+          </div>
+        </div>
+      </div>
+      <div class="editbox">
+        <textarea spellcheck="false" autocapitalize="none" autocorrect="off" id="css"></textarea>
+      </div>
+    </div>
+    <div class="stretch console panel">
+      <div class="label">
+        <span class="name"><strong>Console</strong></span>
+        <span class="options">
+          <button id="runconsole" title="ctrl + enter">Run</button>
+        </span>
+      </div>
+      <div id="console" class="stretch"><ul id="output"></ul><form>
+          <textarea id="exec" spellcheck="false" autocapitalize="none" rows="1" autocorrect="off"></textarea>
+      </form></div>
+    </div>
+    <div id="live" class="stretch live panel">
+      <div class="label">
+        <span class="name"><strong>Output</strong></span>
+        <span class="options">
+          <button id="runwithalerts" title="ctrl + enter
+Include alerts, prompts &amp; confirm boxes">Run with JS</button>
+          <label>Auto-run JS<input type="checkbox" id="enablejs"></label>
+          <a target="_blank" title="Live preview" id="jsbinurl" class="hidden" href=""><img src="./jsbin/images/popout.png"></a>
+        </span>
+        <span class="size"></span>
+      </div>
+    </div>
+  </div>
+  <form  id="saveform" method="post" action="/save">
+    <input type="hidden" name="method">
+    <input type="hidden" name="_csrf" value="S4W5qfpGqRHp2JhaYjAFEWWg">
+  </form>
+</div>
+<div id="tip" class=" notification">
+  <p>
+    You can jump to the latest bin by adding <code>/latest</code> to your URL
+  </p>
+  <a class="dismiss" href="#">Dismiss x</a>
+</div>
+<div id="keyboardHelp" class="modal">
+  <div>
+    <h2>Keyboard Shortcuts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="shortcut">Shortcut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ctrl + [num]</td>
+          <td>Toggle nth panel</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small>
+              <input type="checkbox" id="enablealt" class="enablealt">
+              <label for="enablealt">Require alt key, leaving cmd+1, 2 etc for tab switching.</label>
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td>ctrl + 0</td>
+          <td>Close focused panel</td>
+        </tr>
+        <tr>
+          <td>ctrl + enter</td>
+          <td>Re-render output.<br>If console visible: run JS in console</td>
+        </tr>
+        <tr>
+          <td>Ctrl + l</td>
+          <td>Clear the console</td>
+        </tr>
+        <tr>
+          <td>ctrl + /</td>
+          <td>Toggle comment on selected lines</td>
+        </tr>
+        <!-- <tr>
+          <td>ctrl + alt + .</td>
+          <td>Close current HTML element</td>
+        </tr> -->
+        <tr>
+          <td>cmd + [</td>
+          <td>Indents selected lines</td>
+        </tr>
+        <tr>
+          <td>cmd + ]</td>
+          <td>Unindents selected lines</td>
+        </tr>
+        <tr>
+          <td>tab</td>
+          <td>Code complete (JavaScript only) &amp; Emmet expand</td>
+        </tr>
+        <tr>
+          <td>ctrl + s</td>
+          <td>Save &amp; lock current Bin from further changes</td>
+        </tr>
+        <tr>
+          <td>ctrl + shift + s</td>
+          <td>Clone Bin</td>
+        </tr>
+        <!-- too confusing, let's throw it away -->
+        <!--
+        <tr>
+          <td>ctrl + \</td>
+          <td>Hide navigation bar</td>
+        </tr>
+        <tr>
+          <td>esc, ctrl + [num]</td>
+          <td>JS Bin ignores this sequence, and returns control to browser shortcuts</td>
+        </tr>
+        <tr>
+          <td>ctrl + §<br>(or `)</td>
+          <td>Hide focused panel</td>
+        </tr>-->
+
+        <tr><td colspan="2"><small><br>JS Bin also supports <a href="http://docs.emmet.io/" target="_blank">Emmet/Zen Coding</a> shortcuts</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="urlHelp" class="modal">
+  <div>
+    <h2>JS Bin URLs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="shortcut">URL</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/</td>
+          <td>Show the full rendered output.<br><small>This content will update in real time as it's updated from the /edit url.</small></td>
+        </tr>
+        <tr>
+          <td>/edit</td>
+          <td>Edit the current bin</td>
+        </tr>
+        <tr>
+          <td>/watch</td>
+          <td>Follow a Code Casting session</td>
+        </tr>
+        <tr>
+          <td>/embed</td>
+          <td>Create an embeddable version of the bin</td>
+        </tr>
+        <tr>
+          <td>/latest</td>
+          <td>Load the very latest bin (/latest goes in place of the revision)</td>
+        </tr>
+        <tr>
+          <td>/[username]/last</td>
+          <td>View the last edited bin for this user</td>
+        </tr>
+        <tr>
+          <td>/[username]/last/edit</td>
+          <td>Edit the last edited bin for this user</td>
+        </tr>
+        <tr>
+          <td>/[username]/last/watch</td>
+          <td>Follow the Code Casting session for the latest bin for this user</td>
+        </tr>
+        <tr>
+          <td>/quiet</td>
+          <td>Remove analytics and edit button from rendered output</td>
+        </tr>
+        <tr>
+          <td>.js</td>
+          <td>Load only the JavaScript for a bin</td>
+        </tr>
+        <tr>
+          <td>.css</td>
+          <td>Load only the CSS for a bin</td>
+        </tr>
+        <tr><td colspan="2"><br><small>Except for username prefixed urls, the url may start with http://jsbin.com/abc and the url fragments can be added to the url to view it differently.</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  var template = {"html":"<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <title>JS Bin</title>\n</head>\n<body>\n\n</body>\n</html>","css":"","javascript":"","url":"./jsbin/"};
+  var jsbin = {"root":"./jsbin/","runner":"./jsbin/runner","static":"./jsbin/","version":"3.11.23","state":{"token":"S4W5qfpGqRHp2JhaYjAFEWWg","stream":false,"streaming":false,"code":null,"revision":null,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","live"]}}; tips  = {};
+</script>
+    <script src="./jsbin/js/chrome/hashbang-jump.js"></script>
+    <script src="./jsbin/js/vendor/jquery-1.11.0.js"></script>
+    <script src="./jsbin/js/vendor/jquery-migrate.js"></script>
+    <script src="./jsbin/js/vendor/pretty-date.js"></script>
+    <script src="./jsbin/js/vendor/polyfills.js"></script>
+    <script src="./jsbin/js/vendor/jshint/jshint.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/lib/codemirror.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/mode/xml/xml.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/mode/css/css.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/mode/javascript/javascript.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="./jsbin/js/vendor/cm_addons/emmet.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/addon/search/searchcursor.js"></script>
+    <script src="./jsbin/js/vendor/cm_addons/simple-hint.js"></script>
+    <script src="./jsbin/js/vendor/cm_addons/javascript-hint.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/addon/edit/matchbrackets.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/addon/fold/foldcode.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/addon/selection/active-line.js"></script>
+    <script src="./jsbin/js/vendor/codemirror3/addon/search/searchcursor.js"></script>
+    <script src="./jsbin/js/editors/snippets.cm.js"></script>
+    <script src="./jsbin/js/vendor/json2.js"></script>
+    <script src="./jsbin/js/vendor/prettyprint.js"></script>
+    <script src="./jsbin/js/runner/loop-protect.js"></script>
+    <script src="./jsbin/js/chrome/storage.js"></script>
+    <script src="./jsbin/js/jsbin.js"></script>
+    <script src="./jsbin/js/editors/mobileCodeMirror.js"></script>
+    <script src="./jsbin/js/chrome/splitter.js"></script>
+    <script src="./jsbin/js/chrome/analytics.js"></script>
+    <script src="./jsbin/js/chrome/font.js"></script>
+    <script src="./jsbin/js/render/render.js"></script>
+    <script src="./jsbin/js/render/live.js"></script>
+    <script src="./jsbin/js/editors/keycontrol.js"></script>
+    <script src="./jsbin/js/render/console.js"></script>
+    <script src="./jsbin/js/chrome/errors.js"></script>
+    <script src="./jsbin/js/processors/processor.js"></script>
+    <script src="./jsbin/js/editors/panel.js"></script>
+    <script src="./jsbin/js/editors/editors.js"></script>
+    <script src="./jsbin/js/editors/libraries.js"></script>
+    <script src="./jsbin/js/editors/library.js"></script>
+    <script src="./jsbin/js/render/saved-history-preview.js"></script>
+    <script src="./jsbin/js/chrome/esc.js"></script>
+    <script src="./jsbin/js/chrome/issue.js"></script>
+    <script src="./jsbin/js/chrome/download.js"></script>
+    <script src="./jsbin/js/chrome/login.js"></script>
+    <script src="./jsbin/js/chrome/tips.js"></script>
+    <script src="./jsbin/js/chrome/save.js"></script>
+    <script src="./jsbin/js/chrome/navigation.js"></script>
+    <script src="./jsbin/js/chrome/file-drop.js"></script>
+    <script src="./jsbin/js/chrome/gist.js"></script>
+    <script src="./jsbin/js/chrome/spinner.js"></script>
+    <script src="./jsbin/js/chrome/infocard.js"></script>
+    <script src="./jsbin/js/chrome/app.js"></script>
+</body>
+</html>
