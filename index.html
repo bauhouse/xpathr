@@ -3,10 +3,10 @@
 <head>
   <meta charset=utf-8>
   <title>xpathr - Collaborative XSLT Development</title>
-  <!-- <link rel="icon" href="./jsbin/images/favicon.png"> -->
-  <link rel="stylesheet" href="./jsbin/css/style.css">
-  <link rel="stylesheet" href="./jsbin/css/flat-ui.css">
-  <!--[if lte IE 9 ]><link rel="stylesheet" href="./jsbin/css/ie.css"><![endif]-->
+  <!-- <link rel="icon" href="./images/favicon.png"> -->
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/flat-ui.css">
+  <!--[if lte IE 9 ]><link rel="stylesheet" href="./css/ie.css"><![endif]-->
 </head>
 <!--[if lt IE 7]>  <body class="source ie ie6"> <![endif]-->
 <!--[if IE 7]>     <body class="source ie ie7"> <![endif]-->
@@ -17,18 +17,18 @@
     <div id="menuinfo"><p></p></div>
     <div class="buttons">
         <div class="menu">
-          <a href="./jsbin/edit#bins" target="_blank" class="brand button button-dropdown group button-dropdown-arrow">Bins</a>
+          <a href="./#bins" target="_blank" class="brand button button-dropdown group button-dropdown-arrow">Bins</a>
           <div class="dropdown" id="bins">
             <div class="dropdownmenu">
-              <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="./jsbin/" data-label="new">New</a>
+              <a id="createnew" data-desc="Create a brand new bin" class="button group" title="Create fresh bin" href="./" data-label="new">New</a>
               <hr data-desc="">
               <a id="addmeta" data-desc="Insert a description shown in My Bins" title="Add meta data to bin" class="button group" href="#add-description">Add description</a>
-              <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="./jsbin/save">Create milestone</a>
-              <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="./jsbin/clone">Clone</a>
+              <a title="Create milestone" data-desc="Save current work, and begin new revision on next change" data-shortcut="ctrl+s" class="button save group" data-label="save" href="./#save">Create milestone</a>
+              <a data-desc="Copy and create a new bin start at revision #1" data-shortcut="ctrl+shift+s" id="clone" title="Create a new copy" class="button clone group" data-label="clone" href="./#clone">Clone</a>
               <hr data-desc="">
               <a data-desc="Export individual panels to Github's gist as an anonymous user" id="export-as-gist" title="Create a new anonymous GitHub Gist from this bin" class="button group" href="#export-to-gist">Export as gist</a>
-              <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="./jsbin/download" data-label="download">Download</a>
-              <a data-desc="Use content from this bin when creating new bins" class="startingpoint" title="Set as starting code" class="button group" href="./jsbin/save" data-label="save-as-template">Save as template</a>
+              <a data-desc="Download a complete html file for this bin" id="download" title="Save to local drive" class="button download group" href="./#download" data-label="download">Download</a>
+              <a data-desc="Use content from this bin when creating new bins" class="startingpoint" title="Set as starting code" class="button group" href="./#save" data-label="save-as-template">Save as template</a>
               <!-- <a data-desc="Reset to the original JS Bin starting point" id="cleartemplate" title="Reset to the original JS Bin starting template" class="button group" href="#clear-template" data-label="clear-template">Clear template</a> -->
               <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="http://learn.jsbin.com/help/how-can-i-embed-jsbin">How to embed</a>
             </div>
@@ -59,13 +59,13 @@
                 </div>
                 <!-- <div id="removelock"><input type="button" title="Unlocks the revision that you own so that you can continue to write to this specific bin" class="unlocklockrevision" value="Unlock revision #1"> <small>to allow changes.</small></div> -->
                 <div data-desc="The url to this bin with the JS Bin editor">
-                  <a class="link heading" data-path="/edit" target="_blank" href="./jsbin/edit">Link</a><br><input data-path="/edit" class="link" value="./edit" type="text">
+                  <a class="link heading" data-path="/edit" target="_blank" href="./edit">Link</a><br><input data-path="/edit" class="link" value="./edit" type="text">
                 </div>
                 <div data-desc="Embed this bin with the live output on your site">
                   <span class="heading">Embed</span><br><textarea id="embedfield" data-path="/embed" class="link">&lt;a class=&quot;jsbin-embed&quot; href=&quot;./embed?live&quot;&gt;JS Bin demo&lt;/a&gt;&lt;script src=&quot;./js/embed.js&quot;&gt;&lt;/script&gt;</textarea>
                 </div>
                 <div data-desc="Training/Viewer mode: codecast your bin to any viewers" class="disabled">
-                  <a class="link heading" target="_blank" data-path="/watch" href="./jsbin/watch">Codecast</a></br><input data-path="/watch" class="link" value="./watch" type="text">
+                  <a class="link heading" target="_blank" data-path="/watch" href="./watch">Codecast</a></br><input data-path="/watch" class="link" value="./watch" type="text">
                 </div>
                 <div data-desc="Disallow further changes to this specific revision" data-shortcut="ctrl+s" class="lockoption" id="enablelock"><div title="Locks the bin's content so no more changes will be made this URL, and typing will create a new bin as if you 'created milestone'" class="icon-unlocked lockrevision"><span>Click to lock and prevent further changes</span></div></div>
               </form>
@@ -169,7 +169,7 @@
 Include alerts, prompts &amp; confirm boxes">Process</button>
           <!--
           <label>Auto-run JS<input type="checkbox" id="enablejs"></label>
-          <a target="_blank" title="Live preview" id="jsbinurl" class="hidden" href=""><img src="./jsbin/images/popout.png"></a>
+          <a target="_blank" title="Live preview" id="jsbinurl" class="hidden" href=""><img src="./images/popout.png"></a>
           -->
         </span>
         <span class="size"></span>
@@ -319,57 +319,57 @@ Include alerts, prompts &amp; confirm boxes">Process</button>
   var template = {"html":"<data>\n  <hello>paste your xml here</hello>\n</data>\n","url":"."};
   var jsbin = {"root":"./jsbin/","runner":"./jsbin/runner","static":"./jsbin/","version":"3.11.23","state":{"token":"S4W5qfpGqRHp2JhaYjAFEWWg","stream":false,"streaming":false,"code":null,"revision":null,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","live"]}}; tips  = {};
 </script>
-    <script src="./jsbin/js/chrome/hashbang-jump.js"></script>
-    <script src="./jsbin/js/vendor/jquery-1.11.0.js"></script>
-    <script src="./jsbin/js/vendor/jquery-migrate.js"></script>
-    <script src="./jsbin/js/vendor/pretty-date.js"></script>
-    <script src="./jsbin/js/vendor/polyfills.js"></script>
-    <script src="./jsbin/js/vendor/jshint/jshint.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/lib/codemirror.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/mode/xml/xml.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/mode/css/css.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/mode/javascript/javascript.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/mode/htmlmixed/htmlmixed.js"></script>
-    <script src="./jsbin/js/vendor/cm_addons/emmet.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/addon/search/searchcursor.js"></script>
-    <script src="./jsbin/js/vendor/cm_addons/simple-hint.js"></script>
-    <script src="./jsbin/js/vendor/cm_addons/javascript-hint.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/addon/edit/matchbrackets.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/addon/fold/foldcode.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/addon/selection/active-line.js"></script>
-    <script src="./jsbin/js/vendor/codemirror3/addon/search/searchcursor.js"></script>
-    <script src="./jsbin/js/editors/snippets.cm.js"></script>
-    <script src="./jsbin/js/vendor/json2.js"></script>
-    <script src="./jsbin/js/vendor/prettyprint.js"></script>
-    <script src="./jsbin/js/runner/loop-protect.js"></script>
-    <script src="./jsbin/js/chrome/storage.js"></script>
+    <script src="./js/chrome/hashbang-jump.js"></script>
+    <script src="./js/vendor/jquery-1.11.0.js"></script>
+    <script src="./js/vendor/jquery-migrate.js"></script>
+    <script src="./js/vendor/pretty-date.js"></script>
+    <script src="./js/vendor/polyfills.js"></script>
+    <script src="./js/vendor/jshint/jshint.js"></script>
+    <script src="./js/vendor/codemirror4/lib/codemirror.js"></script>
+    <script src="./js/vendor/codemirror4/mode/xml/xml.js"></script>
+    <script src="./js/vendor/codemirror4/mode/css/css.js"></script>
+    <script src="./js/vendor/codemirror4/mode/javascript/javascript.js"></script>
+    <script src="./js/vendor/codemirror4/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="./js/vendor/cm_addons/emmet.js"></script>
+    <script src="./js/vendor/codemirror4/addon/search/searchcursor.js"></script>
+    <script src="./js/vendor/cm_addons/simple-hint.js"></script>
+    <script src="./js/vendor/cm_addons/javascript-hint.js"></script>
+    <script src="./js/vendor/codemirror4/addon/edit/matchbrackets.js"></script>
+    <script src="./js/vendor/codemirror4/addon/fold/foldcode.js"></script>
+    <script src="./js/vendor/codemirror4/addon/selection/active-line.js"></script>
+    <script src="./js/vendor/codemirror4/addon/search/searchcursor.js"></script>
+    <script src="./js/editors/snippets.cm.js"></script>
+    <script src="./js/vendor/json2.js"></script>
+    <script src="./js/vendor/prettyprint.js"></script>
+    <script src="./js/runner/loop-protect.js"></script>
+    <script src="./js/chrome/storage.js"></script>
     <script src="./js/xpathr.js"></script>
-    <script src="./jsbin/js/editors/mobileCodeMirror.js"></script>
+    <script src="./js/editors/mobileCodeMirror.js"></script>
     <script src="./js/chrome/splitter.js"></script>
-    <script src="./jsbin/js/chrome/analytics.js"></script>
-    <script src="./jsbin/js/chrome/font.js"></script>
-    <script src="./jsbin/js/render/render.js"></script>
-    <script src="./jsbin/js/render/live.js"></script>
+    <script src="./js/chrome/analytics.js"></script>
+    <script src="./js/chrome/font.js"></script>
+    <script src="./js/render/render.js"></script>
+    <script src="./js/render/live.js"></script>
     <script src="./js/editors/keycontrol.js"></script>
-    <script src="./jsbin/js/render/console.js"></script>
-    <script src="./jsbin/js/chrome/errors.js"></script>
-    <script src="./jsbin/js/processors/processor.js"></script>
+    <script src="./js/render/console.js"></script>
+    <script src="./js/chrome/errors.js"></script>
+    <script src="./js/processors/processor.js"></script>
     <script src="./js/editors/panel.js"></script>
     <script src="./js/editors/editors.js"></script>
-    <script src="./jsbin/js/editors/libraries.js"></script>
-    <script src="./jsbin/js/editors/library.js"></script>
-    <script src="./jsbin/js/render/saved-history-preview.js"></script>
+    <script src="./js/editors/libraries.js"></script>
+    <script src="./js/editors/library.js"></script>
+    <script src="./js/render/saved-history-preview.js"></script>
     <script src="./js/chrome/esc.js"></script>
-    <script src="./jsbin/js/chrome/issue.js"></script>
-    <script src="./jsbin/js/chrome/download.js"></script>
-    <script src="./jsbin/js/chrome/login.js"></script>
-    <script src="./jsbin/js/chrome/tips.js"></script>
-    <script src="./jsbin/js/chrome/save.js"></script>
+    <script src="./js/chrome/issue.js"></script>
+    <script src="./js/chrome/download.js"></script>
+    <script src="./js/chrome/login.js"></script>
+    <script src="./js/chrome/tips.js"></script>
+    <script src="./js/chrome/save.js"></script>
     <script src="./js/chrome/navigation.js"></script>
-    <script src="./jsbin/js/chrome/file-drop.js"></script>
-    <script src="./jsbin/js/chrome/gist.js"></script>
-    <script src="./jsbin/js/chrome/spinner.js"></script>
-    <script src="./jsbin/js/chrome/infocard.js"></script>
-    <script src="./jsbin/js/chrome/app.js"></script>
+    <script src="./js/chrome/file-drop.js"></script>
+    <script src="./js/chrome/gist.js"></script>
+    <script src="./js/chrome/spinner.js"></script>
+    <script src="./js/chrome/infocard.js"></script>
+    <script src="./js/chrome/app.js"></script>
 </body>
 </html>
