@@ -55,6 +55,7 @@
                     <li><label><input type="checkbox" data-panel="javascript">JS</label></li>
                     <li><label><input type="checkbox" data-panel="console">Console</label></li>
                     <li><label><input type="checkbox" data-panel="live">Output</label></li>
+                  </ul>
                 </div>
                 <!-- <div id="removelock"><input type="button" title="Unlocks the revision that you own so that you can continue to write to this specific bin" class="unlocklockrevision" value="Unlock revision #1"> <small>to allow changes.</small></div> -->
                 <div data-desc="The url to this bin with the JS Bin editor">
@@ -103,9 +104,9 @@
   </div>
   <div id="panelswaiting">
     <div class="code stretch html panel">
-      <div class="label menu"><span class="name"><strong><a href="#htmlprocessors" class="fake-dropdown button-dropdown">HTML</a></strong></span><div class="dropdown" id="htmlprocessors">
+      <div class="label menu"><span class="name"><strong><a href="#htmlprocessors" class="fake-dropdown button-dropdown">XML</a></strong></span><div class="dropdown" id="htmlprocessors">
           <div class="dropdownmenu processorSelector" data-type="html">
-            <a href="#html">HTML</a>
+            <a href="#html">XML</a>
             <a href="#markdown">Markdown</a>
             <a href="#jade">Jade</a>
             <a href="#convert">Convert to HTML</a>
@@ -135,10 +136,10 @@
       </div>
     </div>
     <div class="code stretch css panel">
-      <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="#cssprocessors">CSS</a></strong></span>
+      <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="#cssprocessors">XSLT</a></strong></span>
         <div class="dropdown" id="cssprocessors">
           <div class="dropdownmenu processorSelector" data-type="css">
-            <a href="#css">CSS</a>
+            <a href="#css">XSLT</a>
             <a href="#less">LESS</a>
             <!-- <a href="#stylus">Stylus</a> --><!-- Removed because of a crash bug in stylus https://twitter.com/phuunet/status/377735455670030336 -->
             <a href="#convert">Convert to CSS</a>
@@ -165,9 +166,11 @@
         <span class="name"><strong>Output</strong></span>
         <span class="options">
           <button id="runwithalerts" title="ctrl + enter
-Include alerts, prompts &amp; confirm boxes">Run with JS</button>
+Include alerts, prompts &amp; confirm boxes">Process</button>
+          <!--
           <label>Auto-run JS<input type="checkbox" id="enablejs"></label>
           <a target="_blank" title="Live preview" id="jsbinurl" class="hidden" href=""><img src="./jsbin/images/popout.png"></a>
+          -->
         </span>
         <span class="size"></span>
       </div>
@@ -247,21 +250,6 @@ Include alerts, prompts &amp; confirm boxes">Run with JS</button>
           <td>ctrl + shift + s</td>
           <td>Clone Bin</td>
         </tr>
-        <!-- too confusing, let's throw it away -->
-        <!--
-        <tr>
-          <td>ctrl + \</td>
-          <td>Hide navigation bar</td>
-        </tr>
-        <tr>
-          <td>esc, ctrl + [num]</td>
-          <td>JS Bin ignores this sequence, and returns control to browser shortcuts</td>
-        </tr>
-        <tr>
-          <td>ctrl + §<br>(or `)</td>
-          <td>Hide focused panel</td>
-        </tr>-->
-
         <tr><td colspan="2"><small><br>JS Bin also supports <a href="http://docs.emmet.io/" target="_blank">Emmet/Zen Coding</a> shortcuts</small></td></tr>
       </tbody>
     </table>
@@ -328,7 +316,7 @@ Include alerts, prompts &amp; confirm boxes">Run with JS</button>
   </div>
 </div>
 <script>
-  var template = {"html":"<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <title>JS Bin</title>\n</head>\n<body>\n\n</body>\n</html>","css":"","javascript":"","url":"./jsbin/"};
+  var template = {"html":"<data>\n  <hello>paste your xml here</hello>\n</data>\n","url":"."};
   var jsbin = {"root":"./jsbin/","runner":"./jsbin/runner","static":"./jsbin/","version":"3.11.23","state":{"token":"S4W5qfpGqRHp2JhaYjAFEWWg","stream":false,"streaming":false,"code":null,"revision":null,"processors":{},"checksum":null,"metadata":{}},"settings":{"panels":["html","live"]}}; tips  = {};
 </script>
     <script src="./jsbin/js/chrome/hashbang-jump.js"></script>
