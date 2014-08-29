@@ -15,3 +15,5 @@ As a reminder of what I've done so far, I am keeping a log of the work completed
    - Get JS Bin working as a static HTML file
    - Start to modify panel names and content
    - Set up JavaScript files to begin adapting code for xpathr
+   - Replace jsbin object with xpathr object in JavaScript
+   - Modify menus to refer to xpathr
