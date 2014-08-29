@@ -17,3 +17,4 @@ As a reminder of what I've done so far, I am keeping a log of the work completed
    - Set up JavaScript files to begin adapting code for xpathr
    - Replace jsbin object with xpathr object in JavaScript
    - Modify menus to refer to xpathr
+   - Remove the library menu, show the Share menu and modify the Share dropdown content

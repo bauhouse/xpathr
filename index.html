@@ -34,12 +34,8 @@
               <a data-desc="How to embed a bin" target="_blank" title="How to embed a bin" data-label="how-to-embed" class="button group" href="http://learn.jsbin.com/help/how-can-i-embed-jsbin">How to embed</a>
             </div>
           </div>
-        </div><!-- spacer (or not) DO NOT TOUCH ERE BE DRAGONS etc wat?
-     --><div class="menu">
-          <span class="button group">Add library
-          <select id="library"></select>
-          </span>
-        </div><div id="sharemenu" class="menu hidden">
+        </div>
+        <div id="sharemenu" class="menu">
           <a href="#share" class="button button-dropdown group">Share</a>
           <div class="dropdown" id="share">
             <div class="dropdowncontent">
@@ -62,8 +58,8 @@
                 <div data-desc="The url to this bin with the JS Bin editor">
                   <a class="link heading" data-path="/edit" target="_blank" href="./edit">Link</a><br><input data-path="/edit" class="link" value="./edit" type="text">
                 </div>
-                <div data-desc="Embed this bin with the live output on your site">
-                  <span class="heading">Embed</span><br><textarea id="embedfield" data-path="/embed" class="link">&lt;a class=&quot;jsbin-embed&quot; href=&quot;./embed?live&quot;&gt;JS Bin demo&lt;/a&gt;&lt;script src=&quot;./js/embed.js&quot;&gt;&lt;/script&gt;</textarea>
+                <div data-desc="Embed this xpathr with the live output on your site">
+                  <span class="heading">Embed</span><br><textarea id="embedfield" data-path="/embed" class="link">&lt;a class=&quot;xpathr-embed&quot; href=&quot;./embed?live&quot;&gt;xpathr demo&lt;/a&gt;&lt;script src=&quot;./js/embed.js&quot;&gt;&lt;/script&gt;</textarea>
                 </div>
                 <div data-desc="Training/Viewer mode: codecast your bin to any viewers" class="disabled">
                   <a class="link heading" target="_blank" data-path="/watch" href="./watch">Codecast</a></br><input data-path="/watch" class="link" value="./watch" type="text">
@@ -352,8 +348,6 @@ Include alerts, prompts &amp; confirm boxes">Process</button>
     <script src="./js/processors/processor.js"></script>
     <script src="./js/editors/panel.js"></script>
     <script src="./js/editors/editors.js"></script>
-    <script src="./js/editors/libraries.js"></script>
-    <script src="./js/editors/library.js"></script>
     <script src="./js/render/saved-history-preview.js"></script>
     <script src="./js/chrome/esc.js"></script>
     <script src="./js/chrome/download.js"></script>
