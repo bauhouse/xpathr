@@ -1508,7 +1508,7 @@ body {
   /*min-width: 976px;*/
   overflow: hidden;
   /*background: url(../images/jsbin-bg.gif) repeat-x 0 -10px;*/
-  background: #fff url(../images/jsbin_animated.gif) no-repeat center;
+  /*background: #fff url(../images/jsbin_animated.gif) no-repeat center;*/
   height: 100%;
 }
 
@@ -1525,6 +1525,7 @@ body {
  *  End pro styling
  */
 
+/*
 body.ready {
   background: #fff url(../images/jsbin_static.png) no-repeat center;
 }
@@ -1532,6 +1533,7 @@ body.ready {
 body.dave {
   background: #fff url(../images/logo.png) no-repeat center;
 }
+*/
 
 p {
   margin: 0;

@@ -33,11 +33,13 @@ if (CodeMirror.keyMap && CodeMirror.keyMap['default']) {
   delete CodeMirror.keyMap['default'][cmd + '-R'];
 }
 
+/*
 var link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = xpathr['static'] + '/css/font.css?' + xpathr.version;
 link.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(link);
+*/
 
 if (xpathr.embed) {
   analytics.embed();

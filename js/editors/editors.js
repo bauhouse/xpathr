@@ -515,7 +515,7 @@ editors.html = panelInit.html();
 editors.css = panelInit.css();
 editors.javascript = panelInit.javascript();
 editors.console = panelInit.console();
-upgradeConsolePanel(editors.console);
+// upgradeConsolePanel(editors.console);
 editors.live = panelInit.live();
 
 // jsconsole.init(); // sets up render functions etc.
@@ -642,10 +642,10 @@ var editorsReady = setInterval(function () {
     // if the console is visible, it'll handle rendering of the output and console
     if (panels.panels.console.visible) {
       editors.console.render();
-    } else {
+    } // else {
       // otherwise, force a render
-      renderLivePreview();
-    }
+      // renderLivePreview();
+    // }
 
 
     $(window).resize(function () {

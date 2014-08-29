@@ -18,3 +18,8 @@ As a reminder of what I've done so far, I am keeping a log of the work completed
    - Replace jsbin object with xpathr object in JavaScript
    - Modify menus to refer to xpathr
    - Remove the library menu, show the Share menu and modify the Share dropdown content
+   - Clear the console of all errors
+      - Comment out scripts from index.html: loop-protect, font, render, console 
+      - Comment out upgradeConsolePanel in editors.js
+      - Comment out call to RenderLivePreview in editors.js
+      - Comment out call to font.css in app.js
