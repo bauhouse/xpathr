@@ -1,16 +1,4 @@
-//= require "codemirror"
-//= require "mobileCodeMirror"
-//= require "library"
-//= require "unsaved"
-//= require "panel"
-//= require "../render/live"
-//= require "../render/console"
-//= require "keycontrol"
-//= require "../processors/processor"
-
 var panels = {};
-
-var $window = $(window);
 
 panels.getVisible = function () {
   var panels = this.panels,
@@ -22,6 +10,11 @@ panels.getVisible = function () {
 };
 
 panels.save = function () {
+  // don't save panel state if we're in embed mode
+  if (jsbin.embed) {
+    return;
+  }
+
   var visible = this.getVisible(),
       state = {},
       panel,
@@ -30,7 +23,7 @@ panels.save = function () {
 
   for (var i = 0; i < visible.length; i++) {
     panel = visible[i];
-    left = panel.$el.xslt('left');
+    left = panel.$el.css('left');
     if (left.indexOf('%') === -1) {
       // convert the pixel to relative - this is because jQuery pulls
       // % for Webkit based, but px for Firefox & Opera. Cover our bases
@@ -39,22 +32,94 @@ panels.save = function () {
     state[panel.name] = left;
   }
 
-  sessionStorage.setItem('xpathr.panels', JSON.stringify(state));
+  sessionStorage.setItem('jsbin.panels', JSON.stringify(state));
+};
+
+function getQuery(qs) {
+  /*globals $*/
+  var sep = '&';
+  var eq = '=';
+  var obj = {};
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    try {
+      k = decodeURIComponent(kstr);
+      v = decodeURIComponent(vstr);
+    } catch (e) {
+      k = kstr;
+      v = vstr;
+    }
+
+    if (!(window.hasOwnProperty ? window.hasOwnProperty(obj, k) : obj.hasOwnProperty(k))) {
+      obj[k] = v;
+    } else if ($.isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+}
+
+function stringAsPanelsToOpen(query) {
+  var validPanels = ['live', 'javascript', 'html', 'css', 'console'];
+
+  return query.split(',').reduce(function (toopen, key) {
+    if (key === 'js') {
+      key = 'javascript';
+    }
+
+    if (key === 'output') {
+      key = 'live';
+    }
+
+    if (validPanels.indexOf(key) !== -1) {
+      toopen.push(key);
+    }
+
+    return toopen;
+  }, []);
 }
 
 panels.restore = function () {
-  // if there are panel names on the hash (v2 of xpathr) or in the jquery (v3)
+  'use strict';
+  /*globals jsbin, editors, $window, $document*/
+  // if there are panel names on the hash (v2 of jsbin) or in the query (v3)
   // then restore those specific panels and evenly distribute them.
   var open = [],
+      defaultPanels = ['html', 'live'], // sigh, live == output :(
       location = window.location,
       search = location.search.substring(1),
       hash = location.hash.substring(1),
-      toopen = search || hash ? (search || hash).split(',') : xpathr.settings.panels || [],
-      state = JSON.parse(sessionStorage.getItem('xpathr.panels') || 'null'),
-      hasContent = {
-        xml: editors.xml.getCode().length,
-        xslt: editors.xslt.getCode().length,
-        javascript: editors.javascript.getCode().length
+      toopen = [],
+      state = jsbin.embed ? null : JSON.parse(sessionStorage.getItem('jsbin.panels') || 'null'),
+      hasContent = { javascript: editors.javascript.getCode().length,
+        css: editors.css.getCode().length,
+        html: editors.html.getCode().length
       },
       name = '',
       i = 0,
@@ -64,33 +129,78 @@ panels.restore = function () {
       openWithSameDimensions = false,
       width = $window.width(),
       deferredCodeInsert = '',
-      focused = !!sessionStorage.getItem('panel');
+      focused = !!sessionStorage.getItem('panel'),
+      validPanels = 'live javascript html css console'.split(' '),
+      cachedHash = '';
 
-  if (history.replaceState && (location.pathname.indexOf('/edit') !== -1) || ((location.origin + location.pathname) === xpathr.getURL() + '/')) {
-    history.replaceState(null, '', xpathr.getURL() + (xpathr.getURL() === xpathr.root ? '' : '/edit'));
+  if (history.replaceState && (location.pathname.indexOf('/edit') !== -1) || ((location.origin + location.pathname) === jsbin.getURL() + '/')) {
+    history.replaceState(null, '', jsbin.getURL() + (jsbin.getURL() === jsbin.root ? '' : '/edit') + (hash ? '#' + hash : ''));
   }
 
-  if (toopen.length === 0 && state === null) {
-    if (hasContent.javascript) toopen.push('javascript');
-    if (hasContent.xml) toopen.push('xml');
-    if (hasContent.xslt) toopen.push('xslt');
+  if (search || hash) {
+    var query = (search || hash);
+
+    // assume the query is: html=xyz
+    if (query.indexOf('&') !== -1) {
+      query = getQuery(search || hash);
+      toopen = Object.keys(query).reduce(function (toopen, key) {
+        if (key.indexOf(',') !== -1 && query[key] === '') {
+          toopen = stringAsPanelsToOpen(key);
+          return toopen;
+        }
+
+        if (key === 'js') {
+          query.javascript = query.js;
+          key = 'javascript';
+        }
+
+        if (key === 'output') {
+          query.live = query.live;
+          key = 'live';
+        }
+
+        if (query[key] === undefined) {
+          query[key] = '';
+        }
+
+        if (validPanels.indexOf(key) !== -1) {
+          toopen.push(key + '=' + query[key]);
+        }
+
+        return toopen;
+      }, []);
+    } else {
+      toopen = stringAsPanelsToOpen(query);
+    }
+  }
+
+  if (toopen.length === 0) {
+    if (state !== null) {
+      toopen = Object.keys(state);
+    }
+    else {
+      // load from personal settings
+      toopen = jsbin.settings.panels;
+    }
+  }
+
+  if (toopen.length === 0) {
+    if (hasContent.javascript) {toopen.push('javascript');}
+    if (hasContent.html) {toopen.push('html');}
+    if (hasContent.css) {toopen.push('css');}
     toopen.push('live');
   }
 
-  // otherwise restore the user's regular settings
-  // also set a flag indicating whether or not we should save the panel settings
-  // this is based on whether they're on xpathr.com or if they're on an existing
-  // bin. Also, if they hit save - *always* save their layout.
-  if (location.pathname && location.pathname !== '/') {
-    panels.saveOnExit = false;
-  } else {
-    panels.saveOnExit = true;
-  }
-
-  // TODO decide whether the above code I'm trying too hard.
+  panels.saveOnExit = true;
 
   /* Boot code */
-  // then allow them to view specific panels based on comma separated hash fragment
+  // then allow them to view specific panels based on comma separated hash fragment/query
+  i = 0;
+
+  if (toopen.length === 0) {
+    toopen = defaultPanels;
+  }
+
   if (toopen.length) {
     for (name in state) {
       if (toopen.indexOf(name) !== -1) {
@@ -98,10 +208,12 @@ panels.restore = function () {
       }
     }
 
-    if (i === toopen.length) openWithSameDimensions = true;
+    if (i === toopen.length) {
+      openWithSameDimensions = true;
+    }
 
     for (i = 0; i < toopen.length; i++) {
-      panelURLValue = '';
+      panelURLValue = null;
       name = toopen[i];
 
       // if name contains an `=` it means we also need to set that particular panel to that code
@@ -113,7 +225,7 @@ panels.restore = function () {
       if (panels.panels[name]) {
         panel = panels.panels[name];
         // console.log(name, 'width', state[name], width * parseFloat(state[name]) / 100);
-        if (panel.editor && panelURLValue) {
+        if (panel.editor && panelURLValue !== null) {
           panel.setCode(decodeURIComponent(panelURLValue));
         }
 
@@ -123,9 +235,9 @@ panels.restore = function () {
           panel.show();
         }
         init.push(panel);
-      } else if (name && panelURLValue) { // TODO support any varible insertion
+      } else if (name && panelURLValue !== null) { // TODO support any varible insertion
         (function (name, panelURLValue) {
-          var todo = ['xml', 'xslt', 'javascript'];
+          var todo = ['html', 'javascript', 'css'];
 
           var deferredInsert = function (event, data) {
             var code, parts, panel = panels.panels[data.panelId] || {};
@@ -156,16 +268,12 @@ panels.restore = function () {
       }
     }
 
-    // support the old xpathr v1 links directly to the preview
+    // support the old jsbin v1 links directly to the preview
     if (toopen.length === 1 && toopen[0] === 'preview') {
       panels.panels.live.show();
     }
 
-    if (!openWithSameDimensions) this.distribute();
-  } else {
-    for (name in state) {
-      panels.panels[name].show(width * parseFloat(state[name]) / 100);
-    }
+    if (!openWithSameDimensions) {this.distribute();}
   }
 
   // now restore any data from sessionStorage
@@ -174,7 +282,7 @@ panels.restore = function () {
   // for (name in this.panels) {
   //   panel = this.panels[name];
   //   if (panel.editor) {
-  //     // panel.setCode(sessionStorage.getItem('xpathr.content.' + name) || template[name]);
+  //     // panel.setCode(sessionStorage.getItem('jsbin.content.' + name) || template[name]);
   //   }
   // }
 
@@ -197,8 +305,25 @@ panels.savecontent = function () {
   var name, panel;
   for (name in this.panels) {
     panel = this.panels[name];
-    if (panel.editor) sessionStorage.setItem('xpathr.content.' + name, panel.getCode());
+    if (panel.editor) sessionStorage.setItem('jsbin.content.' + name, panel.getCode());
   }
+};
+
+panels.getHighlightLines = function () {
+  'use strict';
+  var hash = [];
+  var lines = '';
+  var panel;
+  for (name in panels.panels) {
+    panel = panels.panels[name];
+    if (panel.editor) {
+      lines = panel.editor.highlightLines().string;
+      if (lines) {
+        hash.push(name.substr(0, 1).toUpperCase() + ':L' + lines);
+      }
+    }
+  }
+  return hash.join(',');
 };
 
 panels.focus = function (panel) {
@@ -208,8 +333,18 @@ panels.focus = function (panel) {
   }
 }
 
+var userResizeable = !$('html').hasClass('layout');
+
+if (!userResizeable) {
+  $('#source').removeClass('stretch');
+}
+
 // evenly distribute the width of all the visible panels
 panels.distribute = function () {
+  if (!userResizeable) {
+    return;
+  }
+
   var visible = $('#source .panelwrapper:visible'),
       width = 100,
       height = 0,
@@ -244,7 +379,7 @@ panels.distribute = function () {
         height = 100 / nestedPanels.length;
         nestedPanels.each(function (i) {
           bottom = 100 - (height * (i+1));
-          var panel = xpathr.panels.panels[$.data(this, 'name')];
+          var panel = jsbin.panels.panels[$.data(this, 'name')];
           // $(this).css({ top: top + '%', bottom: bottom + '%' });
           $(this).css('top', top + '%');
           $(this).css('bottom', bottom + '%' );
@@ -256,7 +391,7 @@ panels.distribute = function () {
         });
       }
     }
-  } else {
+  } else if (!jsbin.embed) {
     $('#history').show();
     setTimeout(function () {
       $body.removeClass('panelsVisible');
@@ -270,7 +405,35 @@ panels.show = function (panelId) {
     this.panels[panelId].editor.focus();
   }
   this.panels[panelId].focus();
-}
+};
+
+panels.hide = function (panelId) {
+  var $history = $('#history'); // TODO shouldn't have to keep hitting this
+  var panels = this.panels;
+  if (panels[panelId].visible) {
+    panels[panelId].hide();
+  }
+
+  var visible = jsbin.panels.getVisible();
+  if (visible.length) {
+    jsbin.panels.focused = visible[0];
+    if (jsbin.panels.focused.editor) {
+      jsbin.panels.focused.editor.focus();
+    } else {
+      jsbin.panels.focused.$el.focus();
+    }
+    jsbin.panels.focused.focus();
+  }
+
+  /*
+  } else if ($history.length && !$body.hasClass('panelsVisible')) {
+    $body.toggleClass('dave', $history.is(':visible'));
+    $history.toggle(100);
+  } else if ($history.length === 0) {
+    // TODO load up the history
+  }
+  */
+};
 
 panels.hideAll = function () {
   var visible = panels.getVisible(),
@@ -278,46 +441,79 @@ panels.hideAll = function () {
   while (i--) {
     visible[i].hide();
   }
-}
+};
 
 // dirty, but simple
 Panel.prototype.distribute = function () {
   panels.distribute();
 };
 
-xpathr.panels = panels;
+jsbin.panels = panels;
 
 var ignoreDuringLive = /^\s*(while|do|for)[\s*|$]/;
 
 
 var panelInit = {
-  xml: function () {
-    return new Panel('xml', { editor: true, label: 'XML' });
-  },
-  xslt: function () {
-    return new Panel('xslt', { editor: true, label: 'XSLT' });
-  },
-  javascript: function () {
-    return new Panel('javascript', { editor: true, label: 'JavaScript' });
+  html: function () {
+    var init = function () {
+      // set cursor position on first blank line
+      // 1. read all the inital lines
+      var lines = this.editor.getValue().split('\n'),
+          blank = -1;
+      lines.forEach(function (line, i) {
+        if (blank === -1 && line.trim().length === 0) {
+          blank = i;
+          //exit
+        }
+      });
+
+      if (blank !== -1) {
+        this.editor.setCursor({ line: blank, ch: 2 });
+        if (lines[blank].length === 0) {
+          this.editor.indentLine(blank, 'add');
+        }
+      }
+    };
+
+    return new Panel('html', { editor: true, label: 'HTML', init: init });
   },
   css: function () {
     return new Panel('css', { editor: true, label: 'CSS' });
   },
-  output: function () {
-    return new Panel('output', { editor: true, label: 'Output' });
+  javascript: function () {
+    return new Panel('javascript', { editor: true, label: 'JavaScript' });
+  },
+  console: function () {
+    // hide and show callbacks registered in console.js
+    return new Panel('console', { label: 'Console' });
+  },
+  live: function () {
+    function show() {
+      // var panel = this;
+      if (panels.ready) {
+        renderLivePreview();
+      }
+    }
+
+    function hide() {
+      // detroy the iframe if we hide the panel
+      // note: $live is defined in live.js
+      // Commented out so that the live iframe is never destroyed
+      if (panels.panels.console.visible === false) {
+        // $live.find('iframe').remove();
+      }
+    }
+
+    return new Panel('live', { label: 'Output', show: show, hide: hide });
   }
 };
 
 var editors = panels.panels = {};
 
 // show all panels (change the order to control the panel order)
-editors.xml = panelInit.xml();
-editors.xslt = panelInit.xslt();
-editors.javascript = panelInit.javascript();
+editors.html = panelInit.html();
 editors.css = panelInit.css();
-editors.output = panelInit.output();
-
-/*
+editors.javascript = panelInit.javascript();
 editors.console = panelInit.console();
 upgradeConsolePanel(editors.console);
 editors.live = panelInit.live();
@@ -328,7 +524,6 @@ editors.live.settings.render = function (showAlerts) {
     renderLivePreview(showAlerts);
   }
 };
-*/
 
 // IMPORTANT this is nasty, but the sequence is important, because the
 // show/hide method is being called as the panels are being called as
@@ -351,13 +546,13 @@ editors.live.settings.render = function (showAlerts) {
 
 
 // Panel.prototype._show = Panel.prototype.show;
-// Panel.prototype.show = function () { 
+// Panel.prototype.show = function () {
 //   this._show.apply(this, arguments);
 //   panels.update();
 // }
 
 // Panel.prototype._hide = Panel.prototype.hide;
-// Panel.prototype.hide = function () { 
+// Panel.prototype.hide = function () {
 //   this._hide.apply(this, arguments);
 //   panels.update();
 // }
@@ -383,7 +578,7 @@ panels.focus(panels.getVisible()[0] || null);
   var panelsEl = document.getElementById('panels'),
       moving = null;
 
-  panelsEl.ondragstart = function (e) { 
+  panelsEl.ondragstart = function (e) {
     if (e.target.nodeName == 'A') {
       moving = e.target;
     } else {
@@ -391,13 +586,13 @@ panels.focus(panels.getVisible()[0] || null);
     }
   };
 
-  panelsEl.ondragover = function (e) { 
-    return false; 
+  panelsEl.ondragover = function (e) {
+    return false;
   };
 
-  panelsEl.ondragend = function () { 
+  panelsEl.ondragend = function () {
     moving = false;
-    return false; 
+    return false;
   };
 
   panelsEl.ondrop = function (e) {
@@ -414,29 +609,44 @@ var editorsReady = setInterval(function () {
   var ready = true,
       resizeTimer = null,
       panel,
-      panelId;
+      panelId,
+      hash = window.location.hash.substring(1);
+
 
   for (panelId in panels.panels) {
     panel = panels.panels[panelId];
-    if (panel.visible && !panel.ready) ready = false;
+    if (panel.visible && !panel.ready) {
+      ready = false;
+      break;
+    }
   }
 
   panels.ready = ready;
 
   if (ready) {
+    panels.allEditors(function (panel) {
+      var key = panel.id.substr(0, 1).toUpperCase() + ':L';
+      if (hash.indexOf(key) !== -1) {
+        var lines = hash.match(new RegExp(key + '(\\d+(?:-\\d+)?)'));
+        if (lines !== null) {
+          panel.editor.highlightLines(lines[1]);
+        }
+      }
+    });
+
     clearInterval(editorsReady);
     // panels.ready = true;
     // if (typeof editors.onReady == 'function') editors.onReady();
     // panels.distribute();
 
-/*
-    // if live is visible, render it
-    if (panels.panels.live.visible) {
-      panels.panels.live.render(true);
-    } else if (panels.panels.console.visible) {
-      renderLivePreview(true);
+    // if the console is visible, it'll handle rendering of the output and console
+    if (panels.panels.console.visible) {
+      editors.console.render();
+    } else {
+      // otherwise, force a render
+      renderLivePreview();
     }
-*/
+
 
     $(window).resize(function () {
       clearTimeout(resizeTimer);
@@ -446,6 +656,6 @@ var editorsReady = setInterval(function () {
     });
 
     $document.trigger('sizeeditors');
-    $document.trigger('xpathrReady');
+    $document.trigger('jsbinReady');
   }
 }, 100);

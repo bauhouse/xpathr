@@ -3,10 +3,10 @@ $.fn.splitter = function () {
       $blocker = $('<div class="block"></div>'),
       $body = $('body');
       // blockiframe = $blocker.find('iframe')[0];
- 
+
   var splitterSettings = JSON.parse(localStorage.getItem('splitterSettings') || '[]');
   return this.each(function () {
-    var $el = $(this), 
+    var $el = $(this),
         $originalContainer = $(this),
         guid = $.fn.splitter.guid++,
         $parent = $el.parent(),
@@ -132,7 +132,8 @@ $.fn.splitter = function () {
         localStorage.setItem('splitterSettings', JSON.stringify(splitterSettings));
 
         // wait until animations have completed!
-        setTimeout(function () {
+        if (moveSplitter.timer) clearTimeout(moveSplitter.timer);
+        moveSplitter.timer = setTimeout(function () {
           $document.trigger('sizeeditors');
         }, 120);
       }
@@ -143,10 +144,12 @@ $.fn.splitter = function () {
     }
 
     $document.bind('mouseup touchend', function () {
-      dragging = false;
-      $blocker.remove();
-      // $handle.css( 'opacity', '0');
-      $body.removeClass('dragging');
+      if (dragging) {
+        dragging = false;
+        $blocker.remove();
+        // $handle.css( 'opacity', '0');
+        $body.removeClass('dragging');
+      }
     }).bind('mousemove touchmove', function (event) {
       if (dragging) {
         moveSplitter(event[props[type].moveProp] || event.originalEvent.touches[0][props[type].moveProp]);
@@ -198,7 +201,7 @@ $.fn.splitter = function () {
         $el.css('border-top', 0);
         // $prev.css('border-right', '2px solid #ccc');
       }
- 
+
       if ($el.is(':hidden')) {
         $handle.hide();
       } else {
@@ -276,7 +279,7 @@ $.fn.splitter = function () {
           var otherhandles = $el.find('.resize');
 
           otherhandles.each(function (i) {
-            // find the top of the 
+            // find the top of the
             var $h = $(this);
             if (this === $handle[0]) {
               // ignore
