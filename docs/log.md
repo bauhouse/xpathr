@@ -23,3 +23,4 @@ As a reminder of what I've done so far, I am keeping a log of the work completed
       - Comment out upgradeConsolePanel in editors.js
       - Comment out call to RenderLivePreview in editors.js
       - Comment out call to font.css in app.js
+   - Remove the remaining references to JS Bin in the HTML
